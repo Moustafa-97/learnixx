@@ -1,0 +1,33 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Learn with Europe’s Top Leaders",
+    "subtitle": "Choose your trainer. Define your path. Learn in one of Europe's top destinations.",
+    "badge": "Your #1 Platform for Edutourism"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong"
+  },
+
+  "search": {
+    "findYourCourse": "Find Your Perfect Course",
+    "whatToLearn": "What do you want to learn?",
+    "whatToLearnPlaceholder": "e.g., Web Development, Design, Marketing...",
+    "whereToLearn": "Where do you want to learn?",
+    "whereToLearnPlaceholder": "e.g., Online, New York, London...",
+    "search": "Search",
+    "searching": "Searching...",
+    "recentSearches": "Recent Searches",
+    "popularSearches": "Popular Searches",
+    "anySubject": "Any Subject",
+    "anyLocation": "Any Location",
+    "noResults": "No courses found. Try different search terms.",
+    "clearSearch": "Clear Search"
+  }
+}

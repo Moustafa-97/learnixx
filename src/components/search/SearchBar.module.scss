@@ -1,0 +1,284 @@
+// Design tokens - Easy to customize for any Figma design
+$primary-color: #667eea;
+$secondary-color: #764ba2;
+$background-color30: #ededed;
+$background-color10: #fff;
+$input-bg: #f5f7fa;
+$input-bg-hover: #e9ecef;
+$input-bg-focus: #ffffff;
+$text-color: #2d3748;
+$placeholder-color: #a0aec0;
+$border-color: #e2e8f0;
+$error-color: #fc8181;
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+$border-radius: 12px;
+$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Container
+.searchContainer {
+  width: 100%;
+  max-width: 674px;
+  margin: 0 auto;
+  z-index: 10;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    // padding: 0 16px;
+  }
+}
+
+// Form wrapper
+.searchForm {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: $transition;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 16px;
+
+    // padding: 16px;
+    border-radius: 12px;
+  }
+}
+
+// Search fields container
+.searchFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+
+  width: 515px;
+  padding: 16px 8px 16px 24px;
+  align-items: center;
+  gap: 16px;
+  border-radius: 56px;
+  border: 1px solid #ededed;
+  background: #fff;
+  box-shadow: 8px 8px 56px 0px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+  }
+}
+
+// Field wrapper for dropdown functionality
+.fieldWrapper {
+  position: relative;
+  width: 100%;
+}
+
+// Input wrapper
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+// Input styles
+.input {
+  width: 100%;
+  height: 24px;
+  padding: 0px 16px 0px 32px;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: $border-radius;
+  font-size: 16px;
+  color: $text-color;
+  transition: $transition;
+  outline: none;
+
+  // RTL support
+  :global(body[dir="rtl"]) & {
+    padding: 0 48px 0 16px;
+  }
+
+  &::placeholder {
+    color: $placeholder-color;
+  }
+
+  &:hover {
+    background: $input-bg-hover;
+  }
+
+  &:focus {
+    background: $input-bg-focus;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Input icon
+.inputIcon {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #141414;
+  pointer-events: none;
+
+  :global(body[dir="rtl"]) & {
+    left: auto;
+    right: 8px;
+  }
+}
+
+// Dropdown styles
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: $background-color10;
+  border-radius: $border-radius;
+  box-shadow: $shadow-lg;
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 10;
+  border: 1px solid $border-color;
+
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $input-bg;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $placeholder-color;
+    border-radius: 3px;
+
+    &:hover {
+      background: darken($placeholder-color, 10%);
+    }
+  }
+}
+
+.dropdownItem {
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: $transition;
+  font-size: 15px;
+  color: $text-color;
+
+  &:hover {
+    background: $input-bg;
+    color: $primary-color;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $border-color;
+  }
+}
+
+// Search button
+.searchButton {
+  display: flex;
+  padding: 16px 48px;
+  align-items: center;
+  gap: 8px;
+  border-radius: 100px;
+  background: #141414;
+  cursor: pointer;
+  color: var(--Neutral-10, #fff);
+  font-family: Manrope;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 24px */
+  white-space: nowrap;
+
+  &:hover:not(:disabled) {
+    background: #141414;
+    opacity: 0.8;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  @media (max-width: 768px) {
+    width: 50%;
+    justify-content: center;
+  }
+}
+
+.buttonIcon {
+  font-size: 20px;
+}
+
+// Loading spinner
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Error message
+.error {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  color: $error-color;
+  padding-left: 16px;
+
+  :global(body[dir="rtl"]) & {
+    padding-left: 0;
+    padding-right: 16px;
+  }
+}
+
+// Optional: Add these variables to easily match any Figma design
+:root {
+  // Colors
+  --search-primary: #{$primary-color};
+  --search-secondary: #{$secondary-color};
+  --Neutral-30: #{$background-color30};
+  --Neutral-10: #{$background-color10};
+  --search-input-bg: #{$input-bg};
+  --search-text: #{$text-color};
+  --search-placeholder: #{$placeholder-color};
+
+  // Spacing
+  --search-padding: 24px;
+  --search-gap: 16px;
+
+  // Border radius
+  --search-radius: #{$border-radius};
+  --search-container-radius: 16px;
+
+  // Shadows
+  --search-shadow: #{$shadow-lg};
+  --search-shadow-hover: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+  // Transitions
+  --search-transition: #{$transition};
+}

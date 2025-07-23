@@ -1,0 +1,32 @@
+{
+  "navigation": {
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "services": "الخدمات",
+    "contact": "اتصل بنا"
+  },
+  "hero": {
+    "title": "مرحباً بك في تطبيقنا",
+    "subtitle": "قم ببناء تجارب مذهلة مع Next.js 15",
+    "cta": "ابدأ الآن"
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ ما"
+  },
+  "search": {
+    "findYourCourse": "ابحث عن الدورة المثالية",
+    "whatToLearn": "ماذا تريد أن تتعلم؟",
+    "whatToLearnPlaceholder": "مثال: تطوير الويب، التصميم، التسويق...",
+    "whereToLearn": "أين تريد أن تتعلم؟",
+    "whereToLearnPlaceholder": "مثال: عبر الإنترنت، نيويورك، لندن...",
+    "search": "البحث عن الدورات",
+    "searching": "جاري البحث...",
+    "recentSearches": "عمليات البحث الأخيرة",
+    "popularSearches": "عمليات البحث الشائعة",
+    "anySubject": "أي موضوع",
+    "anyLocation": "أي مكان",
+    "noResults": "لم يتم العثور على دورات. جرب كلمات بحث مختلفة.",
+    "clearSearch": "مسح البحث"
+  }
+}
