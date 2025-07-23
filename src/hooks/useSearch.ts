@@ -2,20 +2,20 @@ import { useCallback, useEffect, useRef } from "react"
 import { useLocale } from "next-intl"
 import useStore from "@/store/useStore"
 import SearchService, { SearchableItem } from "@/lib/searchService"
-import { debounce } from "@/lib/utils"
+// import { debounce } from "@/lib/utils"
 
 // Extend SearchableItem for course-specific fields
 export interface CourseItem extends SearchableItem {
-  location?: string;
-  locationAr?: string;
-  instructor?: string;
-  instructorAr?: string;
-  duration?: string;
-  durationAr?: string;
-  level?: string;
-  levelAr?: string;
-  rating?: number;
-  students?: number;
+  location?: string
+  locationAr?: string
+  instructor?: string
+  instructorAr?: string
+  duration?: string
+  durationAr?: string
+  level?: string
+  levelAr?: string
+  rating?: number
+  students?: number
 }
 
 // Sample course data - replace with your actual data or API call
@@ -24,11 +24,22 @@ const sampleCourseData: CourseItem[] = [
     id: "1",
     title: "Complete Web Development Bootcamp",
     titleAr: "معسكر تطوير الويب الكامل",
-    description: "Learn HTML, CSS, JavaScript, React, Node.js and build real projects",
-    descriptionAr: "تعلم HTML و CSS و JavaScript و React و Node.js وقم ببناء مشاريع حقيقية",
+    description:
+      "Learn HTML, CSS, JavaScript, React, Node.js and build real projects",
+    descriptionAr:
+      "تعلم HTML و CSS و JavaScript و React و Node.js وقم ببناء مشاريع حقيقية",
     category: "Web Development",
     categoryAr: "تطوير الويب",
-    tags: ["javascript", "react", "nodejs", "html", "css", "frontend", "backend", "web development"],
+    tags: [
+      "javascript",
+      "react",
+      "nodejs",
+      "html",
+      "css",
+      "frontend",
+      "backend",
+      "web development",
+    ],
     location: "Online",
     locationAr: "عبر الإنترنت",
     price: 599,
@@ -45,11 +56,20 @@ const sampleCourseData: CourseItem[] = [
     id: "2",
     title: "Data Science with Python",
     titleAr: "علوم البيانات مع بايثون",
-    description: "Master data analysis, machine learning, and visualization with Python",
-    descriptionAr: "احترف تحليل البيانات والتعلم الآلي والتصور المرئي مع بايثون",
+    description:
+      "Master data analysis, machine learning, and visualization with Python",
+    descriptionAr:
+      "احترف تحليل البيانات والتعلم الآلي والتصور المرئي مع بايثون",
     category: "Data Science",
     categoryAr: "علوم البيانات",
-    tags: ["python", "data science", "machine learning", "pandas", "numpy", "data analysis"],
+    tags: [
+      "python",
+      "data science",
+      "machine learning",
+      "pandas",
+      "numpy",
+      "data analysis",
+    ],
     location: "Online",
     locationAr: "عبر الإنترنت",
     price: 799,
@@ -66,11 +86,19 @@ const sampleCourseData: CourseItem[] = [
     id: "3",
     title: "Digital Marketing Masterclass",
     titleAr: "دورة احتراف التسويق الرقمي",
-    description: "Learn SEO, Social Media Marketing, Content Marketing, and PPC",
-    descriptionAr: "تعلم تحسين محركات البحث والتسويق عبر وسائل التواصل الاجتماعي",
+    description:
+      "Learn SEO, Social Media Marketing, Content Marketing, and PPC",
+    descriptionAr:
+      "تعلم تحسين محركات البحث والتسويق عبر وسائل التواصل الاجتماعي",
     category: "Digital Marketing",
     categoryAr: "التسويق الرقمي",
-    tags: ["marketing", "seo", "social media", "digital marketing", "advertising"],
+    tags: [
+      "marketing",
+      "seo",
+      "social media",
+      "digital marketing",
+      "advertising",
+    ],
     location: "New York",
     locationAr: "نيويورك",
     price: 399,
@@ -87,8 +115,10 @@ const sampleCourseData: CourseItem[] = [
     id: "4",
     title: "UI/UX Design Fundamentals",
     titleAr: "أساسيات تصميم واجهة المستخدم",
-    description: "Learn design principles, Figma, and create stunning user interfaces",
-    descriptionAr: "تعلم مبادئ التصميم وبرنامج Figma وإنشاء واجهات مستخدم مذهلة",
+    description:
+      "Learn design principles, Figma, and create stunning user interfaces",
+    descriptionAr:
+      "تعلم مبادئ التصميم وبرنامج Figma وإنشاء واجهات مستخدم مذهلة",
     category: "Design",
     categoryAr: "التصميم",
     tags: ["design", "ui", "ux", "figma", "user interface", "user experience"],
@@ -192,7 +222,7 @@ const sampleCourseData: CourseItem[] = [
 
 export function useSearch() {
   const locale = useLocale() as "en" | "ar"
-  const searchServiceRef = useRef<SearchService>()
+  const searchServiceRef = useRef<SearchService | null>(null)
 
   const {
     courseSearchParams,
@@ -223,9 +253,10 @@ export function useSearch() {
       // Filter by location
       if (location && location.trim()) {
         results = results.filter(course => {
-          const courseLocation = locale === 'ar' ? 
-            (course.locationAr || course.location) : 
-            course.location
+          const courseLocation =
+            locale === "ar"
+              ? course.locationAr || course.location
+              : course.location
           return courseLocation?.toLowerCase().includes(location.toLowerCase())
         })
       }
@@ -245,15 +276,16 @@ export function useSearch() {
 
       sampleCourseData.forEach(course => {
         // Check title
-        const title = locale === 'ar' ? course.titleAr : course.title
+        const title = locale === "ar" ? course.titleAr : course.title
         if (title?.toLowerCase().includes(normalizedInput)) {
           suggestions.add(title)
         }
 
         // Check category
-        const category = locale === 'ar' ? 
-          (course.categoryAr || course.category) : 
-          course.category
+        const category =
+          locale === "ar"
+            ? course.categoryAr || course.category
+            : course.category
         if (category?.toLowerCase().includes(normalizedInput)) {
           suggestions.add(category)
         }
@@ -275,11 +307,12 @@ export function useSearch() {
   const getLocationSuggestions = useCallback(
     (input?: string): string[] => {
       const allLocations = new Set<string>()
-      
+
       sampleCourseData.forEach(course => {
-        const location = locale === 'ar' ? 
-          (course.locationAr || course.location) : 
-          course.location
+        const location =
+          locale === "ar"
+            ? course.locationAr || course.location
+            : course.location
         if (location) {
           allLocations.add(location)
         }
@@ -302,12 +335,11 @@ export function useSearch() {
   // Get popular subjects
   const getPopularSubjects = useCallback((): string[] => {
     const categories = new Map<string, number>()
-    
+
     sampleCourseData.forEach(course => {
-      const category = locale === 'ar' ? 
-        (course.categoryAr || course.category) : 
-        course.category
-      
+      const category =
+        locale === "ar" ? course.categoryAr || course.category : course.category
+
       if (category) {
         categories.set(category, (categories.get(category) || 0) + 1)
       }
@@ -324,9 +356,10 @@ export function useSearch() {
   const getCoursesByCategory = useCallback(
     (category: string): CourseItem[] => {
       return sampleCourseData.filter(course => {
-        const courseCategory = locale === 'ar' ? 
-          (course.categoryAr || course.category) : 
-          course.category
+        const courseCategory =
+          locale === "ar"
+            ? course.categoryAr || course.category
+            : course.category
         return courseCategory?.toLowerCase() === category.toLowerCase()
       })
     },
@@ -347,30 +380,33 @@ export function useSearch() {
 
   // Get recent searches formatted for display
   const getRecentSearchesFormatted = useCallback((): string[] => {
-    return recentCourseSearches.map(search => {
-      const parts = []
-      if (search.subject) parts.push(search.subject)
-      if (search.location) parts.push(search.location)
-      return parts.join(' - ')
-    }).filter(Boolean)
+    return recentCourseSearches
+      .map(search => {
+        const parts = []
+        if (search.subject) parts.push(search.subject)
+        if (search.location) parts.push(search.location)
+        return parts.join(" - ")
+      })
+      .filter(Boolean)
   }, [recentCourseSearches])
 
   // Advanced search with multiple filters
   const advancedCourseSearch = useCallback(
     (params: {
-      subject?: string;
-      location?: string;
-      category?: string;
-      minPrice?: number;
-      maxPrice?: number;
-      level?: string;
-      minRating?: number;
+      subject?: string
+      location?: string
+      category?: string
+      minPrice?: number
+      maxPrice?: number
+      level?: string
+      minRating?: number
     }): CourseItem[] => {
       let results = sampleCourseData
 
       // Apply subject filter
       if (params.subject && params.subject.trim()) {
-        const searchResults = searchServiceRef.current?.search(params.subject, locale) || []
+        const searchResults =
+          searchServiceRef.current?.search(params.subject, locale) || []
         const searchIds = new Set(searchResults.map(r => r.id))
         results = results.filter(course => searchIds.has(course.id))
       }
@@ -378,49 +414,56 @@ export function useSearch() {
       // Apply location filter
       if (params.location && params.location.trim()) {
         results = results.filter(course => {
-          const courseLocation = locale === 'ar' ? 
-            (course.locationAr || course.location) : 
-            course.location
-          return courseLocation?.toLowerCase().includes(params.location!.toLowerCase())
+          const courseLocation =
+            locale === "ar"
+              ? course.locationAr || course.location
+              : course.location
+          return courseLocation
+            ?.toLowerCase()
+            .includes(params.location!.toLowerCase())
         })
       }
 
       // Apply category filter
       if (params.category) {
         results = results.filter(course => {
-          const courseCategory = locale === 'ar' ? 
-            (course.categoryAr || course.category) : 
-            course.category
-          return courseCategory?.toLowerCase() === params.category!.toLowerCase()
+          const courseCategory =
+            locale === "ar"
+              ? course.categoryAr || course.category
+              : course.category
+          return (
+            courseCategory?.toLowerCase() === params.category!.toLowerCase()
+          )
         })
       }
 
       // Apply price filters
       if (params.minPrice !== undefined) {
-        results = results.filter(course => 
-          course.price && course.price >= params.minPrice!
+        results = results.filter(
+          course => course.price && course.price >= params.minPrice!
         )
       }
       if (params.maxPrice !== undefined) {
-        results = results.filter(course => 
-          course.price && course.price <= params.maxPrice!
+        results = results.filter(
+          course => course.price && course.price <= params.maxPrice!
         )
       }
 
       // Apply level filter
       if (params.level) {
         results = results.filter(course => {
-          const courseLevel = locale === 'ar' ? 
-            (course.levelAr || course.level) : 
-            course.level
-          return courseLevel?.toLowerCase().includes(params.level!.toLowerCase())
+          const courseLevel =
+            locale === "ar" ? course.levelAr || course.level : course.level
+          return courseLevel
+            ?.toLowerCase()
+            .includes(params.level!.toLowerCase())
         })
       }
 
       // Apply rating filter
       if (params.minRating !== undefined) {
-        results = results.filter(course => 
-          course.rating && course.rating >= params.minRating!
+        results = results.filter(
+          course => course.rating && course.rating >= params.minRating!
         )
       }
 
@@ -434,22 +477,22 @@ export function useSearch() {
     searchCourses,
     courseSearchParams,
     setCourseSearchParams,
-    
+
     // Suggestions
     getSubjectSuggestions,
     getLocationSuggestions,
     getPopularSubjects,
-    
+
     // Course data
     getCoursesByCategory,
     getFeaturedCourses,
     advancedCourseSearch,
-    
+
     // Recent searches
     recentCourseSearches,
     addRecentCourseSearch,
     getRecentSearchesFormatted,
-    
+
     // All courses (for debugging/testing)
     allCourses: sampleCourseData,
   }
