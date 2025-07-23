@@ -255,30 +255,3 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     padding-right: 16px;
   }
 }
-
-// Optional: Add these variables to easily match any Figma design
-:root {
-  // Colors
-  --search-primary: #{$primary-color};
-  --search-secondary: #{$secondary-color};
-  --Neutral-30: #{$background-color30};
-  --Neutral-10: #{$background-color10};
-  --search-input-bg: #{$input-bg};
-  --search-text: #{$text-color};
-  --search-placeholder: #{$placeholder-color};
-
-  // Spacing
-  --search-padding: 24px;
-  --search-gap: 16px;
-
-  // Border radius
-  --search-radius: #{$border-radius};
-  --search-container-radius: 16px;
-
-  // Shadows
-  --search-shadow: #{$shadow-lg};
-  --search-shadow-hover: 0 20px 25px rgba(0, 0, 0, 0.15);
-
-  // Transitions
-  --search-transition: #{$transition};
-}
