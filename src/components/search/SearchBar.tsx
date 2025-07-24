@@ -8,6 +8,7 @@ import { MdSearch, MdLocationOn } from "react-icons/md"
 import useStore from "@/store/useStore"
 import { useDebounce } from "@/hooks/useDebounce"
 import styles from "./SearchBar.module.scss"
+import { FaFilter } from "react-icons/fa"
 
 interface SearchFormData {
   subject: string
@@ -116,47 +117,46 @@ export default function SearchBar() {
   )
 
   // Update the SearchBar onSubmit function to use router.push instead of router.replace
-const onSubmit = async (data: SearchFormData) => {
-  setIsSearching(true)
+  const onSubmit = async (data: SearchFormData) => {
+    setIsSearching(true)
 
-  // Update store with search params
-  setCourseSearchParams({
-    subject: data.subject,
-    location: data.location
-  })
+    // Update store with search params
+    setCourseSearchParams({
+      subject: data.subject,
+      location: data.location,
+    })
 
-  // Add to recent searches
-  if (data.subject || data.location) {
-    addRecentCourseSearch(data)
+    // Add to recent searches
+    if (data.subject || data.location) {
+      addRecentCourseSearch(data)
+    }
+
+    // Build URL with params
+    const params = new URLSearchParams()
+    if (data.subject) params.set("subject", data.subject)
+    if (data.location) params.set("location", data.location)
+
+    const queryString = params.toString()
+    const coursesPath = `/${locale}/courses`
+    const newURL = queryString ? `${coursesPath}?${queryString}` : coursesPath
+
+    router.push(newURL)
+    setIsSearching(false)
   }
 
-  // Build URL with params
-  const params = new URLSearchParams()
-  if (data.subject) params.set("subject", data.subject)
-  if (data.location) params.set("location", data.location)
-  
-  const queryString = params.toString()
-  const coursesPath = `/${locale}/courses`
-  const newURL = queryString ? `${coursesPath}?${queryString}` : coursesPath
-  
-  router.push(newURL)
-  setIsSearching(false)
-}
+  // Also update the clear search function
+  // const handleClearSearch = () => {
+  //   setSubjectInput("")
+  //   setLocationInput("")
+  //   setValue("subject", "")
+  //   setValue("location", "")
+  //   setCourseSearchParams({ subject: "", location: "" })
 
-// Also update the clear search function
-// const handleClearSearch = () => {
-//   setSubjectInput("")
-//   setLocationInput("")
-//   setValue("subject", "")
-//   setValue("location", "")
-//   setCourseSearchParams({ subject: "", location: "" })
-  
-//   // If on courses page, update URL to remove params
-//   if (isOnCoursesPage) {
-//     router.push(`/${locale}/courses`)
-//   }
-// }
-
+  //   // If on courses page, update URL to remove params
+  //   if (isOnCoursesPage) {
+  //     router.push(`/${locale}/courses`)
+  //   }
+  // }
 
   const subjectSuggestions =
     locale === "ar"
@@ -200,7 +200,9 @@ const onSubmit = async (data: SearchFormData) => {
   return (
     <div className={styles.searchContainer}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.searchForm}>
-        <div className={styles.searchFields}>
+        <div
+          style={isOnCoursesPage ? { width: "100%" } : {}}
+          className={styles.searchFields}>
           {/* Subject Field */}
           <div className={styles.fieldWrapper} ref={subjectRef}>
             <div className={styles.inputWrapper}>
@@ -272,21 +274,22 @@ const onSubmit = async (data: SearchFormData) => {
 
         <div className={styles.searchActions}>
           {/* Clear Button */}
-          {/* {showClearButton && (
+          {isOnCoursesPage && (
             <button
               type="button"
-              onClick={handleClearSearch}
-              className={styles.clearButton}
+              // onClick={handleClearSearch}
+              className={styles.searchButton}
               aria-label="Clear search">
-              Clear
+              <FaFilter />
+              <span>Filter</span>
             </button>
-          )} */}
+          )}
 
           {/* Search Button */}
           <button
             type="submit"
             disabled={isSearching}
-            className={styles.searchButton}>
+            className={`${!isOnCoursesPage ? styles.searchButton : styles.searchButtonCourses}`}>
             {isSearching ? <div className={styles.spinner} /> : <MdSearch />}
             <span>{isSearching ? t("searching") : t("search")}</span>
           </button>

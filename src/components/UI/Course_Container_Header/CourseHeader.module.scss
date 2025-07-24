@@ -27,19 +27,35 @@
       @include mobile-only {
         font-size: 24px;
       }
-      p {
-        width: 20%;
-        max-width: 512px;
-        color: #141414;
-        font-family: Manrope;
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 30px; /* 150% */
-        @include mobile-only {
-          font-size: 16px;
-        }
+    }
+    p {
+      width: 30%;
+      max-width: 512px;
+      color: #141414;
+      font-family: Manrope;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 30px; /* 150% */
+      @include mobile-only {
+        font-size: 16px;
       }
     }
+    @include mobile-only {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 10px;
+      h2 {
+        width: 100%;
+      }
+      p {
+        width: 100%;
+      }
+    }
+  }
+  .filterControls {
+    width: 100%;
   }
 }

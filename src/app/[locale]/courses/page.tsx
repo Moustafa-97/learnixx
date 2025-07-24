@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// app/[locale]/courses/page.tsx
 import CourseContainer from "@/components/UI/Course_Container/CourseContainer"
 import HeroCourses from "@/components/UI/Hero_Courses/HeroCourses"
 import CourseSearchSync from "@/components/CourseSearchSync/CourseSearchSync"
