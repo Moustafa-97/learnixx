@@ -3,7 +3,7 @@
 // import SliderSection from '@/components/sections/SliderSection';
 // import ThemeToggle from '@/components/common/ThemeToggle';
 
-import HeroHome from "@/components/Hero_Home/HeroHome"
+import HeroHome from "@/components/UI/Hero_Home/HeroHome"
 
 export default function HomePage() {
   //   const t = useTranslations();

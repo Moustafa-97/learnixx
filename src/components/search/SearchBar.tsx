@@ -1,11 +1,12 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 import { useForm } from "react-hook-form"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import { useLocale, useTranslations } from "next-intl"
 import { MdSearch, MdLocationOn } from "react-icons/md"
 import useStore from "@/store/useStore"
+import { useDebounce } from "@/hooks/useDebounce"
 import styles from "./SearchBar.module.scss"
 
 interface SearchFormData {
@@ -17,11 +18,12 @@ export default function SearchBar() {
   const t = useTranslations("search")
   const locale = useLocale()
   const router = useRouter()
+  const pathname = usePathname()
   const [isSearching, setIsSearching] = useState(false)
   const [showSubjectDropdown, setShowSubjectDropdown] = useState(false)
   const [showLocationDropdown, setShowLocationDropdown] = useState(false)
-  const [subjectFilter, setSubjectFilter] = useState("")
-  const [locationFilter, setLocationFilter] = useState("")
+  const [subjectInput, setSubjectInput] = useState("")
+  const [locationInput, setLocationInput] = useState("")
 
   const subjectRef = useRef<HTMLDivElement>(null)
   const locationRef = useRef<HTMLDivElement>(null)
@@ -46,6 +48,36 @@ export default function SearchBar() {
     },
   })
 
+  // Check if we're on the courses page
+  const isOnCoursesPage = pathname?.includes("/courses")
+
+  // Debounce the input values
+  const debouncedSubject = useDebounce(subjectInput, 300)
+  const debouncedLocation = useDebounce(locationInput, 300)
+
+  // Update store when debounced values change (only if on courses page for real-time search)
+  useEffect(() => {
+    if (isOnCoursesPage) {
+      setCourseSearchParams({
+        subject: debouncedSubject,
+        location: debouncedLocation,
+      })
+    }
+  }, [
+    debouncedSubject,
+    debouncedLocation,
+    setCourseSearchParams,
+    isOnCoursesPage,
+  ])
+
+  // Initialize input values from store
+  useEffect(() => {
+    setSubjectInput(courseSearchParams.subject || "")
+    setLocationInput(courseSearchParams.location || "")
+    setValue("subject", courseSearchParams.subject || "")
+    setValue("location", courseSearchParams.location || "")
+  }, [courseSearchParams.subject, courseSearchParams.location, setValue])
+
   // Handle click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -67,21 +99,64 @@ export default function SearchBar() {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
-  const onSubmit = async (data: SearchFormData) => {
-    setIsSearching(true)
-    setCourseSearchParams(data)
+  const handleSubjectChange = useCallback(
+    (value: string) => {
+      setSubjectInput(value)
+      setValue("subject", value)
+    },
+    [setValue]
+  )
 
-    if (data.subject || data.location) {
-      addRecentCourseSearch(data)
-    }
+  const handleLocationChange = useCallback(
+    (value: string) => {
+      setLocationInput(value)
+      setValue("location", value)
+    },
+    [setValue]
+  )
 
-    const queryParams = new URLSearchParams()
-    if (data.subject) queryParams.append("subject", data.subject)
-    if (data.location) queryParams.append("location", data.location)
+  // Update the SearchBar onSubmit function to use router.push instead of router.replace
+const onSubmit = async (data: SearchFormData) => {
+  setIsSearching(true)
 
-    router.push(`/${locale}/courses?${queryParams.toString()}`)
-    setIsSearching(false)
+  // Update store with search params
+  setCourseSearchParams({
+    subject: data.subject,
+    location: data.location
+  })
+
+  // Add to recent searches
+  if (data.subject || data.location) {
+    addRecentCourseSearch(data)
   }
+
+  // Build URL with params
+  const params = new URLSearchParams()
+  if (data.subject) params.set("subject", data.subject)
+  if (data.location) params.set("location", data.location)
+  
+  const queryString = params.toString()
+  const coursesPath = `/${locale}/courses`
+  const newURL = queryString ? `${coursesPath}?${queryString}` : coursesPath
+  
+  router.push(newURL)
+  setIsSearching(false)
+}
+
+// Also update the clear search function
+// const handleClearSearch = () => {
+//   setSubjectInput("")
+//   setLocationInput("")
+//   setValue("subject", "")
+//   setValue("location", "")
+//   setCourseSearchParams({ subject: "", location: "" })
+  
+//   // If on courses page, update URL to remove params
+//   if (isOnCoursesPage) {
+//     router.push(`/${locale}/courses`)
+//   }
+// }
+
 
   const subjectSuggestions =
     locale === "ar"
@@ -112,12 +187,15 @@ export default function SearchBar() {
       : popularLocations
 
   const filteredSubjects = subjectSuggestions.filter(subject =>
-    subject.toLowerCase().includes(subjectFilter.toLowerCase())
+    subject.toLowerCase().includes(subjectInput.toLowerCase())
   )
 
   const filteredLocations = locationSuggestions.filter(location =>
-    location.toLowerCase().includes(locationFilter.toLowerCase())
+    location.toLowerCase().includes(locationInput.toLowerCase())
   )
+
+  // Show clear button if there's any input
+  // const showClearButton = subjectInput || locationInput
 
   return (
     <div className={styles.searchContainer}>
@@ -132,11 +210,9 @@ export default function SearchBar() {
                 type="text"
                 placeholder={t("whatToLearnPlaceholder")}
                 className={styles.input}
+                value={subjectInput}
                 onFocus={() => setShowSubjectDropdown(true)}
-                onChange={e => {
-                  setSubjectFilter(e.target.value)
-                  setValue("subject", e.target.value)
-                }}
+                onChange={e => handleSubjectChange(e.target.value)}
               />
             </div>
             {showSubjectDropdown && filteredSubjects.length > 0 && (
@@ -146,9 +222,8 @@ export default function SearchBar() {
                     key={subject}
                     className={styles.dropdownItem}
                     onClick={() => {
-                      setValue("subject", subject)
+                      handleSubjectChange(subject)
                       setShowSubjectDropdown(false)
-                      setSubjectFilter(subject)
                     }}>
                     {subject}
                   </div>
@@ -169,11 +244,9 @@ export default function SearchBar() {
                 type="text"
                 placeholder={t("whereToLearnPlaceholder")}
                 className={styles.input}
+                value={locationInput}
                 onFocus={() => setShowLocationDropdown(true)}
-                onChange={e => {
-                  setLocationFilter(e.target.value)
-                  setValue("location", e.target.value)
-                }}
+                onChange={e => handleLocationChange(e.target.value)}
               />
             </div>
             {showLocationDropdown && filteredLocations.length > 0 && (
@@ -183,9 +256,8 @@ export default function SearchBar() {
                     key={location}
                     className={styles.dropdownItem}
                     onClick={() => {
-                      setValue("location", location)
+                      handleLocationChange(location)
                       setShowLocationDropdown(false)
-                      setLocationFilter(location)
                     }}>
                     {location}
                   </div>
@@ -197,14 +269,28 @@ export default function SearchBar() {
             )}
           </div>
         </div>
-        {/* Search Button */}
-        <button
-          type="submit"
-          disabled={isSearching}
-          className={styles.searchButton}>
-          {isSearching ? <div className={styles.spinner} /> : <div> </div>}
-          <span>{isSearching ? t("searching") : t("search")}</span>
-        </button>
+
+        <div className={styles.searchActions}>
+          {/* Clear Button */}
+          {/* {showClearButton && (
+            <button
+              type="button"
+              onClick={handleClearSearch}
+              className={styles.clearButton}
+              aria-label="Clear search">
+              Clear
+            </button>
+          )} */}
+
+          {/* Search Button */}
+          <button
+            type="submit"
+            disabled={isSearching}
+            className={styles.searchButton}>
+            {isSearching ? <div className={styles.spinner} /> : <MdSearch />}
+            <span>{isSearching ? t("searching") : t("search")}</span>
+          </button>
+        </div>
       </form>
     </div>
   )

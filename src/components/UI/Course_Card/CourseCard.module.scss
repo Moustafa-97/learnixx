@@ -1,0 +1,192 @@
+@import "@/styles/_breakpoints.scss";
+.courseContainer {
+  display: flex;
+  width: 405px;
+  height: 384px;
+  padding: 29.5px 19px 28.5px 19px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 32px;
+  background: linear-gradient(
+    125deg,
+    #141414 39.9%,
+    rgba(20, 20, 20, 0.66) 108.55%,
+    rgba(20, 20, 20, 0) 123.74%
+  );
+  transition: transform 0.3s ease-in-out;
+  -webkit-transition: transform 0.3s ease-in-out;
+  -moz-transition: transform 0.3s ease-in-out;
+  -ms-transition: transform 0.3s ease-in-out;
+  -o-transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    transition: transform 0.3s ease-in-out;
+    -webkit-transition: transform 0.3s ease-in-out;
+    -moz-transition: transform 0.3s ease-in-out;
+    -ms-transition: transform 0.3s ease-in-out;
+    -o-transition: transform 0.3s ease-in-out;
+  }
+  @include mobile-only {
+    width: 100%;
+    padding: 20px;
+  }
+  .card {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    flex-shrink: 0;
+    .imageContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      background: var(--csk-141414200, #ccc);
+      object-fit: cover;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
+      .courseImage {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+      }
+    }
+    .title {
+      color: var(--Gray-1, #fff);
+      font-family: Manrope;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: -0.96px;
+    }
+    .description {
+      color: var(--gray-1-overlay, rgba(255, 255, 255, 0.5));
+      font-family: Manrope;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: -0.56px;
+    }
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      .svgContainer {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #fff;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0; // Prevents the container from shrinking
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover; // This will work since it's an img element
+          display: block;
+        }
+      }
+      .locationText {
+        color: var(--Foundation-Violet-Light, #eae9ef);
+        font-feature-settings:
+          "ss02" on,
+          "liga" off;
+        font-family: Archivo;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 26px; /* 185.714% */
+        letter-spacing: 0.56px;
+        text-transform: uppercase;
+      }
+    }
+    .time {
+      color: rgba(255, 114, 114, 0.5);
+      font-family: Manrope;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: -0.56px;
+    }
+    .price {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--Gray-1, #fff);
+      font-family: Manrope;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: -0.96px;
+    }
+    .enrollButton {
+      width: 100%;
+      display: flex;
+      height: 47px;
+      padding: 18px 24px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      align-self: stretch;
+      background: var(--csk-141414200, #ccc);
+      border: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 20px;
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      -ms-border-radius: 20px;
+      -o-border-radius: 20px;
+      // text
+      color: var(--csk-141414500, #141414);
+      font-family: Manrope;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 26px; /* 162.5% */
+      letter-spacing: -0.32px;
+      text-transform: capitalize;
+      transition:
+        background 0.3s ease-in-out,
+        color 0.3s ease-in-out;
+      -webkit-transition:
+        background 0.3s ease-in-out,
+        color 0.3s ease-in-out;
+      &:hover {
+        background: var(--csk-141414200, #cccccc63);
+        color: var(--csk-141414500, #141414a8);
+        transition:
+          background 0.3s ease-in-out,
+          color 0.3s ease-in-out;
+        -webkit-transition:
+          background 0.3s ease-in-out,
+          color 0.3s ease-in-out;
+      }
+    }
+  }
+}

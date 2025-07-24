@@ -1,0 +1,31 @@
+// styles/_breakpoints.scss
+// Breakpoint variables
+$mobile-breakpoint: 480px;
+$mob-view: 768px;
+$tablet-breakpoint: 1024px;
+$desktop-breakpoint: 1440px;
+
+// Breakpoint mixins
+@mixin mobile-only {
+  @media (max-width: #{$mob-view - 0px}) {
+    @content;
+  }
+}
+
+@mixin tablet-and-up {
+  @media (min-width: $mob-view) {
+    @content;
+  }
+}
+
+@mixin tablet-only {
+  @media (min-width: $mob-view) and (max-width: #{$tablet-breakpoint - 0px}) {
+    @content;
+  }
+}
+
+@mixin desktop-and-up {
+  @media (min-width: $tablet-breakpoint) {
+    @content;
+  }
+}

@@ -1,5 +1,9 @@
 // Design tokens
-$font-primary: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI",
+$font-primary:
+  "Manrope",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
   sans-serif;
 $color-text-primary: #141414;
 $color-text-secondary: #4d4d4d;
@@ -14,7 +18,7 @@ $tablet: 768px;
 $desktop: 1024px;
 $wide: 1280px;
 .hero {
-  background-image: url("../../../public/herohome/Hero.png");
+  background-image: url("../../../../public/herohome/Hero.png");
   background-size: cover;
   background-position: center;
   height: fit-content;
@@ -165,7 +169,8 @@ $wide: 1280px;
 .search {
   position: relative;
   width: 100%;
-  max-width: 800px;
+  max-width: 674px;
+  // max-width: 800px;
   margin-bottom: 80px;
   animation: fadeInUp 0.8s ease-out 0.3s backwards;
   z-index: 10;

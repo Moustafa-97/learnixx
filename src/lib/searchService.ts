@@ -1,21 +1,35 @@
+import { Course } from "@/types/courses"
 import Fuse from "fuse.js"
 import type { IFuseOptions } from "fuse.js"
 // Define your searchable data structure
 export interface SearchableItem {
   id: string
+  image?: string | undefined
   title: string
   titleAr?: string
   description: string
   descriptionAr?: string
   category: string
   categoryAr?: string
+  startDate?: string
+  startDateAr?: string
   tags: string[]
-  price?: number
-  image?: string
+  flag?: string
+  location?: string
+  locationAr?: string
+  price: number
+  instructor?: string
+  instructorAr?: string
+  duration?: string
+  durationAr?: string
+  level?: string
+  levelAr?: string
+  rating: number
+  students: number
 }
 
 // Fuse.js configuration for fuzzy search
-const fuseOptions: IFuseOptions<SearchableItem> = {
+const fuseOptions: IFuseOptions<Course> = {
   // Fields to search in
   keys: [
     { name: "title", weight: 2 },
@@ -25,6 +39,19 @@ const fuseOptions: IFuseOptions<SearchableItem> = {
     { name: "category", weight: 1.5 },
     { name: "categoryAr", weight: 1.5 },
     { name: "tags", weight: 1 },
+    { name: "location", weight: 1 },
+    { name: "locationAr", weight: 1 },
+    { name: "instructor", weight: 1 },
+    { name: "instructorAr", weight: 1 },
+    { name: "duration", weight: 1 },
+    { name: "durationAr", weight: 1 },
+    { name: "level", weight: 1 },
+    { name: "levelAr", weight: 1 },
+    { name: "startDate", weight: 1 },
+    { name: "startDateAr", weight: 1 },
+    { name: "price", weight: 0.5 },
+    { name: "rating", weight: 0.5 },
+    { name: "students", weight: 0.5 },
   ],
   // Fuzzy search options
   threshold: 0.4, // 0 = perfect match, 1 = match anything
@@ -43,22 +70,22 @@ const fuseOptions: IFuseOptions<SearchableItem> = {
 }
 
 class SearchService {
-  private fuse: Fuse<SearchableItem>
-  private data: SearchableItem[]
+  private fuse: Fuse<Course>
+  private data: Course[]
 
-  constructor(data: SearchableItem[]) {
+  constructor(data: Course[]) {
     this.data = data
     this.fuse = new Fuse(data, fuseOptions)
   }
 
   // Update search data
-  updateData(data: SearchableItem[]) {
+  updateData(data: Course[]) {
     this.data = data
     this.fuse = new Fuse(data, fuseOptions)
   }
 
   // Perform search
-  search(query: string, locale: "en" | "ar" = "en"): SearchableItem[] {
+  search(query: string, locale: "en" | "ar" = "en"): Course[] {
     if (!query || query.trim().length < 2) {
       return []
     }
@@ -107,10 +134,7 @@ class SearchService {
   }
 
   // Search by category
-  searchByCategory(
-    category: string,
-    locale: "en" | "ar" = "en"
-  ): SearchableItem[] {
+  searchByCategory(category: string, locale: "en" | "ar" = "en"): Course[] {
     return this.data.filter(item => {
       const itemCategory =
         locale === "ar" ? item.categoryAr || item.category : item.category
@@ -126,7 +150,7 @@ class SearchService {
     maxPrice?: number
     tags?: string[]
     locale?: "en" | "ar"
-  }): SearchableItem[] {
+  }): Course[] {
     let results = this.data
 
     // Apply text search if query provided

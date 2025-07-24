@@ -1,224 +1,10 @@
+// hooks/useSearch.ts
 import { useCallback, useEffect, useRef } from "react"
 import { useLocale } from "next-intl"
 import useStore from "@/store/useStore"
-import SearchService, { SearchableItem } from "@/lib/searchService"
-// import { debounce } from "@/lib/utils"
-
-// Extend SearchableItem for course-specific fields
-export interface CourseItem extends SearchableItem {
-  location?: string
-  locationAr?: string
-  instructor?: string
-  instructorAr?: string
-  duration?: string
-  durationAr?: string
-  level?: string
-  levelAr?: string
-  rating?: number
-  students?: number
-}
-
-// Sample course data - replace with your actual data or API call
-const sampleCourseData: CourseItem[] = [
-  {
-    id: "1",
-    title: "Complete Web Development Bootcamp",
-    titleAr: "معسكر تطوير الويب الكامل",
-    description:
-      "Learn HTML, CSS, JavaScript, React, Node.js and build real projects",
-    descriptionAr:
-      "تعلم HTML و CSS و JavaScript و React و Node.js وقم ببناء مشاريع حقيقية",
-    category: "Web Development",
-    categoryAr: "تطوير الويب",
-    tags: [
-      "javascript",
-      "react",
-      "nodejs",
-      "html",
-      "css",
-      "frontend",
-      "backend",
-      "web development",
-    ],
-    location: "Online",
-    locationAr: "عبر الإنترنت",
-    price: 599,
-    instructor: "John Smith",
-    instructorAr: "جون سميث",
-    duration: "12 weeks",
-    durationAr: "12 أسبوع",
-    level: "Beginner to Advanced",
-    levelAr: "من المبتدئ إلى المتقدم",
-    rating: 4.8,
-    students: 15420,
-  },
-  {
-    id: "2",
-    title: "Data Science with Python",
-    titleAr: "علوم البيانات مع بايثون",
-    description:
-      "Master data analysis, machine learning, and visualization with Python",
-    descriptionAr:
-      "احترف تحليل البيانات والتعلم الآلي والتصور المرئي مع بايثون",
-    category: "Data Science",
-    categoryAr: "علوم البيانات",
-    tags: [
-      "python",
-      "data science",
-      "machine learning",
-      "pandas",
-      "numpy",
-      "data analysis",
-    ],
-    location: "Online",
-    locationAr: "عبر الإنترنت",
-    price: 799,
-    instructor: "Sarah Johnson",
-    instructorAr: "سارة جونسون",
-    duration: "10 weeks",
-    durationAr: "10 أسابيع",
-    level: "Intermediate",
-    levelAr: "متوسط",
-    rating: 4.9,
-    students: 12350,
-  },
-  {
-    id: "3",
-    title: "Digital Marketing Masterclass",
-    titleAr: "دورة احتراف التسويق الرقمي",
-    description:
-      "Learn SEO, Social Media Marketing, Content Marketing, and PPC",
-    descriptionAr:
-      "تعلم تحسين محركات البحث والتسويق عبر وسائل التواصل الاجتماعي",
-    category: "Digital Marketing",
-    categoryAr: "التسويق الرقمي",
-    tags: [
-      "marketing",
-      "seo",
-      "social media",
-      "digital marketing",
-      "advertising",
-    ],
-    location: "New York",
-    locationAr: "نيويورك",
-    price: 399,
-    instructor: "Mike Chen",
-    instructorAr: "مايك تشين",
-    duration: "8 weeks",
-    durationAr: "8 أسابيع",
-    level: "Beginner",
-    levelAr: "مبتدئ",
-    rating: 4.7,
-    students: 8920,
-  },
-  {
-    id: "4",
-    title: "UI/UX Design Fundamentals",
-    titleAr: "أساسيات تصميم واجهة المستخدم",
-    description:
-      "Learn design principles, Figma, and create stunning user interfaces",
-    descriptionAr:
-      "تعلم مبادئ التصميم وبرنامج Figma وإنشاء واجهات مستخدم مذهلة",
-    category: "Design",
-    categoryAr: "التصميم",
-    tags: ["design", "ui", "ux", "figma", "user interface", "user experience"],
-    location: "London",
-    locationAr: "لندن",
-    price: 449,
-    instructor: "Emily Davis",
-    instructorAr: "إميلي ديفيس",
-    duration: "6 weeks",
-    durationAr: "6 أسابيع",
-    level: "Beginner to Intermediate",
-    levelAr: "من المبتدئ إلى المتوسط",
-    rating: 4.8,
-    students: 6780,
-  },
-  {
-    id: "5",
-    title: "Photography Workshop",
-    titleAr: "ورشة التصوير الفوتوغرافي",
-    description: "Hands-on photography training with professional equipment",
-    descriptionAr: "تدريب عملي على التصوير بمعدات احترافية",
-    category: "Photography",
-    categoryAr: "التصوير",
-    tags: ["photography", "camera", "editing", "lightroom", "photoshop"],
-    location: "Dubai",
-    locationAr: "دبي",
-    price: 899,
-    instructor: "James Wilson",
-    instructorAr: "جيمس ويلسون",
-    duration: "4 weeks",
-    durationAr: "4 أسابيع",
-    level: "All Levels",
-    levelAr: "جميع المستويات",
-    rating: 4.9,
-    students: 3210,
-  },
-  {
-    id: "6",
-    title: "Business English Course",
-    titleAr: "دورة اللغة الإنجليزية للأعمال",
-    description: "Improve your business English communication skills",
-    descriptionAr: "حسّن مهاراتك في اللغة الإنجليزية للأعمال",
-    category: "Languages",
-    categoryAr: "اللغات",
-    tags: ["english", "business", "communication", "language learning"],
-    location: "Cairo",
-    locationAr: "القاهرة",
-    price: 299,
-    instructor: "Elizabeth Brown",
-    instructorAr: "إليزابيث براون",
-    duration: "8 weeks",
-    durationAr: "8 أسابيع",
-    level: "Intermediate to Advanced",
-    levelAr: "من المتوسط إلى المتقدم",
-    rating: 4.7,
-    students: 4560,
-  },
-  {
-    id: "7",
-    title: "Machine Learning with TensorFlow",
-    titleAr: "التعلم الآلي مع TensorFlow",
-    description: "Build and deploy machine learning models",
-    descriptionAr: "بناء ونشر نماذج التعلم الآلي",
-    category: "Machine Learning",
-    categoryAr: "التعلم الآلي",
-    tags: ["machine learning", "tensorflow", "python", "ai", "deep learning"],
-    location: "Remote",
-    locationAr: "عن بُعد",
-    price: 899,
-    instructor: "Dr. Alan Turner",
-    instructorAr: "د. آلان تيرنر",
-    duration: "14 weeks",
-    durationAr: "14 أسبوع",
-    level: "Advanced",
-    levelAr: "متقدم",
-    rating: 4.9,
-    students: 7890,
-  },
-  {
-    id: "8",
-    title: "Arabic Calligraphy Masterclass",
-    titleAr: "دورة احتراف الخط العربي",
-    description: "Learn traditional Arabic calligraphy art",
-    descriptionAr: "تعلم فن الخط العربي التقليدي",
-    category: "Art",
-    categoryAr: "الفنون",
-    tags: ["calligraphy", "arabic", "art", "traditional", "culture"],
-    location: "Riyadh",
-    locationAr: "الرياض",
-    price: 349,
-    instructor: "Ahmed Hassan",
-    instructorAr: "أحمد حسن",
-    duration: "6 weeks",
-    durationAr: "6 أسابيع",
-    level: "Beginner",
-    levelAr: "مبتدئ",
-    rating: 4.8,
-    students: 2890,
-  },
-]
+import SearchService from "@/lib/searchService"
+import { courses } from "@/data/coursesData"
+import { Course } from "@/types/courses"
 
 export function useSearch() {
   const locale = useLocale() as "en" | "ar"
@@ -233,15 +19,15 @@ export function useSearch() {
 
   // Initialize search service with course data
   useEffect(() => {
-    searchServiceRef.current = new SearchService(sampleCourseData)
+    searchServiceRef.current = new SearchService(courses)
   }, [])
 
   // Search courses by subject and location
   const searchCourses = useCallback(
-    (subject: string, location: string): CourseItem[] => {
+    (subject: string, location: string): Course[] => {
       if (!searchServiceRef.current) return []
 
-      let results = sampleCourseData
+      let results = courses
 
       // Filter by subject
       if (subject && subject.trim()) {
@@ -261,7 +47,7 @@ export function useSearch() {
         })
       }
 
-      return results as CourseItem[]
+      return results
     },
     [locale]
   )
@@ -274,7 +60,7 @@ export function useSearch() {
       const suggestions = new Set<string>()
       const normalizedInput = input.toLowerCase()
 
-      sampleCourseData.forEach(course => {
+      courses.forEach(course => {
         // Check title
         const title = locale === "ar" ? course.titleAr : course.title
         if (title?.toLowerCase().includes(normalizedInput)) {
@@ -308,7 +94,7 @@ export function useSearch() {
     (input?: string): string[] => {
       const allLocations = new Set<string>()
 
-      sampleCourseData.forEach(course => {
+      courses.forEach(course => {
         const location =
           locale === "ar"
             ? course.locationAr || course.location
@@ -336,7 +122,7 @@ export function useSearch() {
   const getPopularSubjects = useCallback((): string[] => {
     const categories = new Map<string, number>()
 
-    sampleCourseData.forEach(course => {
+    courses.forEach(course => {
       const category =
         locale === "ar" ? course.categoryAr || course.category : course.category
 
@@ -354,8 +140,8 @@ export function useSearch() {
 
   // Get courses by category
   const getCoursesByCategory = useCallback(
-    (category: string): CourseItem[] => {
-      return sampleCourseData.filter(course => {
+    (category: string): Course[] => {
+      return courses.filter(course => {
         const courseCategory =
           locale === "ar"
             ? course.categoryAr || course.category
@@ -367,9 +153,9 @@ export function useSearch() {
   )
 
   // Get featured courses
-  const getFeaturedCourses = useCallback((): CourseItem[] => {
+  const getFeaturedCourses = useCallback((): Course[] => {
     // Return top-rated courses with most students
-    return [...sampleCourseData]
+    return [...courses]
       .sort((a, b) => {
         const scoreA = (a.rating || 0) * (a.students || 0)
         const scoreB = (b.rating || 0) * (b.students || 0)
@@ -400,8 +186,8 @@ export function useSearch() {
       maxPrice?: number
       level?: string
       minRating?: number
-    }): CourseItem[] => {
-      let results = sampleCourseData
+    }): Course[] => {
+      let results = courses
 
       // Apply subject filter
       if (params.subject && params.subject.trim()) {
@@ -493,7 +279,7 @@ export function useSearch() {
     addRecentCourseSearch,
     getRecentSearchesFormatted,
 
-    // All courses (for debugging/testing)
-    allCourses: sampleCourseData,
+    // All courses
+    allCourses: courses,
   }
 }

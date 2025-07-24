@@ -8,7 +8,12 @@
   "hero": {
     "title": "Learn with Europe’s Top Leaders",
     "subtitle": "Choose your trainer. Define your path. Learn in one of Europe's top destinations.",
-    "badge": "Your #1 Platform for Edutourism"
+    "badge": "Your #1 Platform for Edutourism",
+    "courses": {
+      "title": "PROFESSIONAL TRAINING COURSES",
+      "subtitle": "Advance your career with expert-led programs designed to build real-world skills in business, tech, and leadership trusted by professionals across the world.",
+      "searchPlaceholder": "Explore Courses "
+    }
   },
   "common": {
     "loading": "Loading...",
@@ -29,5 +34,19 @@
     "anyLocation": "Any Location",
     "noResults": "No courses found. Try different search terms.",
     "clearSearch": "Clear Search"
+  },
+  "courses": {
+    "section": {
+      "title": "Our Training Courses",
+      "subtitle": "Browse high-impact training programs, explore expert-led course topics, and start building the skills that move your career forward."
+    },
+    "card": {
+      "fees": "FEES",
+      "startsAt": "Start at",
+      "duration": "Duration: {duration}",
+      "price": "Price: {price}",
+      "rating": "Rating: {rating} stars",
+      "instructor": "Instructor: {instructor}"
+    }
   }
 }

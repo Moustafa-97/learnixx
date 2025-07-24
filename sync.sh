@@ -1,26 +1,33 @@
 #!/bin/bash
 
-echo "======================================="
-echo "Syncing from Yllaaa/learnix to Moustafa-97/learnix..."
-echo "======================================="
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
 
-# Fetch latest changes from organization repo
-echo "→ Fetching from organization repo..."
-git fetch upstream
+# Repository URLs
+SOURCE_REPO="https://github.com/organization-name/original-repo.git"
+DESTINATION_REPO="https://github.com/your-username/new-repo.git"
 
-# Checkout main branch
-echo "→ Switching to main branch..."
-git checkout main
+echo -e "${YELLOW}Starting repository sync...${NC}"
 
-# Merge changes from organization repo
-echo "→ Merging latest changes..."
-git merge upstream/main
+# Create temporary directory
+TEMP_DIR=$(mktemp -d)
+cd $TEMP_DIR
 
-# Push to your repo
-echo "→ Pushing to your repository..."
-git push origin main
+# Clone the source repository (bare clone)
+echo -e "${GREEN}Cloning source repository...${NC}"
+git clone --bare $SOURCE_REPO
+cd "$(basename "$SOURCE_REPO")"
 
-echo "======================================="
-echo "✓ Sync completed successfully!"
-echo "Your repo is now up-to-date with Yllaaa/learnix"
-echo "======================================="
+# Push to destination repository
+echo -e "${GREEN}Pushing to destination repository...${NC}"
+git push --mirror $DESTINATION_REPO
+
+# Clean up
+echo -e "${GREEN}Cleaning up temporary files...${NC}"
+cd ..
+rm -rf "$(basename "$SOURCE_REPO")"
+
+echo -e "${GREEN}Sync completed successfully!${NC}"
