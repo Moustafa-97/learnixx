@@ -1,4 +1,3 @@
-"use client"
 // app/[locale]/courses/page.tsx
 import CourseContainer from "@/components/UI/Course_Container/CourseContainer"
 import HeroCourses from "@/components/UI/Hero_Courses/HeroCourses"
@@ -6,11 +5,15 @@ import CourseSearchSync from "@/components/CourseSearchSync/CourseSearchSync"
 import CourseHeader from "@/components/UI/Course_Container_Header/CourseHeader"
 import styles from "./page.module.scss"
 
-export default function CoursesPage({
-  searchParams,
-}: {
-  searchParams?: { subject?: string; location?: string }
-}) {
+type PageProps = {
+  params: { locale: string }
+  searchParams: { subject?: string; location?: string }
+}
+
+export default function CoursesPage({ searchParams }: PageProps) {
+  const subject = searchParams?.subject || ""
+  const location = searchParams?.location || ""
+
   return (
     <div className={styles.page}>
       <div className={styles.hero}>
@@ -22,10 +25,7 @@ export default function CoursesPage({
         </div>
         <div className={styles.content}>
           {/* This component syncs URL params with store */}
-          <CourseSearchSync
-            subject={searchParams?.subject || ""}
-            location={searchParams?.location || ""}
-          />
+          <CourseSearchSync subject={subject} location={location} />
           <CourseContainer />
         </div>
       </div>
