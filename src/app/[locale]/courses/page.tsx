@@ -6,16 +6,10 @@ import CourseHeader from "@/components/UI/Course_Container_Header/CourseHeader"
 import styles from "./page.module.scss"
 
 export default function CoursesPage({
-  // params,
   searchParams,
 }: {
-  // params: { locale: string }
-  searchParams?: { [key: string]: string | string[] | undefined }
+  searchParams?: { subject?: string; location?: string }
 }) {
-  // Extract and normalize search params
-  const subject = typeof searchParams?.subject === 'string' ? searchParams.subject : ""
-  const location = typeof searchParams?.location === 'string' ? searchParams.location : ""
-
   return (
     <div className={styles.page}>
       <div className={styles.hero}>
@@ -28,8 +22,8 @@ export default function CoursesPage({
         <div className={styles.content}>
           {/* This component syncs URL params with store */}
           <CourseSearchSync
-            subject={subject}
-            location={location}
+            subject={searchParams?.subject || ""}
+            location={searchParams?.location || ""}
           />
           <CourseContainer />
         </div>
