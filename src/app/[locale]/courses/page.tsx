@@ -5,12 +5,17 @@ import CourseSearchSync from "@/components/CourseSearchSync/CourseSearchSync"
 import CourseHeader from "@/components/UI/Course_Container_Header/CourseHeader"
 import styles from "./page.module.scss"
 
-type PageProps = {
+export default function CoursesPage({
+  params,
+  searchParams,
+}: {
   params: { locale: string }
-  searchParams: { subject?: string; location?: string }
-}
+  searchParams?: { subject?: string; location?: string }
+}) {
+  // Extract search parameters
+  const { locale } = params
+  console.log(locale, "Locale from params")
 
-export default function CoursesPage({ searchParams }: PageProps) {
   const subject = searchParams?.subject || ""
   const location = searchParams?.location || ""
 
