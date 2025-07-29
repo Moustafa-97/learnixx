@@ -50,7 +50,8 @@
       line-height: 120%; /* 28.8px */
     }
     .cardDescription {
-      width: 261px;
+      width: 18vw;
+      max-width: 261px;
       color: var(--csk-141414700, #4d4d4d);
 
       /* body-R */
