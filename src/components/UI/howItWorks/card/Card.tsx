@@ -18,8 +18,8 @@ function Card(props: {
           <Image
             src={card.image}
             alt={card.title}
-            width={50}
-            height={50}
+            width={24}
+            height={24}
             className={styles.Icon}
           />
         </div>

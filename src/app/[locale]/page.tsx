@@ -4,6 +4,7 @@
 // import ThemeToggle from '@/components/common/ThemeToggle';
 
 import ExploreContainer from "@/components/UI/Explore/Explore_Container/ExploreContainer"
+import FrequentAsk from "@/components/UI/frequentlyAsked/FrequentAsk"
 import HeroHome from "@/components/UI/Hero_Home/HeroHome"
 import HowItWorks from "@/components/UI/howItWorks/HowItWorks"
 import WhyLearnix from "@/components/UI/whyLearnix/WhyLearnix"
@@ -24,6 +25,9 @@ export default function HomePage() {
       </section>
       <section>
         <HowItWorks />
+      </section>
+      <section>
+        <FrequentAsk />
       </section>
     </main>
   )
