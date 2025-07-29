@@ -10,6 +10,7 @@ import admin from "@/../public/howItWorks/adminIcon.svg"
 
 import styles from "./HowItWorks.module.scss"
 import Image from "next/image"
+import Card from "./card/Card"
 
 function HowItWorks() {
   const content = {
@@ -48,13 +49,11 @@ function HowItWorks() {
           <h2 className={styles.title}>{content.title}</h2>
           <div className={styles.cards}>
             {content.cards.map(card => (
-              <div key={card.id} className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <span
-                    className={`${styles.cardNo} ${card.id === 2 && styles.reverse}`}>
-                    {card.no}
-                  </span>
-                </div>
+              <div
+                key={card.id}
+                className={`${styles.card} ${card.id === 2 && styles.reverse}`}>
+                <span className={styles.cardNo}>{card.no}</span>
+                <Card card={card} />
               </div>
             ))}
           </div>
@@ -79,7 +78,7 @@ function HowItWorks() {
             />
           </div>
           <div className={styles.roundImages}>
-            <div className={styles.images}>
+            <div className={styles.Rimages}>
               <Image
                 src={round11}
                 alt="round11 Image"

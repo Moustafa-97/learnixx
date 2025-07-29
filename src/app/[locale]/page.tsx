@@ -5,6 +5,7 @@
 
 import ExploreContainer from "@/components/UI/Explore/Explore_Container/ExploreContainer"
 import HeroHome from "@/components/UI/Hero_Home/HeroHome"
+import HowItWorks from "@/components/UI/howItWorks/HowItWorks"
 import WhyLearnix from "@/components/UI/whyLearnix/WhyLearnix"
 
 export default function HomePage() {
@@ -12,14 +13,17 @@ export default function HomePage() {
 
   return (
     <main>
-      <div>
+      <section>
         <HeroHome />
-      </div>
-      <div>
+      </section>
+      <section>
         <ExploreContainer />
-      </div>
+      </section>
       <section>
         <WhyLearnix />
+      </section>
+      <section>
+        <HowItWorks />
       </section>
     </main>
   )
