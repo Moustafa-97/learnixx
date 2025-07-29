@@ -5,9 +5,10 @@ import SearchBar from "@/components/search/SearchBar"
 
 function CourseHeader() {
   const t = useTranslations("courses.section")
+
   return (
     <>
-      <div className={styles.containerHeader}>
+      <div id="courses" className={styles.containerHeader}>
         <div className={styles.headerText}>
           <h2>{t("title")}</h2>
           <p>{t("subtitle")}</p>

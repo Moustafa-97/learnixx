@@ -48,5 +48,31 @@
       "rating": "Rating: {rating} stars",
       "instructor": "Instructor: {instructor}"
     }
+  },
+  "whyLearnix": {
+    "title": "Why Choose LEARNIX?",
+    "subtitle": "Advance your career with expert-led programs. Yalla Lead connects learners from the world to Europe’s top leaders in business, tech, and leadership.",
+    "cards": {
+      "globalConnections": {
+        "iconAlt": "Global Connections Icon",
+        "title": "Global Connections",
+        "description": "Network with top European leaders and like-minded professionals from around the world.",
+        "buttonText": "View courses"
+      },
+      "practicalTrainers": {
+        "iconAlt": "Practical Learning Icon",
+        "title": "Practical Learning",
+        "description": "Gain real-world experience through hands-on training and expert-led workshops.",
+        "buttonText": "View courses"
+      },
+      "learnBest": {
+        "iconAlt": "Learn from the best Icon",
+        "title": "Learn from the best"
+      },
+      "growingCommunity": {
+        "iconAlt": "Growing Community Icon",
+        "title": "Growing Community"
+      }
+    }
   }
 }

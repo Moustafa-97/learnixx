@@ -6,8 +6,6 @@ import styles from "./CourseContainer.module.scss"
 import CourseCard from "../Course_Card/CourseCard"
 import { useSearch } from "@/hooks/useSearch"
 import useStore from "@/store/useStore"
-// import SearchBar from "@/components/search/SearchBar"
-// import { useTranslations } from "next-intl"
 
 function CourseContainer() {
   const router = useRouter()
@@ -32,6 +30,16 @@ function CourseContainer() {
   const isSearchActive =
     courseSearchParams.subject || courseSearchParams.location
 
+  // Scroll to courses section
+  const scrollToCourses = () => {
+    setTimeout(() => {
+      const coursesElement = document.getElementById("courses")
+      if (coursesElement) {
+        coursesElement.scrollIntoView({ behavior: "smooth", block: "start" })
+      }
+    }, 100) // Small delay to ensure DOM is updated
+  }
+
   // Update URL helper
   const updateURL = (newParams: { subject: string; location: string }) => {
     const params = new URLSearchParams()
@@ -40,18 +48,26 @@ function CourseContainer() {
     if (newParams.subject) params.set("subject", newParams.subject)
     if (newParams.location) params.set("location", newParams.location)
 
-    // If no params, navigate to clean URL
+    // If no params, navigate to clean URL with hash
     const queryString = params.toString()
-    const newURL = queryString ? `${pathname}?${queryString}` : pathname
+    const newURL = queryString
+      ? `${pathname}?${queryString}#courses`
+      : `${pathname}#courses`
 
     router.push(newURL)
+
+    // If clearing filters, scroll to courses
+    if (!newParams.subject && !newParams.location) {
+      scrollToCourses()
+    }
   }
 
   // Clear all filters
   const handleClearAll = () => {
     setCourseSearchParams({ subject: "", location: "" })
-    // Navigate to clean URL without params
-    router.push(pathname)
+    // Navigate to clean URL with hash
+    router.push(`${pathname}#courses`)
+    scrollToCourses()
   }
 
   // Clear individual filter
@@ -66,10 +82,9 @@ function CourseContainer() {
     setCourseSearchParams(newParams)
     updateURL(newParams)
   }
-  // const t = useTranslations("courses.section")
+
   return (
     <div className={styles.wrapper}>
-      
       {/* Active filters */}
       {isSearchActive && (
         <div className={styles.filterSection}>
