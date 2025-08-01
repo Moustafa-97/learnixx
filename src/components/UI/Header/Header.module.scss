@@ -1,0 +1,432 @@
+.header {
+  width: 100vw;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+
+  .container {
+    margin: 0 auto;
+    padding: 0 102px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+  }
+}
+
+.logo {
+  width: 100px;
+  height: 36px;
+  flex-shrink: 0;
+  aspect-ratio: 25/9;
+
+  .logoImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+
+  .navList {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 30px;
+
+    @media (max-width: 1024px) {
+      gap: 20px;
+    }
+  }
+
+  .navItem {
+    position: relative;
+  }
+
+  .navLink {
+    color: var(--csk-141414500, #141414);
+    font-family: Manrope;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+
+    text-decoration: none;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    &:hover {
+      font-weight: 700;
+      transition: all 0.3s ease;
+      -webkit-transition: all 0.3s ease;
+      -moz-transition: all 0.3s ease;
+      -ms-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+    }
+
+    &.active {
+      font-weight: 900;
+    }
+    @media (max-width: 1024px) {
+      font-size: 14px;
+    }
+  }
+
+  .activeLine {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    width: 11px;
+    height: 3px;
+    background: linear-gradient(95deg, #141414 -20.74%, #7a7a7a 151.68%);
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+  }
+}
+
+.languageDropdown {
+  position: relative;
+
+  .languageButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #141414;
+    transition: all 0.3s ease;
+
+    &:hover {
+      font-weight: 700;
+      transition: all 0.3s ease;
+      -webkit-transition: all 0.3s ease;
+      -moz-transition: all 0.3s ease;
+      -ms-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+    }
+
+    .chevron {
+      font-size: 12px;
+      transition: transform 0.3s ease;
+
+      &.rotated {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .languageMenu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #ccc;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 150px;
+    overflow: hidden;
+    z-index: 1001;
+  }
+
+  .languageOption {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 16px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #212121;
+      color: white;
+    }
+
+    &.activeLang {
+      background-color: #141414;
+      color: white;
+    }
+
+    .flag {
+      font-size: 18px;
+    }
+  }
+}
+
+.contactSection {
+  flex-shrink: 0;
+
+  .contactButton {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 16px;
+    border: 1px solid #fff;
+    transition: all 0.3s ease;
+    @media (max-width: 1024px) {
+      font-size: 14px;
+      padding: 6px 10px;
+    }
+
+    &:hover {
+      background-color: #141414;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .arrow {
+      background: #fff;
+      color: #141414;
+      padding: 6px;
+      font-size: 24px;
+      transition: transform 0.3s ease;
+      -webkit-transition: transform 0.3s ease;
+      -moz-transition: transform 0.3s ease;
+      -ms-transition: transform 0.3s ease;
+      -o-transition: transform 0.3s ease;
+      transform: rotateZ(-45deg);
+      -webkit-transform: rotateZ(-45deg);
+      -moz-transform: rotateZ(-45deg);
+      -ms-transform: rotateZ(-45deg);
+      -o-transform: rotateZ(-45deg);
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
+    }
+
+    &:hover .arrow {
+      background: #fff;
+      transform: translateX(4px);
+    }
+  }
+}
+
+.mobileMenuButton {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #f8f9fa;
+  }
+}
+
+.mobileMenu {
+  display: none;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+
+  .mobileMenuContent {
+    background-color: white;
+    height: 100%;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .mobileNav {
+    margin-bottom: 30px;
+
+    .mobileNavLink {
+      display: block;
+      padding: 16px 0;
+      text-decoration: none;
+      color: #333;
+      font-size: 18px;
+      font-weight: 500;
+      border-bottom: 1px solid #eee;
+      transition: color 0.3s ease;
+
+      &:hover,
+      &.active {
+        color: #007bff;
+      }
+    }
+  }
+
+  .mobileLanguageSection {
+    margin-bottom: 30px;
+
+    h4 {
+      margin-bottom: 15px;
+      color: #333;
+      font-size: 16px;
+    }
+
+    .mobileLanguageOptions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .mobileLanguageOption {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        background: none;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          border-color: #007bff;
+        }
+
+        &.activeLang {
+          background-color: #007bff;
+          color: white;
+          border-color: #007bff;
+        }
+
+        .flag {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  .mobileContactButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    padding: 16px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+
+    .arrow {
+      font-size: 16px;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 1104px) {
+  .header {
+    .container {
+      padding: 0 50px;
+    }
+  }
+}
+// Responsive Design
+@media (max-width: 1024px) {
+  .header {
+    .container {
+      padding: 0 20px;
+    }
+  }
+  .nav {
+    .navList {
+      gap: 20px;
+    }
+  }
+}
+
+@media (max-width: 820px) {
+  .nav,
+  .contactSection {
+    display: none;
+  }
+
+  .mobileMenuButton {
+    display: block;
+  }
+
+  .mobileMenu {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .header .container {
+    padding: 0 15px;
+    height: 70px;
+  }
+
+  .logo .logoImage {
+    width: 100px;
+    height: auto;
+  }
+
+  .mobileMenu {
+    top: 70px;
+  }
+}
+
+// RTL Support
+[dir="rtl"] {
+  .nav .navList {
+    flex-direction: row-reverse;
+  }
+
+  .languageDropdown .languageMenu {
+    right: auto;
+    left: 0;
+  }
+
+  .contactButton .arrow {
+    transform: scaleX(-1);
+  }
+
+  .mobileContactButton .arrow {
+    transform: scaleX(-1);
+  }
+}

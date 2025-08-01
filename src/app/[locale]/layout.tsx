@@ -5,6 +5,7 @@ import { notFound } from "next/navigation"
 import CssBaseline from "@mui/material/CssBaseline"
 import AOSInit from "@/components/common/AOSInit"
 import "./globals.css"
+import Header from "@/components/UI/Header/Header"
 
 export default async function LocaleLayout({
   children,
@@ -21,14 +22,17 @@ export default async function LocaleLayout({
   }
 
   return (
-    
-      <body lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
-        <NextIntlClientProvider messages={messages}>
-          <CssBaseline />
-          <AOSInit />
+    <>
+      <NextIntlClientProvider messages={messages}>
+        <CssBaseline />
+        <AOSInit />
+        <header>
+          <Header />
+        </header>
+        <body lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
           {children}
-        </NextIntlClientProvider>
-      </body>
-    
+        </body>
+      </NextIntlClientProvider>
+    </>
   )
 }

@@ -59,3 +59,12 @@
   -ms-border-radius: 20px;
   -o-border-radius: 20px;
 }
+
+// FrequentAsk.module.scss
+[dir="rtl"] .section {
+  text-align: right;
+
+  .accordion {
+    direction: rtl;
+  }
+}

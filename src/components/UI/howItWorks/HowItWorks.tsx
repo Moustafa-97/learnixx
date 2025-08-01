@@ -1,4 +1,5 @@
 import React from "react"
+import { useTranslations } from 'next-intl'
 import big from "@/../public/howItWorks/big.png"
 import small from "@/../public/howItWorks/small.png"
 import round11 from "@/../public/howItWorks/round11.svg"
@@ -13,35 +14,35 @@ import Image from "next/image"
 import Card from "./card/Card"
 
 function HowItWorks() {
+  const t = useTranslations('howItWorks')
+
   const content = {
-    title: "How It Works",
+    title: t('title'),
     cards: [
       {
         id: 1,
-        no: "01",
-        title: "Explore Courses",
-        description:
-          "Browse a variety of professional training programs across business, tech, and leadership.",
+        no: t('cards.card1.no'),
+        title: t('cards.card1.title'),
+        description: t('cards.card1.description'),
         image: search,
       },
       {
         id: 2,
-        no: "02",
-        title: "Choose Your Trainer",
-        description:
-          "Find the right expert based on experience, location, and learning style.",
+        no: t('cards.card2.no'),
+        title: t('cards.card2.title'),
+        description: t('cards.card2.description'),
         image: admin,
       },
       {
         id: 3,
-        no: "03",
-        title: "Connect & Start Learning",
-        description:
-          "Reach out directly, join the session, and begin your certified training journey.",
+        no: t('cards.card3.no'),
+        title: t('cards.card3.title'),
+        description: t('cards.card3.description'),
         image: connect,
       },
     ],
   }
+
   return (
     <>
       <div className={styles.container}>
@@ -62,7 +63,7 @@ function HowItWorks() {
           <div className={styles.bigImage}>
             <Image
               src={big}
-              alt="Big Image"
+              alt={t('images.bigImage')}
               width={500}
               height={500}
               className={styles.bigImageStyle}
@@ -71,7 +72,7 @@ function HowItWorks() {
           <div className={styles.smallImage}>
             <Image
               src={small}
-              alt="small Image"
+              alt={t('images.smallImage')}
               width={500}
               height={500}
               className={styles.smallImageStyle}
@@ -81,29 +82,29 @@ function HowItWorks() {
             <div className={styles.Rimages}>
               <Image
                 src={round11}
-                alt="round11 Image"
+                alt={t('images.round11Image')}
                 width={500}
                 height={500}
                 className={styles.round11ImageStyle}
               />
               <Image
                 src={round22}
-                alt="round22 Image"
+                alt={t('images.round22Image')}
                 width={500}
                 height={500}
                 className={styles.round22ImageStyle}
               />
               <Image
                 src={round33}
-                alt="round33 Image"
+                alt={t('images.round33Image')}
                 width={500}
                 height={500}
                 className={styles.round33ImageStyle}
               />
             </div>
             <div className={styles.roundText}>
-              <p>1K +</p>
-              <p>Trainer</p>
+              <p>{t('stats.count')}</p>
+              <p>{t('stats.label')}</p>
             </div>
           </div>
         </div>
