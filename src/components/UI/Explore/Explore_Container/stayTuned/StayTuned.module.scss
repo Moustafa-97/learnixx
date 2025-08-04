@@ -1,0 +1,199 @@
+.container {
+  width: 100%;
+  height: 700px;
+//   background: blue;
+  position: relative;
+  overflow: hidden;
+}
+
+.line {
+  position: absolute;
+  top: -150px;
+  left: 50%;
+  width: 2px;
+  height: 300px;
+  background: #000;
+
+  transform-origin: 50% 0%;
+  transform: translateX(-50%) rotateZ(45deg);
+  animation: pendulum-swing 10s ease-in-out infinite;
+
+  z-index: 2;
+}
+
+.chandelier {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: -5px;
+  z-index: 3;
+}
+
+.shadow {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  // Trapezoid shape using clip-path
+  width: 300px;
+  height: 400px;
+  background: linear-gradient(180deg, #141414 0%, rgba(20, 20, 20, 0) 100%);
+
+  // Create trapezoid shape: narrow at top, wide at bottom
+  clip-path: polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%);
+
+  margin-top: 100px; // Position below the chandelier
+  filter: blur(15px);
+  opacity: 0.7;
+  z-index: 1;
+}
+
+// Text Container - Fixed positioning
+.textContainer {
+  position: absolute;
+  bottom: -340px; // Position at bottom of container
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+
+  // Make sure text fits within container width
+  width: 100%;
+  text-align: center;
+
+  // Create a mask that follows the shadow animation
+  position: relative;
+  overflow: hidden;
+}
+
+.stayTunedText {
+  font-family: Manrope;
+  font-size: 220px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 4.4px;
+  text-transform: uppercase;
+  margin: 0;
+
+  // Default state: outlined text (transparent background, border only)
+  color: transparent;
+  -webkit-text-stroke: 3px #141414;
+  //   text-stroke: 3px #141414;
+
+  // Make text non-selectable for better UX
+  user-select: none;
+
+  // Position relative for pseudo-element
+  position: relative;
+
+  // Create the filled text overlay that animates with the shadow
+  &::before {
+    content: "STAYTUNED";
+    position: absolute;
+    top: 0;
+    left: 1px;
+
+    // Same text properties
+    font-family: Manrope;
+    font-size: 220px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 4.4px;
+    text-transform: uppercase;
+
+    // Filled text color
+    color: #141414;
+    -webkit-text-stroke: none;
+    // text-stroke: none;
+
+    // Inverted animation - filled text appears where shadow is NOT
+    animation: text-light-sweep-inverted 10s ease-in-out infinite;
+
+    z-index: 1;
+  }
+}
+
+// Inverted animation - filled text shows where shadow is NOT present
+@keyframes text-light-sweep-inverted {
+  0% {
+    clip-path: polygon(0% 0%, 25% 0%, 15% 100%, 0% 100%);
+  }
+  50% {
+    clip-path: polygon(75% 0%, 100% 0%, 100% 100%, 85% 100%);
+  }
+  100% {
+    clip-path: polygon(0% 0%, 25% 0%, 15% 100%, 0% 100%);
+  }
+}
+
+@keyframes pendulum-swing {
+  0% {
+    transform: translateX(-50%) rotateZ(45deg);
+  }
+  50% {
+    transform: translateX(-50%) rotateZ(-45deg);
+  }
+  100% {
+    transform: translateX(-50%) rotateZ(45deg);
+  }
+}
+
+// Responsive adjustments for smaller screens
+@media (max-width: 1400px) {
+  .stayTunedText {
+    font-size: 180px;
+    letter-spacing: 3.6px;
+    -webkit-text-stroke: 2.5px #141414;
+    // text-stroke: 2.5px #141414;
+
+    &::before {
+      font-size: 180px;
+      letter-spacing: 3.6px;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .stayTunedText {
+    font-size: 150px;
+    letter-spacing: 3px;
+    -webkit-text-stroke: 2px #141414;
+    // text-stroke: 2px #141414;
+
+    &::before {
+      font-size: 150px;
+      letter-spacing: 3px;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .stayTunedText {
+    font-size: 120px;
+    letter-spacing: 2.4px;
+    -webkit-text-stroke: 2px #141414;
+    // text-stroke: 2px #141414;
+
+    &::before {
+      font-size: 120px;
+      letter-spacing: 2.4px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .stayTunedText {
+    font-size: 80px;
+    letter-spacing: 1.6px;
+    -webkit-text-stroke: 1.5px #141414;
+    // text-stroke: 1.5px #141414;
+
+    &::before {
+      font-size: 80px;
+      letter-spacing: 1.6px;
+    }
+  }
+}

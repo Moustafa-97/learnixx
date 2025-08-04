@@ -1,0 +1,107 @@
+@import "@/styles/_breakpoints.scss";
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  background: var(--Pure-White-FFFFFF, #fff);
+  @include mobile-only {
+    gap: 24px;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 606px;
+    @include mobile-only {
+      max-width: 100%;
+    }
+    h2 {
+      color: var(--csk-141414500, #141414);
+      text-align: center;
+      font-family: Manrope;
+      font-size: 56px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%; /* 67.2px */
+
+      @include mobile-only {
+        font-size: 32px;
+      }
+    }
+    p {
+      color: var(--csk-141414700, #4d4d4d);
+      text-align: center;
+      font-family: Manrope;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 24px */
+      @include mobile-only {
+        font-size: 14px;
+      }
+    }
+  }
+  .buttons {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    @include mobile-only {
+      gap: 12px;
+    }
+    .button {
+      display: flex;
+      padding: 6px 14px;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      background: var(--csk-141414800, #333);
+      border-radius: 62px;
+      -webkit-border-radius: 62px;
+      -moz-border-radius: 62px;
+      -ms-border-radius: 62px;
+      -o-border-radius: 62px;
+      transition: all 0.3s ease;
+      -webkit-transition: all 0.3s ease;
+      -moz-transition: all 0.3s ease;
+      -ms-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      &:hover {
+        background: var(--csk-141414900, #4d4d4d);
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+      }
+      span {
+        color: #f2f2f2;
+        font-family: Manrope;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+      &.active {
+        background: linear-gradient(
+          272deg,
+          rgba(20, 20, 20, 0) -25.55%,
+          rgba(20, 20, 20, 0.6) 85.02%
+        );
+
+        box-shadow: 1px 10px 14px 0 rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
+}

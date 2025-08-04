@@ -21,7 +21,15 @@ interface SearchState {
   popularLocations: string[]
 }
 
-interface AppState extends SearchState {
+// Home page sections
+type HomeSection = "Ready Courses" | "Lead Weekend" | "Customize with AI"
+
+interface HomeSectionState {
+  activeHomeSection: HomeSection
+  setActiveHomeSection: (section: HomeSection) => void
+}
+
+interface AppState extends SearchState, HomeSectionState {
   // User
   user: User | null
   setUser: (user: User | null) => void
@@ -99,6 +107,10 @@ const useStore = create<AppState>()(
         "On-site",
       ],
 
+      // Home Page Section Management
+      activeHomeSection: "Ready Courses", // Default to first section
+      setActiveHomeSection: section => set({ activeHomeSection: section }),
+
       // User
       user: null,
       setUser: user => set({ user }),
@@ -119,6 +131,7 @@ const useStore = create<AppState>()(
       partialize: state => ({
         recentCourseSearches: state.recentCourseSearches,
         preferredLocale: state.preferredLocale,
+        // activeHomeSection is not persisted - resets to default on page load
       }),
     }
   )

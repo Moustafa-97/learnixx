@@ -3,14 +3,27 @@
 
 .container {
   width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
+  display: flex;
+  padding: 88px 100px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
 }
-
+.exploreHeaderContent {
+  width: 100%;
+}
+.readyCourses {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
 // Tabs Styles
 .tabsWrapper {
   position: relative;
-  margin-bottom: 2rem;
   border-bottom: 1px solid var(--neutral-neutral-100, #c6cad1);
 }
 
@@ -19,42 +32,51 @@
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  align-self: stretch;
 
   &::-webkit-scrollbar {
     display: none;
   }
-
-  &.scrollable {
-    // Add scroll indicators on mobile
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 30px;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    &::before {
-      left: 0;
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 1),
-        rgba(255, 255, 255, 0)
-      );
-    }
-
-    &::after {
-      right: 0;
-      background: linear-gradient(
-        to left,
-        rgba(255, 255, 255, 1),
-        rgba(255, 255, 255, 0)
-      );
-    }
+  @include mobile-only {
+    justify-content: flex-start;
+    overflow-x: scroll;
+    width: 100vw;
   }
+
+  // &.scrollable {
+  //   // Add scroll indicators on mobile
+  //   &::before,
+  //   &::after {
+  //     content: "";
+  //     position: absolute;
+  //     top: 0;
+  //     bottom: 0;
+  //     width: 30px;
+  //     pointer-events: none;
+  //     z-index: 1;
+  //   }
+
+  //   &::before {
+  //     left: 0;
+  //     background: linear-gradient(
+  //       to right,
+  //       rgba(255, 255, 255, 1),
+  //       rgba(255, 255, 255, 0)
+  //     );
+  //   }
+
+  //   &::after {
+  //     right: 0;
+  //     background: linear-gradient(
+  //       to left,
+  //       rgba(255, 255, 255, 1),
+  //       rgba(255, 255, 255, 0)
+  //     );
+  //   }
+  // }
 }
 
 .tabs {
@@ -63,6 +85,16 @@
   min-width: max-content;
   padding: 0 12px;
   justify-content: space-between;
+  @include mobile-only {
+    width: 100vw;
+    overflow-x: scroll;
+    justify-content: flex-start;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 
 .tab {
@@ -151,6 +183,11 @@
 .tabPanels {
   position: relative;
   min-height: 400px;
+  width: 100%;
+  @include mobile-only {
+    height: 350px;
+    min-height: auto;
+  }
 }
 
 .tabPanel {
@@ -162,6 +199,10 @@
   visibility: hidden;
   transform: translateY(10px);
   transition: all 0.3s ease;
+  @include mobile-only {
+    width: 100vw;
+    height: 100%;
+  }
 
   &.active {
     position: relative;
@@ -176,7 +217,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
-  padding: 0 1rem;
+  padding: 0;
 
   @include tablet-only {
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -184,9 +225,14 @@
     padding: 0;
   }
 
-  //   @include desktop-only {
-  //     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  //   }
+  @include mobile-only {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: scroll;
+    gap: 12px;
+    height: 100%;
+  }
 }
 
 .card {
@@ -198,6 +244,10 @@
   gap: 21px;
   flex: 1 0 0;
 
+  @include mobile-only {
+    width: 199px;
+    height: 100%;
+  }
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);

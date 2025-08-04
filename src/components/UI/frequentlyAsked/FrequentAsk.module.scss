@@ -15,7 +15,10 @@
     font-size: 54px;
     font-style: normal;
     font-weight: 600;
-    line-height: 120%; /* 64.8px */
+    line-height: 120%;
+    @include mobile-only {
+      font-size: 32px;
+    }
   }
   .container {
     display: inline-flex;
