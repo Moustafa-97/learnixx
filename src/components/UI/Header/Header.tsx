@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useTranslations, useLocale } from "next-intl"
@@ -28,13 +29,17 @@ const Header: React.FC = () => {
   const pathname = usePathname()
   const locale = useLocale()
   const t = useTranslations("header")
+  
+  const mobileMenuRef = useRef<HTMLDivElement>(null)
+  const languageDropdownRef = useRef<HTMLDivElement>(null)
 
+  // Enhanced navRoutes with locale
   const navRoutes: NavRoute[] = [
-    { key: "aboutUs", href: "/about-us" },
-    { key: "courses", href: "/courses" },
-    { key: "cities", href: "/cities" },
-    { key: "leadWeek", href: "/lead-week" },
-    { key: "customizeAI", href: "/customize-ai" },
+    { key: "aboutUs", href: `/${locale}/about-us` },
+    { key: "courses", href: `/${locale}/courses` },
+    { key: "cities", href: `/${locale}/cities` },
+    { key: "leadWeek", href: `/${locale}/lead-week` },
+    { key: "customizeAI", href: `/${locale}/customize-ai` },
   ]
 
   const languages = [
@@ -43,7 +48,7 @@ const Header: React.FC = () => {
   ]
 
   const isActiveRoute = (href: string): boolean => {
-    return pathname === href || pathname === `/${locale}${href}`
+    return pathname === href
   }
 
   const toggleMobileMenu = () => {
@@ -53,27 +58,49 @@ const Header: React.FC = () => {
   const toggleLanguageDropdown = () => {
     setIsLanguageDropdownOpen(!isLanguageDropdownOpen)
   }
-  const languageDropdown = useRef<HTMLDivElement>(null)
 
+  // Enhanced outside click handler for both mobile menu and language dropdown
   const handleOutsideClick = (event: MouseEvent) => {
+    const target = event.target as Node
+
+    // Close language dropdown if clicked outside
     if (
-      languageDropdown.current &&
-      !languageDropdown.current.contains(event.target as Node)
+      languageDropdownRef.current &&
+      !languageDropdownRef.current.contains(target)
     ) {
       setIsLanguageDropdownOpen(false)
     }
+
+    // Close mobile menu if clicked outside
+    if (
+      isMobileMenuOpen &&
+      mobileMenuRef.current &&
+      !mobileMenuRef.current.contains(target)
+    ) {
+      setIsMobileMenuOpen(false)
+    }
   }
 
-  React.useEffect(() => {
-    document.addEventListener("click", handleOutsideClick)
-    return () => {
-      document.removeEventListener("click", handleOutsideClick)
+  useEffect(() => {
+    if (isMobileMenuOpen || isLanguageDropdownOpen) {
+      document.addEventListener("mousedown", handleOutsideClick)
+      // Prevent body scroll when mobile menu is open
+      if (isMobileMenuOpen) {
+        document.body.style.overflow = 'hidden'
+      }
+    } else {
+      document.body.style.overflow = 'unset'
     }
-  }, [])
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick)
+      document.body.style.overflow = 'unset'
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMobileMenuOpen, isLanguageDropdownOpen])
 
   const handleLanguageChange = (langCode: string) => {
-    // Implement language change logic here
-    // This will depend on your next-intl setup
+    // Enhanced language change logic with locale replacement
     const currentPath = pathname.replace(`/${locale}`, "") || "/"
     window.location.href = `/${langCode}${currentPath}`
   }
@@ -82,18 +109,32 @@ const Header: React.FC = () => {
     setIsMobileMenuOpen(false)
   }
 
+  // Enhanced keyboard navigation
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      setIsMobileMenuOpen(false)
+      setIsLanguageDropdownOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown as any)
+    return () => document.removeEventListener('keydown', handleKeyDown as any)
+  }, [])
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         {/* Logo */}
         <div className={styles.logo}>
-          <Link href="/" onClick={closeMobileMenu}>
+          <Link href={`/${locale}`} onClick={closeMobileMenu}>
             <Image
               src={logo}
               alt={t("logoAlt")}
               width={120}
               height={40}
               className={styles.logoImage}
+              priority
             />
           </Link>
         </div>
@@ -116,11 +157,12 @@ const Header: React.FC = () => {
 
             {/* Language Dropdown */}
             <li className={styles.navItem}>
-              <div ref={languageDropdown} className={styles.languageDropdown}>
+              <div ref={languageDropdownRef} className={styles.languageDropdown}>
                 <button
                   className={styles.languageButton}
                   onClick={toggleLanguageDropdown}
-                  aria-label={t("languageSelector")}>
+                  aria-label={t("languageSelector")}
+                  aria-expanded={isLanguageDropdownOpen}>
                   <FaGlobe />
                   <span>{locale.toUpperCase()}</span>
                   <FaChevronDown
@@ -138,17 +180,14 @@ const Header: React.FC = () => {
                           handleLanguageChange(lang.code)
                           setIsLanguageDropdownOpen(false)
                         }}>
-                        {/* <span className={styles.flag}> */}
                         <ReactCountryFlag
                           countryCode={lang.flag}
                           svg
                           style={{
                             width: "1.5em",
                             height: "1.5em",
-                            marginRight: "0.5em",
                           }}
                         />
-                        {/* </span> */}
                         <span>{lang.label}</span>
                       </button>
                     ))}
@@ -161,7 +200,7 @@ const Header: React.FC = () => {
 
         {/* Contact Button */}
         <div className={styles.contactSection}>
-          <Link href="/contact" className={styles.contactButton}>
+          <Link href={`/${locale}/contact`} className={styles.contactButton}>
             <span>{t("contactUs")}</span>
             <FaArrowRight className={styles.arrow} />
           </Link>
@@ -171,56 +210,67 @@ const Header: React.FC = () => {
         <button
           className={styles.mobileMenuButton}
           onClick={toggleMobileMenu}
-          aria-label={t("mobileMenuToggle")}>
+          aria-label={t("mobileMenuToggle")}
+          aria-expanded={isMobileMenuOpen}>
           {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className={styles.mobileMenu}>
-          <div className={styles.mobileMenuContent}>
-            <nav className={styles.mobileNav}>
-              {navRoutes.map(route => (
-                <Link
-                  key={route.key}
-                  href={route.href}
-                  className={`${styles.mobileNavLink} ${isActiveRoute(route.href) ? styles.active : ""}`}
-                  onClick={closeMobileMenu}>
-                  {t(`nav.${route.key}`)}
-                </Link>
-              ))}
-            </nav>
-
-            {/* Mobile Language Selector */}
-            <div className={styles.mobileLanguageSection}>
-              <h4>{t("selectLanguage")}</h4>
-              <div className={styles.mobileLanguageOptions}>
-                {languages.map(lang => (
-                  <button
-                    key={lang.code}
-                    className={`${styles.mobileLanguageOption} ${locale === lang.code ? styles.activeLang : ""}`}
-                    onClick={() => {
-                      handleLanguageChange(lang.code)
-                      closeMobileMenu()
-                    }}>
-                    <span className={styles.flag}>{lang.flag}</span>
-                    <span>{lang.label}</span>
-                  </button>
+        <>
+          <div className={styles.mobileMenuOverlay} onClick={closeMobileMenu} />
+          <div ref={mobileMenuRef} className={styles.mobileMenu}>
+            <div className={styles.mobileMenuContent}>
+              <nav className={styles.mobileNav}>
+                {navRoutes.map(route => (
+                  <Link
+                    key={route.key}
+                    href={route.href}
+                    className={`${styles.mobileNavLink} ${isActiveRoute(route.href) ? styles.active : ""}`}
+                    onClick={closeMobileMenu}>
+                    {t(`nav.${route.key}`)}
+                  </Link>
                 ))}
-              </div>
-            </div>
+              </nav>
 
-            {/* Mobile Contact Button */}
-            <Link
-              href="/contact"
-              className={styles.mobileContactButton}
-              onClick={closeMobileMenu}>
-              <span>{t("contactUs")}</span>
-              <FaArrowRight className={styles.arrow} />
-            </Link>
+              {/* Mobile Language Selector */}
+              <div className={styles.mobileLanguageSection}>
+                <h4>{t("selectLanguage")}</h4>
+                <div className={styles.mobileLanguageOptions}>
+                  {languages.map(lang => (
+                    <button
+                      key={lang.code}
+                      className={`${styles.mobileLanguageOption} ${locale === lang.code ? styles.activeLang : ""}`}
+                      onClick={() => {
+                        handleLanguageChange(lang.code)
+                        closeMobileMenu()
+                      }}>
+                      <ReactCountryFlag
+                        countryCode={lang.flag}
+                        svg
+                        style={{
+                          width: "1.5em",
+                          height: "1.5em",
+                        }}
+                      />
+                      <span>{lang.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile Contact Button */}
+              <Link
+                href={`/${locale}/contact`}
+                className={styles.mobileContactButton}
+                onClick={closeMobileMenu}>
+                <span>{t("contactUs")}</span>
+                <FaArrowRight className={styles.arrow} />
+              </Link>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   )

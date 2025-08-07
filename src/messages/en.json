@@ -12,6 +12,21 @@
     "courses": {
       "title": "PROFESSIONAL TRAINING COURSES",
       "subtitle": "Advance your career with expert-led programs designed to build real-world skills in business, tech, and leadership trusted by professionals across the world.",
+      "searchPlaceholder": "Explore Courses"
+    },
+    "about": {
+      "title": "Our Trainers Are Leaders Not Lecturers",
+      "subtitle": "Built for ambitious learners worldwide, Yalla Lead connects you with top-tier trainers, industry leaders, and career-driven programs. We provide the people, places, and experiences to help you learn, grow, and lead.",
+      "searchPlaceholder": "Join Now"
+    }
+  },
+  "about": {
+    "title": "Learn with Europe’s Top Leaders",
+    "subtitle": "Choose your trainer. Define your path. Learn in one of Europe's top destinations.",
+    "badge": "Your #1 Platform for Edutourism",
+    "courses": {
+      "title": "PROFESSIONAL TRAINING COURSES",
+      "subtitle": "Advance your career with expert-led programs designed to build real-world skills in business, tech, and leadership trusted by professionals across the world.",
       "searchPlaceholder": "Explore Courses "
     }
   },
@@ -33,8 +48,7 @@
     "languageSelector": "Select Language",
     "selectLanguage": "Select Language",
     "mobileMenuToggle": "Toggle Mobile Menu"
-  }
-,
+  },
   "search": {
     "findYourCourse": "Find Your Perfect Course",
     "whatToLearn": "What do you want to learn?",
@@ -144,6 +158,67 @@
       "panel5": {
         "question": "What payment methods do you accept?",
         "answer": "We accept all major credit cards, PayPal, Apple Pay, Google Pay, and other secure payment methods at checkout."
+      }
+    }
+  },
+
+  "footer": {
+    "cta": {
+      "heading": "Learn. Grow. Lead.",
+      "emailPlaceholder": "Enter your email",
+      "subscribe": "Subscribe"
+    },
+    "company": {
+      "description": "Learnix connects learners from the Middle East and Africa with expert European trainers. Build real skills and earn recognized certifications in tech, business, and more."
+    },
+    "contact": {
+      "phone": "Phone",
+      "email": "Email"
+    },
+    "navigation": {
+      "home": {
+        "title": "Home",
+        "courses": "Courses",
+        "whyLearnix": "Why Learnix?",
+        "topCourses": "Top Courses",
+        "testimonials": "Testimonials",
+        "contactUs": "Contact Us"
+      },
+      "about": {
+        "title": "About",
+        "howItWorks": "How it Works",
+        "testimonials": "Testimonials",
+        "trainers": "Trainers"
+      },
+      "cities": {
+        "title": "Cities",
+        "explore": "Explore Cities",
+        "madrid": "Madrid",
+        "paris": "Paris"
+      }
+    },
+    "copyright": "© 2023 Learnix. All rights reserved"
+  },
+
+  "whyUs": {
+    "title": "WHY Choose us?",
+    "description": "Discover why Next-Gen AI Summit is the must-attend event for AI professionals, innovators, and industry leaders.",
+    "cards": {
+      "1": {
+        "title": "Cutting-Edge Insights",
+        "description": "Gain firsthand knowledge from top AI experts and pioneers shaping the industry."
+      },
+      "2": {
+        "title": "Hands-On Learning",
+        "description": "Participate in interactive workshops, live demos, and deep-dive sessions to sharpen your skills."
+      },
+      "3": {
+        "title": "Exclusive Networking",
+        "description": "Connect with AI leaders, investors, startups, and fellow professionals at curated networking events."
+      },
+      "4": {
+        "title": "Innovation Showcase",
+        "description": "Explore groundbreaking AI solutions, from emerging startups to tech giants redefining the future."
       }
     }
   }

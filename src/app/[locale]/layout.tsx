@@ -6,6 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline"
 import AOSInit from "@/components/common/AOSInit"
 import "./globals.css"
 import Header from "@/components/UI/Header/Header"
+import Footer from "@/components/UI/Footer/Footer"
 
 export default async function LocaleLayout({
   children,
@@ -32,6 +33,9 @@ export default async function LocaleLayout({
         <body lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
           {children}
         </body>
+        <footer>
+          <Footer />
+        </footer>
       </NextIntlClientProvider>
     </>
   )

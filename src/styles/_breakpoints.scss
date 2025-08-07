@@ -3,11 +3,12 @@
 $mobile-breakpoint: 480px;
 $mob-view: 768px;
 $tablet-breakpoint: 1024px;
+$laptop-breakpoint: 1200px;
 $desktop-breakpoint: 1440px;
 
 // Breakpoint mixins
 @mixin mobile-only {
-  @media (max-width: #{$mob-view - 0px}) {
+  @media (max-width: #{$mob-view - 1px}) {
     @content;
   }
 }
@@ -19,13 +20,78 @@ $desktop-breakpoint: 1440px;
 }
 
 @mixin tablet-only {
-  @media (min-width: $mob-view) and (max-width: #{$tablet-breakpoint - 0px}) {
+  @media (min-width: $mob-view) and (max-width: #{$tablet-breakpoint - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-down {
+  @media (max-width: #{$tablet-breakpoint - 1px}) {
+    @content;
+  }
+}
+
+@mixin laptop-only {
+  @media (min-width: $tablet-breakpoint) and (max-width: #{$laptop-breakpoint - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop-only {
+  @media (min-width: $laptop-breakpoint) and (max-width: #{$desktop-breakpoint - 1px}) {
     @content;
   }
 }
 
 @mixin desktop-and-up {
   @media (min-width: $tablet-breakpoint) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: $desktop-breakpoint) {
+    @content;
+  }
+}
+
+// Additional utility mixins
+@mixin small-mobile {
+  @media (max-width: #{$mobile-breakpoint - 1px}) {
+    @content;
+  }
+}
+
+@mixin between($min, $max) {
+  @media (min-width: $min) and (max-width: #{$max - 1px}) {
+    @content;
+  }
+}
+
+// Touch device detection
+@mixin touch-device {
+  @media (hover: none) and (pointer: coarse) {
+    @content;
+  }
+}
+
+// High resolution screens
+@mixin retina {
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @content;
+  }
+}
+
+// Landscape orientation
+@mixin landscape {
+  @media (orientation: landscape) {
+    @content;
+  }
+}
+
+// Portrait orientation
+@mixin portrait {
+  @media (orientation: portrait) {
     @content;
   }
 }
