@@ -24,17 +24,29 @@ function AboutCards() {
             </div>
           </div>
           <div className={styles.cta}>
-            <div className={styles.imgs}>
-
-            </div>
+            <div className={styles.imgs}></div>
             <div className={styles.link}>
-              <Link href="/trainers">View Trainers</Link>
+              <Link href="/trainers">And more</Link>
+              <FaArrowLeft />
             </div>
           </div>
         </div>
         <div className={styles.smallContainer}>
-          <div className={styles.smallB}>5</div>
-          <div className={styles.smallW}>5</div>
+          <div className={styles.smallB}>
+            <h6>Professional Skills</h6>
+            <p>
+              Explore leadership development, strategic thinking, effective
+              communication, project management, and global business practices
+              with top leaders.
+            </p>
+          </div>
+          <div className={styles.smallW}>
+            <h6>Prime Learning Locations</h6>
+            <p>
+              Enjoy the best meeting rooms in prime locations across Europe’s
+              most vibrant cities.
+            </p>
+          </div>
         </div>
       </div>
     </>
