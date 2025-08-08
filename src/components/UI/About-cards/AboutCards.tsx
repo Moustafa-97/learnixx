@@ -2,6 +2,9 @@ import React from "react"
 import styles from "./AboutCards.module.scss"
 import Link from "next/link"
 import { FaArrowLeft } from "react-icons/fa"
+import image from "@/../public/about/Image.png"
+import Image from "next/image"
+
 function AboutCards() {
   return (
     <>
@@ -24,7 +27,12 @@ function AboutCards() {
             </div>
           </div>
           <div className={styles.cta}>
-            <div className={styles.imgs}></div>
+            <div className={styles.imgs}>
+              <Image src={image} alt="" width={100} height={100} />
+              <Image src={image} alt="" width={100} height={100} />
+              <Image src={image} alt="" width={100} height={100} />
+              <Image src={image} alt="" width={100} height={100} />
+            </div>
             <div className={styles.link}>
               <Link href="/trainers">And more</Link>
               <FaArrowLeft />
