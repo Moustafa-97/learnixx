@@ -30,7 +30,7 @@ function LeadFQA() {
       key={panelId}
       className={styles.accordion}
       style={
-        expanded === panelId
+        expanded !== panelId
           ? { backgroundColor: "#CCCCCC", borderRadius: "20px" }
           : { borderRadius: "20px" }
       }
@@ -40,12 +40,10 @@ function LeadFQA() {
         expandIcon={<LuCross />}
         aria-controls={`${panelId}-content`}
         id={`${panelId}-header`}>
-        <Typography component="span">
-          {t(`items.${panelId}.question`)}
-        </Typography>
+        <Typography component="span">{t(`items.${panelId}.unit`)}</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>{t(`items.${panelId}.answer`)}</Typography>
+        <Typography>{t(`items.${panelId}.content`)}</Typography>
       </AccordionDetails>
     </Accordion>
   )
@@ -55,8 +53,15 @@ function LeadFQA() {
   return (
     <>
       <div className={styles.section}>
-        <h2>{t("title")}</h2>
+        <div className={styles.header}>
+          <h6>{t("smallTitle")}</h6>
+          <h2>{t("title")}</h2>
+        </div>
         <div className={styles.container}>
+          <div className={styles.containerHeader}>
+            <h5>{t("items.title")}</h5>
+            <p>{t("items.subtitle")}</p>
+          </div>
           <div className={styles.grp1}>
             {groupPanels.map((panelId, index) =>
               renderAccordion(panelId, index)

@@ -2,17 +2,17 @@ import React from "react"
 import styles from "./ExploreCard.module.scss"
 // import Image from "next/image"
 import { CareerItem } from "@/types/career"
-import { useLocale } from "next-intl"
+
 
 function ExploreCard(props: { card: CareerItem }) {
-  const locale = useLocale() as "en" | "ar"
+  
   const { card } = props
 
   return (
     <>
       <div key={card.id} className={styles.card}>
         <div className={styles.cardHeader}>
-          {card.icon && (
+          {/* {card.icon && (
             //   typeof card.icon === "string" ? (
             //     <div className={styles.cardImage}>
             //       <Image
@@ -26,24 +26,19 @@ function ExploreCard(props: { card: CareerItem }) {
             <div className={styles.cardIcon}>
               <p>{card.icon}</p>
             </div>
-          )}
+          )} */}
           <div className={styles.cardContent}>
-            <h3 className={styles.cardTitle}>{card.title[locale]}</h3>
+            <h3 className={styles.cardTitle}>{card.title}</h3>
             <p className={styles.cardDescription}>
-              {card.description[locale].length > 40
-                ? card.description[locale].slice(0, 40) + "..."
-                : card.description[locale]}
+              {card.description.length > 40
+                ? card.description.slice(0, 40) + "..."
+                : card.description}
             </p>
           </div>
         </div>
         <div className={styles.cardFooter}>
           <span className={styles.cardTags}>
-            {card.tags &&
-              card.tags[locale].map((tag, index) => (
-                <span key={index} className={styles.tag}>
-                  {tag}
-                </span>
-              ))}
+            {card.price && <span className={styles.tag}>{card.price}$</span>}
           </span>
         </div>
       </div>

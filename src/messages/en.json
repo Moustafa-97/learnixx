@@ -141,10 +141,13 @@
       "label": "Trainer"
     }
   },
-  
+
   "faq": {
-    "title": "Frequently Asked Questions",
+    "smallTitle": "Course content",
+    "title": "Our Comprehensive curriculum, Designed for professionals",
     "items": {
+      "title": "What You Will Learn",
+      "subtitle": "Lead Weekend is an intensive 10-hour leadership experience designed to equip ambitious professionals with essential leadership skills. Spread across three days in vibrant Barcelona, the course combines expert guidance with practical learning to help you become an effective and inspiring leader.",
       "panel1": {
         "question": "Who can attend these courses?",
         "answer": "Our courses are designed for professionals at all levels seeking to enhance their skills and advance their careers."
@@ -166,9 +169,7 @@
         "answer": "Yes, all participants receive a certificate upon successfully completing the course."
       }
     }
-  }
-,
-
+  },
   "footer": {
     "cta": {
       "heading": "Learn. Grow. Lead.",
