@@ -48,7 +48,7 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 // Search fields container
 .searchFields {
   display: grid;
-  grid-template-columns: 1fr 1fr auto;
+  // grid-template-columns: 1fr 1fr auto;
 
   width: 515px;
   padding: 16px 8px 16px 24px;

@@ -1,0 +1,198 @@
+.container {
+  width: 100%;
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+  
+  h6 {
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 8px 0;
+  }
+  
+  h3 {
+    color: #1f2937;
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+    text-transform: capitalize;
+  }
+}
+
+.trainerCount {
+  color: #6b7280;
+  font-size: 16px;
+  margin: 0;
+}
+
+// Base grid styles
+.trainersGrid1,
+.trainersGrid2,
+.trainersGrid3,
+.trainersGridDefault {
+  display: grid;
+  gap: 32px;
+  width: 100%;
+  justify-items: center;
+}
+
+// 1 Trainer - Center single card
+.trainersGrid1 {
+  grid-template-columns: 1fr;
+  max-width: 400px;
+  margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    max-width: 300px;
+  }
+}
+
+// 2 Trainers - Side by side
+.trainersGrid2 {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 800px;
+  margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+}
+
+// 3+ Trainers - Three columns
+.trainersGrid3 {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 1200px;
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+}
+
+.trainersGridDefault {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  max-width: 1200px;
+}
+
+// Empty and error states
+.noTrainers,
+.errorContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  color: #6b7280;
+  font-style: italic;
+  text-align: center;
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  background-color: #f9fafb;
+  margin-top: 20px;
+  
+  p {
+    margin: 0;
+    font-size: 16px;
+  }
+}
+
+.errorContainer {
+  color: #ef4444;
+  border-color: #fecaca;
+  background-color: #fef2f2;
+}
+
+// Loading skeleton styles
+.skeletonCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 320px;
+}
+
+.skeletonImage {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+.skeletonDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.skeletonName,
+.skeletonTitle,
+.skeletonLinkedin {
+  height: 16px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeletonName {
+  width: 60%;
+  height: 20px;
+}
+
+.skeletonTitle {
+  width: 80%;
+  height: 16px;
+}
+
+.skeletonLinkedin {
+  width: 40%;
+  height: 14px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .container {
+    padding: 40px 16px;
+  }
+  
+  .header h3 {
+    font-size: 28px;
+  }
+  
+  .trainersGrid1,
+  .trainersGrid2,
+  .trainersGrid3 {
+    gap: 24px;
+  }
+}

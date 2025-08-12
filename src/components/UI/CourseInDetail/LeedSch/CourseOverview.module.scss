@@ -1,0 +1,172 @@
+@import "@/styles/_breakpoints.scss";
+.courseCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 88px 100px;
+  width: 100%;
+  height: fit-content;
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    padding: 88px 20px;
+  }
+
+  .sidebar {
+    width: 27%;
+    min-width: fit-content;
+    min-height: 292px;
+    height: fit-content;
+    flex-shrink: 0;
+    border-radius: 50px;
+    background: #141414;
+    padding: 45px 25px;
+    @media screen and (max-width: 1024px) {
+      width: 100%;
+    }
+    @include mobile-only {
+      width: 100%;
+    }
+    .scheduleSection {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 32px;
+      .scheduleTitle {
+        color: #f2f2f2;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 23px; /* 127.778% */
+      }
+      .scheduleList {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .scheduleItem {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          .scheduleText {
+            color: var(--csk-141414100, #e6e6e6);
+            font-family: Roboto;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 23px; /* 143.75% */
+          }
+        }
+      }
+      .exclusiveMaterials {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        .checkboxLabel {
+          color: var(--csk-141414100, #e6e6e6);
+
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 23px;
+        }
+      }
+    }
+  }
+  .mainContent {
+    position: relative;
+    width: 60%;
+    min-height: 292px;
+    height: fit-content;
+    padding: 35px 40px;
+    flex-shrink: 0;
+    border-radius: 50px;
+
+    background: #dedee0;
+    @media screen and (max-width: 1024px) {
+      width: 100%;
+    }
+    @include mobile-only {
+      width: 100%;
+    }
+
+    .title {
+      color: #000;
+      font-family: Manrope;
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+    .description {
+      color: #646464;
+      font-family: Roboto;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px; /* 150% */
+    }
+    .pricingSection {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 16px;
+      .priceText {
+        color: #2c2c2c;
+        font-size: 27px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+      .paymentNote {
+        color: #ff5252;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 23px; /* 143.75% */
+      }
+    }
+  }
+  .applyButton {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  width: 271px;
+  height: 59px;
+  padding: 0 50px;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+  border-radius: 100px;
+  background: linear-gradient(
+    85deg,
+    #141414 1.59%,
+    rgba(20, 20, 20, 0) 121.45%
+  );
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 23px;
+
+  // Using CSS logical properties (modern approach)
+  inset-inline-end: 20px;
+
+  @media screen and (max-width: 1300px) {
+    padding: 0 25px;
+    width: 200px;
+  }
+  
+  @media screen and (max-width: 1024px) {
+    padding: 0 25px;
+    width: 200px;
+    position: relative;
+    bottom: auto;
+    inset-inline-end: auto;
+  }
+}
+}

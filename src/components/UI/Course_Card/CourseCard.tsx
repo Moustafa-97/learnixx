@@ -2,16 +2,21 @@ import React from "react"
 import { Course } from "@/types/courses"
 import styles from "./CourseCard.module.scss"
 import Image from "next/image"
-
 import { useLocale, useTranslations } from "next-intl"
 import ReactCountryFlag from "react-country-flag"
 import web from "@/../public/course/card/web.png"
 
-function CourseCard(props: { course: Course }) {
-  const { course } = props
+interface CourseCardProps {
+  course: Course
+  onEnrollNow: () => void
+}
+
+// ✅ Correct function signature
+function CourseCard({ course, onEnrollNow }: CourseCardProps) {
   const t = useTranslations("courses.card")
   const locale = useLocale()
   const isArabic = locale === "ar"
+
   if (!course) {
     return <div className={styles.error}>{t("courseNotFound")}</div>
   }
@@ -23,25 +28,22 @@ function CourseCard(props: { course: Course }) {
           <div className={styles.imageContainer}>
             <Image
               src={web}
-              alt={course.title}
+              alt={course.title} // ✅ Fixed: removed extra "course."
               className={styles.courseImage}
               width={300}
               height={200}
             />
           </div>
-          <h2 className={styles.title}>
-            {isArabic ? course.titleAr : course.title}
-          </h2>
-          <p className={styles.description}>
-            {isArabic ? course.descriptionAr : course.description}
-          </p>
+          <h2 className={styles.title}>{course.title}</h2> {/* ✅ Fixed */}
+          <p className={styles.description}>{course.description}</p>{" "}
+          {/* ✅ Fixed */}
           <p className={styles.time}>
-            {t("startsAt")}: {isArabic ? course.startDateAr : course.startDate}
+            {t("startsAt")}: {course.startDate} {/* ✅ Fixed */}
           </p>
           <div className={styles.location}>
             <div className={styles.svgContainer}>
               <ReactCountryFlag
-                countryCode={course.flag}
+                countryCode={course.country.iso} // ✅ Fixed
                 svg
                 style={{
                   width: "100%",
@@ -50,14 +52,17 @@ function CourseCard(props: { course: Course }) {
               />
             </div>
             <span className={styles.locationText}>
-              {isArabic ? course.locationAr : course.location}
+              {course.country.name} {/* ✅ Fixed */}
             </span>
           </div>
-
           <p className={styles.price}>
-            <span>{t("fees")}: </span> {course.price}
+            <span>{t("fees")}: </span> ${course.price}{" "}
+            {/* ✅ Fixed and added $ */}
           </p>
-          <button className={styles.enrollButton}>
+          <button
+            className={styles.enrollButton}
+            onClick={onEnrollNow} // ✅ Added onClick handler
+          >
             {isArabic ? "سجل الآن" : "Enroll Now"}
           </button>
         </div>

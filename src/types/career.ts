@@ -1,119 +1,51 @@
-// interface WhyAttend {
-//   id: number
-//   title: {
-//     en: string
-//     ar: string
-//   }
-//   description: {
-//     en: string
-//     ar: string
-//   }
-// }
+// types/courseDetail.ts with more specific types
 
-// interface Trainer {
-//   id: number
-//   name: {
-//     en: string
-//     ar: string
-//   }
-//   title: {
-//     en: string
-//     ar: string
-//   }
-//   image?: string
-//   description?: {
-//     en: string
-//     ar: string
-//   }
-//   socialLinks?: {
-//     linkedin?: string
-//     twitter?: string
-//     github?: string
-//   }
-// }
-
-// interface CourseContent {
-//   id: number
-//   unit: number
-//   title: {
-//     en: string
-//     ar: string
-//   }
-//   description: {
-//     en: string
-//     ar: string
-//   }
-// }
-
-// export interface CareerItem {
-//   id: number
-//   title: {
-//     en: string
-//     ar: string
-//   }
-//   description: {
-//     en: string
-//     ar: string
-//   }
-//   icon?: React.ReactNode | string
-//   tags?: {
-//     en: string[]
-//     ar: string[]
-//   }
-//   brouchureLink?: string
-//   whyAttend: WhyAttend[]
-//   trainers: Trainer[]
-//   courseContent: CourseContent[]
-// }
-
-// export interface Career {
-//   id: number
-//   label: {
-//     en: string
-//     ar: string
-//   }
-//   icon: React.ReactNode | string
-//   content: CareerItem[]
-// }
-/////////////////////////////
-interface Category {
-  id: number
-  name: string
+export interface Category {
+  id: number;
+  name: string;
 }
 
-interface Country {
-  id: number
-  name: string
-  iso: string
+export interface Trainer {
+  id: number;
+  name: string;
+  title: string;
+  linkedIn: `https://linkedin.com/in/${string}`; // More specific LinkedIn URL pattern
+  trainerPicture: string; // Could be more specific: `https://${string}` for URLs
 }
 
-interface City {
-  id: number
-  name: string
+export interface Curriculum {
+  id: number;
+  name: string;
+  description: string;
 }
 
-export interface CareerItem {
-  id: number
-  title: string
-  description: string
-  startDate: string // ISO date string format (YYYY-MM-DD)
-  price: number
-  categories: Category[]
-  country: Country
-  city: City
+export interface Outcome {
+  id: number;
+  name: string;
+  description: string;
 }
 
-interface Meta {
-  page: number
-  perPage: number
-  total: number
-  totalPages: number
-  hasNext: boolean
-  hasPrev: boolean
+export interface Country {
+  id: number;
+  name: string;
+  iso: string; // Could be more specific: ISO country codes like 'EG' | 'US' | etc.
 }
 
-export interface Career {
-  data: CareerItem[]
-  meta: Meta
-  lang: string
+export interface City {
+  id: number;
+  name: string;
+  country: Country;
+}
+
+export interface CourseDetail {
+  id: number;
+  title: string;
+  description: string;
+  startDate: `${number}-${number}-${number}`; // More specific date format
+  price: number;
+  categories: Category[];
+  trainers: Trainer[];
+  curriculums: Curriculum[];
+  outcomes: Outcome[];
+  city: City;
 }

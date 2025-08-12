@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter, usePathname } from "next/navigation"
 import { useLocale, useTranslations } from "next-intl"
-import { MdSearch, MdLocationOn } from "react-icons/md"
+import { MdSearch } from "react-icons/md"
 import useStore from "@/store/useStore"
 import { useDebounce } from "@/hooks/useDebounce"
 import styles from "./SearchBar.module.scss"
@@ -22,19 +22,19 @@ export default function SearchBar() {
   const pathname = usePathname()
   const [isSearching, setIsSearching] = useState(false)
   const [showSubjectDropdown, setShowSubjectDropdown] = useState(false)
-  const [showLocationDropdown, setShowLocationDropdown] = useState(false)
+  // const [showLocationDropdown, setShowLocationDropdown] = useState(false)
   const [subjectInput, setSubjectInput] = useState("")
   const [locationInput, setLocationInput] = useState("")
 
   const subjectRef = useRef<HTMLDivElement>(null)
-  const locationRef = useRef<HTMLDivElement>(null)
+  // const locationRef = useRef<HTMLDivElement>(null)
 
   const {
     courseSearchParams,
     setCourseSearchParams,
     addRecentCourseSearch,
     popularSubjects,
-    popularLocations,
+    // popularLocations,
   } = useStore()
 
   const {
@@ -88,12 +88,12 @@ export default function SearchBar() {
       ) {
         setShowSubjectDropdown(false)
       }
-      if (
-        locationRef.current &&
-        !locationRef.current.contains(event.target as Node)
-      ) {
-        setShowLocationDropdown(false)
-      }
+      // if (
+      //   locationRef.current &&
+      //   !locationRef.current.contains(event.target as Node)
+      // ) {
+      //   setShowLocationDropdown(false)
+      // }
     }
 
     document.addEventListener("mousedown", handleClickOutside)
@@ -108,13 +108,13 @@ export default function SearchBar() {
     [setValue]
   )
 
-  const handleLocationChange = useCallback(
-    (value: string) => {
-      setLocationInput(value)
-      setValue("location", value)
-    },
-    [setValue]
-  )
+  // const handleLocationChange = useCallback(
+  //   (value: string) => {
+  //     setLocationInput(value)
+  //     setValue("location", value)
+  //   },
+  //   [setValue]
+  // )
 
   // Update the SearchBar onSubmit function to use router.push instead of router.replace
   const onSubmit = async (data: SearchFormData) => {
@@ -172,27 +172,27 @@ export default function SearchBar() {
         ]
       : popularSubjects
 
-  const locationSuggestions =
-    locale === "ar"
-      ? [
-          "عبر الإنترنت",
-          "نيويورك",
-          "لندن",
-          "دبي",
-          "القاهرة",
-          "الرياض",
-          "عن بُعد",
-          "في الموقع",
-        ]
-      : popularLocations
+  // const locationSuggestions =
+  //   locale === "ar"
+  //     ? [
+  //         "عبر الإنترنت",
+  //         "نيويورك",
+  //         "لندن",
+  //         "دبي",
+  //         "القاهرة",
+  //         "الرياض",
+  //         "عن بُعد",
+  //         "في الموقع",
+  //       ]
+  //     : popularLocations
 
   const filteredSubjects = subjectSuggestions.filter(subject =>
     subject.toLowerCase().includes(subjectInput.toLowerCase())
   )
 
-  const filteredLocations = locationSuggestions.filter(location =>
-    location.toLowerCase().includes(locationInput.toLowerCase())
-  )
+  // const filteredLocations = locationSuggestions.filter(location =>
+  //   location.toLowerCase().includes(locationInput.toLowerCase())
+  // )
 
   // Show clear button if there's any input
   // const showClearButton = subjectInput || locationInput
@@ -238,7 +238,7 @@ export default function SearchBar() {
           </div>
 
           {/* Location Field */}
-          <div className={styles.fieldWrapper} ref={locationRef}>
+          {/* <div className={styles.fieldWrapper} ref={locationRef}>
             <div className={styles.inputWrapper}>
               <MdLocationOn className={styles.inputIcon} />
               <input
@@ -269,7 +269,7 @@ export default function SearchBar() {
             {errors.location && (
               <span className={styles.error}>{errors.location.message}</span>
             )}
-          </div>
+          </div> */}
         </div>
 
         <div className={styles.searchActions}>
