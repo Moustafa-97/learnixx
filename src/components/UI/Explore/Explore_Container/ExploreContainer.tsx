@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react"
 import styles from "./ExploreContainer.module.scss"
 import ExploreCard from "./card/ExploreCard"
-import { Career } from "@/types/career"
+import { CoursesApiResponse } from "@/types/courses"
 import { useLocale } from "next-intl"
 import useStore from "@/store/useStore"
 import ExploreHeader from "../Explore_Header/ExploreHeader"
@@ -59,7 +59,7 @@ export default function ExploreContainer() {
   }, [locale])
 
   // Courses
-  const [courses, setCourses] = useState<Career>()
+  const [courses, setCourses] = useState<CoursesApiResponse>()
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -154,7 +154,7 @@ export default function ExploreContainer() {
                   ) : (
                     categories.map(tab => (
                       <button
-                      style={{cursor: "pointer"}}
+                        style={{ cursor: "pointer" }}
                         key={tab.id}
                         data-tab-index={tab.id}
                         className={`${styles.tab} ${activeTab === tab.id ? styles.active : ""}`}
