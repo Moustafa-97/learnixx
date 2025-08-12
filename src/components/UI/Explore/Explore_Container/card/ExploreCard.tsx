@@ -1,10 +1,10 @@
 import React from "react"
 import styles from "./ExploreCard.module.scss"
 // import Image from "next/image"
-import { CareerItem } from "@/types/career"
+import { Course } from "@/types/courses"
 
 
-function ExploreCard(props: { card: CareerItem }) {
+function ExploreCard(props: { card: Course }) {
   
   const { card } = props
 
