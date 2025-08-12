@@ -1,14 +1,60 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // hooks/useSearch.ts
-import { useCallback, useEffect, useRef } from "react"
+import { useState, useCallback, useEffect, useRef } from "react"
 import { useLocale } from "next-intl"
+import axios from "axios"
 import useStore from "@/store/useStore"
 import SearchService from "@/lib/searchService"
-import { courses } from "@/data/coursesData"
-import { Course } from "@/types/courses"
+
+// API Response Types
+interface Category {
+  id: number;
+  name: string;
+}
+
+interface Country {
+  id: number;
+  name: string;
+  iso: string;
+}
+
+interface City {
+  id: number;
+  name: string;
+}
+
+interface Course {
+  id: number;
+  title: string;
+  description: string;
+  startDate: string;
+  price: number;
+  categories: Category[];
+  country: Country;
+  city: City;
+}
+
+interface ApiResponse {
+  data: Course[];
+  meta: {
+    page: number;
+    perPage: number;
+    total: number;
+    totalPages: number;
+    hasNext: boolean;
+    hasPrev: boolean;
+  };
+  lang: string;
+}
 
 export function useSearch() {
   const locale = useLocale() as "en" | "ar"
   const searchServiceRef = useRef<SearchService | null>(null)
+  
+  // State for API data
+  const [allCourses, setAllCourses] = useState<Course[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const {
     courseSearchParams,
@@ -17,42 +63,79 @@ export function useSearch() {
     addRecentCourseSearch,
   } = useStore()
 
-  // Initialize search service with course data
+  // Fetch all courses from API
+  const fetchAllCourses = useCallback(async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      const response = await axios.get<ApiResponse>(
+        `${process.env.NEXT_PUBLIC_API}/api/v1/courses`,
+        {
+          headers: {
+            "Accept-Language": locale,
+          },
+        }
+      )
+      
+      setAllCourses(response.data.data)
+      
+      // Initialize search service with fetched data
+      if (response.data.data.length > 0) {
+        searchServiceRef.current = new SearchService(response.data.data)
+      }
+    } catch (err) {
+      console.error('Error fetching courses:', err)
+      setError('Failed to fetch courses')
+    } finally {
+      setLoading(false)
+    }
+  }, [locale])
+
+  // Initial data fetch
   useEffect(() => {
-    searchServiceRef.current = new SearchService(courses)
-  }, [])
+    fetchAllCourses()
+  }, [fetchAllCourses])
 
-  // Search courses by subject and location
+  // Search courses using API endpoint
   const searchCourses = useCallback(
-    (subject: string, location: string): Course[] => {
-      if (!searchServiceRef.current) return []
-
-      let results = courses
-
-      // Filter by subject
-      if (subject && subject.trim()) {
-        const subjectResults = searchServiceRef.current.search(subject, locale)
-        const subjectIds = new Set(subjectResults.map(r => r.id))
-        results = results.filter(course => subjectIds.has(course.id))
+    async (subject: string, location: string): Promise<Course[]> => {
+      try {
+        setLoading(true)
+        setError(null)
+        
+        // Build search query
+        const searchQuery = [subject, location].filter(Boolean).join(' ')
+        
+        if (!searchQuery.trim()) {
+          return allCourses
+        }
+        
+        const response = await axios.get<ApiResponse>(
+          `${process.env.NEXT_PUBLIC_API}/api/v1/courses`,
+          {
+            params: {
+              search: searchQuery
+            },
+            headers: {
+              "Accept-Language": locale,
+            },
+          }
+        )
+        
+        return response.data.data
+      } catch (err) {
+        console.error('Error searching courses:', err)
+        setError('Search failed')
+        return []
+      } finally {
+        setLoading(false)
       }
-
-      // Filter by location
-      if (location && location.trim()) {
-        results = results.filter(course => {
-          const courseLocation =
-            locale === "ar"
-              ? course.locationAr || course.location
-              : course.location
-          return courseLocation?.toLowerCase().includes(location.toLowerCase())
-        })
-      }
-
-      return results
     },
-    [locale]
+    [locale, allCourses]
   )
 
-  // Get subject suggestions based on input
+  // Get subject suggestions based on course titles and categories
   const getSubjectSuggestions = useCallback(
     (input: string): string[] => {
       if (!input || input.trim().length < 1) return []
@@ -60,47 +143,44 @@ export function useSearch() {
       const suggestions = new Set<string>()
       const normalizedInput = input.toLowerCase()
 
-      courses.forEach(course => {
+      allCourses.forEach(course => {
         // Check title
-        const title = locale === "ar" ? course.titleAr : course.title
-        if (title?.toLowerCase().includes(normalizedInput)) {
-          suggestions.add(title)
+        if (course.title?.toLowerCase().includes(normalizedInput)) {
+          suggestions.add(course.title)
         }
 
-        // Check category
-        const category =
-          locale === "ar"
-            ? course.categoryAr || course.category
-            : course.category
-        if (category?.toLowerCase().includes(normalizedInput)) {
-          suggestions.add(category)
-        }
-
-        // Check tags
-        course.tags.forEach(tag => {
-          if (tag.toLowerCase().includes(normalizedInput)) {
-            suggestions.add(tag)
+        // Check categories
+        course.categories.forEach(category => {
+          if (category.name?.toLowerCase().includes(normalizedInput)) {
+            suggestions.add(category.name)
           }
         })
       })
 
       return Array.from(suggestions).slice(0, 5)
     },
-    [locale]
+    [allCourses]
   )
 
-  // Get location suggestions
+  // Get location suggestions from cities and countries
   const getLocationSuggestions = useCallback(
     (input?: string): string[] => {
       const allLocations = new Set<string>()
 
-      courses.forEach(course => {
-        const location =
-          locale === "ar"
-            ? course.locationAr || course.location
-            : course.location
-        if (location) {
-          allLocations.add(location)
+      allCourses.forEach(course => {
+        // Add city names
+        if (course.city?.name) {
+          allLocations.add(course.city.name)
+        }
+        
+        // Add country names
+        if (course.country?.name) {
+          allLocations.add(course.country.name)
+        }
+        
+        // Add combined city, country format
+        if (course.city?.name && course.country?.name) {
+          allLocations.add(`${course.city.name}, ${course.country.name}`)
         }
       })
 
@@ -115,54 +195,79 @@ export function useSearch() {
         .filter(loc => loc.toLowerCase().includes(normalizedInput))
         .slice(0, 5)
     },
-    [locale]
+    [allCourses]
   )
 
-  // Get popular subjects
+  // Get popular subjects (categories)
   const getPopularSubjects = useCallback((): string[] => {
-    const categories = new Map<string, number>()
+    const categoryMap = new Map<string, number>()
 
-    courses.forEach(course => {
-      const category =
-        locale === "ar" ? course.categoryAr || course.category : course.category
-
-      if (category) {
-        categories.set(category, (categories.get(category) || 0) + 1)
-      }
+    allCourses.forEach(course => {
+      course.categories.forEach(category => {
+        categoryMap.set(category.name, (categoryMap.get(category.name) || 0) + 1)
+      })
     })
 
     // Sort by frequency and return top categories
-    return Array.from(categories.entries())
+    return Array.from(categoryMap.entries())
       .sort((a, b) => b[1] - a[1])
-      .map(([category]) => category)
+      .map(([categoryName]) => categoryName)
       .slice(0, 8)
-  }, [locale])
+  }, [allCourses])
 
   // Get courses by category
   const getCoursesByCategory = useCallback(
-    (category: string): Course[] => {
-      return courses.filter(course => {
-        const courseCategory =
-          locale === "ar"
-            ? course.categoryAr || course.category
-            : course.category
-        return courseCategory?.toLowerCase() === category.toLowerCase()
-      })
+    (categoryName: string): Course[] => {
+      return allCourses.filter(course =>
+        course.categories.some(
+          category => category.name.toLowerCase() === categoryName.toLowerCase()
+        )
+      )
+    },
+    [allCourses]
+  )
+
+  // Search courses by category ID using API
+  const searchCoursesByCategory = useCallback(
+    async (categoryId: number): Promise<Course[]> => {
+      try {
+        setLoading(true)
+        setError(null)
+        
+        const response = await axios.get<ApiResponse>(
+          `${process.env.NEXT_PUBLIC_API}/api/v1/courses`,
+          {
+            params: {
+              categoryIds: [categoryId]
+            },
+            headers: {
+              "Accept-Language": locale,
+            },
+            paramsSerializer: {
+              indexes: null // This creates categoryIds=1&categoryIds=2
+            }
+          }
+        )
+        
+        return response.data.data
+      } catch (err) {
+        console.error('Error fetching courses by category:', err)
+        setError('Failed to fetch courses by category')
+        return []
+      } finally {
+        setLoading(false)
+      }
     },
     [locale]
   )
 
-  // Get featured courses
+  // Get featured courses (sorted by price - you can modify this logic)
   const getFeaturedCourses = useCallback((): Course[] => {
-    // Return top-rated courses with most students
-    return [...courses]
-      .sort((a, b) => {
-        const scoreA = (a.rating || 0) * (a.students || 0)
-        const scoreB = (b.rating || 0) * (b.students || 0)
-        return scoreB - scoreA
-      })
+    // Sort by newest courses or any other criteria
+    return [...allCourses]
+      .sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
       .slice(0, 6)
-  }, [])
+  }, [allCourses])
 
   // Get recent searches formatted for display
   const getRecentSearchesFormatted = useCallback((): string[] => {
@@ -178,87 +283,126 @@ export function useSearch() {
 
   // Advanced search with multiple filters
   const advancedCourseSearch = useCallback(
-    (params: {
+    async (params: {
       subject?: string
       location?: string
-      category?: string
+      categoryId?: number
       minPrice?: number
       maxPrice?: number
-      level?: string
-      minRating?: number
-    }): Course[] => {
-      let results = courses
-
-      // Apply subject filter
-      if (params.subject && params.subject.trim()) {
-        const searchResults =
-          searchServiceRef.current?.search(params.subject, locale) || []
-        const searchIds = new Set(searchResults.map(r => r.id))
-        results = results.filter(course => searchIds.has(course.id))
-      }
-
-      // Apply location filter
-      if (params.location && params.location.trim()) {
-        results = results.filter(course => {
-          const courseLocation =
-            locale === "ar"
-              ? course.locationAr || course.location
-              : course.location
-          return courseLocation
-            ?.toLowerCase()
-            .includes(params.location!.toLowerCase())
-        })
-      }
-
-      // Apply category filter
-      if (params.category) {
-        results = results.filter(course => {
-          const courseCategory =
-            locale === "ar"
-              ? course.categoryAr || course.category
-              : course.category
-          return (
-            courseCategory?.toLowerCase() === params.category!.toLowerCase()
-          )
-        })
-      }
-
-      // Apply price filters
-      if (params.minPrice !== undefined) {
-        results = results.filter(
-          course => course.price && course.price >= params.minPrice!
+    }): Promise<Course[]> => {
+      try {
+        setLoading(true)
+        setError(null)
+        
+        const apiParams: any = {}
+        
+        // Build search query from subject and location
+        const searchQuery = [params.subject, params.location].filter(Boolean).join(' ')
+        if (searchQuery) {
+          apiParams.search = searchQuery
+        }
+        
+        // Add category filter
+        if (params.categoryId) {
+          apiParams.categoryIds = [params.categoryId]
+        }
+        
+        const response = await axios.get<ApiResponse>(
+          `${process.env.NEXT_PUBLIC_API}/api/v1/courses`,
+          {
+            params: apiParams,
+            headers: {
+              "Accept-Language": locale,
+            },
+            paramsSerializer: {
+              indexes: null
+            }
+          }
         )
+        
+        let results = response.data.data
+        
+        // Apply client-side price filters (if API doesn't support them)
+        if (params.minPrice !== undefined) {
+          results = results.filter(course => course.price >= params.minPrice!)
+        }
+        
+        if (params.maxPrice !== undefined) {
+          results = results.filter(course => course.price <= params.maxPrice!)
+        }
+        
+        return results
+      } catch (err) {
+        console.error('Error in advanced search:', err)
+        setError('Advanced search failed')
+        return []
+      } finally {
+        setLoading(false)
       }
-      if (params.maxPrice !== undefined) {
-        results = results.filter(
-          course => course.price && course.price <= params.maxPrice!
-        )
-      }
-
-      // Apply level filter
-      if (params.level) {
-        results = results.filter(course => {
-          const courseLevel =
-            locale === "ar" ? course.levelAr || course.level : course.level
-          return courseLevel
-            ?.toLowerCase()
-            .includes(params.level!.toLowerCase())
-        })
-      }
-
-      // Apply rating filter
-      if (params.minRating !== undefined) {
-        results = results.filter(
-          course => course.rating && course.rating >= params.minRating!
-        )
-      }
-
-      return results
     },
     [locale]
   )
 
+  // Filter courses client-side (for immediate filtering)
+  const filterCoursesLocal = useCallback(
+    (filters: {
+      subject?: string
+      location?: string
+      categoryName?: string
+      minPrice?: number
+      maxPrice?: number
+    }): Course[] => {
+      let results = allCourses
+
+      // Filter by subject/title
+      if (filters.subject && filters.subject.trim()) {
+        const normalizedSubject = filters.subject.toLowerCase()
+        results = results.filter(course =>
+          course.title.toLowerCase().includes(normalizedSubject) ||
+          course.description.toLowerCase().includes(normalizedSubject) ||
+          course.categories.some(cat => 
+            cat.name.toLowerCase().includes(normalizedSubject)
+          )
+        )
+      }
+
+      // Filter by location
+      if (filters.location && filters.location.trim()) {
+        const normalizedLocation = filters.location.toLowerCase()
+        results = results.filter(course =>
+          course.city.name.toLowerCase().includes(normalizedLocation) ||
+          course.country.name.toLowerCase().includes(normalizedLocation)
+        )
+      }
+
+      // Filter by category name
+      if (filters.categoryName) {
+        results = results.filter(course =>
+          course.categories.some(category =>
+            category.name.toLowerCase() === filters.categoryName!.toLowerCase()
+          )
+        )
+      }
+
+      // Filter by price range
+      if (filters.minPrice !== undefined) {
+        results = results.filter(course => course.price >= filters.minPrice!)
+      }
+      
+      if (filters.maxPrice !== undefined) {
+        results = results.filter(course => course.price <= filters.maxPrice!)
+      }
+
+      return results
+    },
+    [allCourses]
+  )
+
   return {
+    // State
+    loading,
+    error,
+    
     // Course search
     searchCourses,
     courseSearchParams,
@@ -271,8 +415,10 @@ export function useSearch() {
 
     // Course data
     getCoursesByCategory,
+    searchCoursesByCategory,
     getFeaturedCourses,
     advancedCourseSearch,
+    filterCoursesLocal,
 
     // Recent searches
     recentCourseSearches,
@@ -280,6 +426,9 @@ export function useSearch() {
     getRecentSearchesFormatted,
 
     // All courses
-    allCourses: courses,
+    allCourses,
+    
+    // Utilities
+    fetchAllCourses,
   }
 }
