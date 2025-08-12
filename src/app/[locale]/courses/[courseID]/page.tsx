@@ -1,15 +1,21 @@
 import CourseInDetail from "@/components/UI/CourseInDetail/CourseInDetail"
 import React from "react"
 
-// Import the PageProps type from your project
-import type { PageProps } from "@/types/pageProp" // Adjust the import path based on your project structure
+interface PageProps {
+  params: Promise<{
+    courseID: string
+  }>
+}
 
 async function page({ params }: PageProps) {
-  // Extract courseID from params and convert to number
-  const courseID = parseInt(params.courseID)
+  // Await the params Promise
+  const { courseID } = await params
+
+  // Convert courseID to number
+  const courseIdNumber = parseInt(courseID)
 
   // Handle invalid courseID
-  if (isNaN(courseID) || courseID <= 0) {
+  if (isNaN(courseIdNumber) || courseIdNumber <= 0) {
     return (
       <section>
         <div>Invalid course ID</div>
@@ -20,7 +26,7 @@ async function page({ params }: PageProps) {
   return (
     <>
       <section>
-        <CourseInDetail courseID={courseID} />
+        <CourseInDetail courseID={courseIdNumber} />
       </section>
     </>
   )
