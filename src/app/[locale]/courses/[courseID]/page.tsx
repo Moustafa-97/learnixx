@@ -1,15 +1,22 @@
 import CourseInDetail from "@/components/UI/CourseInDetail/CourseInDetail"
 import React from "react"
 
-// For dynamic routes like [courseID], use params instead of searchParams
-async function page({ 
-  params 
-}: { 
-  params: { courseID: string } // Dynamic route params are always strings
-}) {
-  // Extract courseID from params
-  const courseID = parseInt(params.courseID) // Convert to number if needed
-  
+// Import the PageProps type from your project
+import type { PageProps } from "@/types/pageProp" // Adjust the import path based on your project structure
+
+async function page({ params }: PageProps) {
+  // Extract courseID from params and convert to number
+  const courseID = parseInt(params.courseID)
+
+  // Handle invalid courseID
+  if (isNaN(courseID) || courseID <= 0) {
+    return (
+      <section>
+        <div>Invalid course ID</div>
+      </section>
+    )
+  }
+
   return (
     <>
       <section>
