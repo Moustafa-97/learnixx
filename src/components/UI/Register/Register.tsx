@@ -22,6 +22,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 import { format } from "date-fns"
+import { useLocale } from "next-intl"
 
 // Types
 interface Trainer {
@@ -74,7 +75,7 @@ export default function CourseRegistrationForm() {
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
-
+const locale = useLocale()
   const {
     control,
     handleSubmit,
@@ -148,7 +149,7 @@ export default function CourseRegistrationForm() {
       )
 
       // Handle success - redirect or show success message
-      router.push(`/courses/${courseId}/registration-success`)
+      router.push(`/${locale}/registration-success`)
     } catch (err) {
       console.error("Error registering for course:", err)
       setError("Registration failed. Please try again.")
