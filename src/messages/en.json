@@ -23,6 +23,11 @@
       "title": "ELITE LEAD WEEKEND",
       "subtitle": "3-day leadership retreats in Barcelona – guided by Europe's top trainers and built around your personal growth.",
       "searchPlaceholder": "Apply Now"
+    },
+    "city": {
+      "title": "WE SUPPORT ALL CITIES IN EUROPE",
+      "subtitle": "Unlock your potential with hands-on programs designed for tomorrow’s tech leaders.  Master in-demand skills through expert-led courses, real projects, and global certification.",
+      "searchPlaceholder": "Explore Cities"
     }
   },
   "about": {
@@ -253,5 +258,22 @@
       "paymentNote": "We can split the payment at your convenience"
     },
     "applyButton": "Apply now"
-  }
+  },
+  "city": {
+    "title": "Cities we are support",
+    "subtitle": "October 15-17, 2052 | Horizon Convention Center, Amsterdam"
+  },
+  "contact":{
+    "contactus": "Send us a message",
+    "connect":"We’re here to connect and assist you",
+    "connectDescription":"Have questions about the summit? Need help with registration or travel? Our team is ready to assist you.",
+    "info":{
+      "contactUs":"Contact Us",
+      "location":"Location",
+      "email":"Email",
+      "followUs":"Follow Us"
+    },
+    "touch":"get in touch",
+    "description":"Reach out with inquiries about tickets, partnerships, or event details."
+  }    
 }

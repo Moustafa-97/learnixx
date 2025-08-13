@@ -9,6 +9,7 @@ import WhyUs from "./WhyUs/WhyUs"
 import LeadFQA from "./Lead_fqa/LeadFQA"
 import CourseOverview from "./LeedSch/CourseOverview"
 import Trainers from "./trainers/Trainers"
+import { useRouter, useSearchParams } from "next/navigation"
 
 interface CourseInDetailProps {
   courseID: number
@@ -19,6 +20,10 @@ function CourseInDetail({ courseID }: CourseInDetailProps) {
   const [course, setCourse] = useState<CourseDetail | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
+  const param = useSearchParams()
+  const cityID = param.get("cityId")
+  const cityName = param.get("cityName")
 
   useEffect(() => {
     const fetchCourseDetail = async () => {
@@ -49,8 +54,11 @@ function CourseInDetail({ courseID }: CourseInDetailProps) {
     }
   }, [courseID, locale])
 
-   const handleApplyClick = () => {
+  const handleApplyClick = () => {
     // Handle enrollment logic
+    router.push(
+      `/${locale}/register?courseID=${courseID}&cityId=${cityID}&cityName=${cityName}`
+    )
     console.log(`Apply for course ${courseID}`)
   }
 
@@ -128,12 +136,12 @@ function CourseInDetail({ courseID }: CourseInDetailProps) {
         </div>
         <div>
           {course && (
-          <Trainers 
-            trainers={course.trainers}
-            loading={loading}
-            error={error}
-          />
-        )}
+            <Trainers
+              trainers={course.trainers}
+              loading={loading}
+              error={error}
+            />
+          )}
         </div>
 
         {/* You can add more sections here */}

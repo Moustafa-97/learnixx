@@ -1,0 +1,16 @@
+@import "@/styles/_breakpoints.scss";
+.page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 75px auto;
+  gap: 40px;
+  @include tablet-only {
+    margin: 50px auto;
+  }
+  @include mobile-only {
+    margin: 50px auto;
+  }
+}

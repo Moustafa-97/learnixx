@@ -1,0 +1,231 @@
+@import "@/styles/_breakpoints.scss";
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 88px 100px;
+  gap: 40px;
+  @include tablet-only {
+    padding: 30px 50px;
+  }
+  @include mobile-only {
+    padding: 20px 20px;
+  }
+  .text {
+    width: 100%;
+    text-align: center;
+    h4 {
+      color: #141414;
+      font-family: Manrope;
+      font-size: 64px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      @include mobile-only {
+        font-size: 24px;
+      }
+    }
+  }
+  .blackContainer {
+    width: 100%;
+    height: fit-content;
+    min-height: 821px;
+    padding: 90px 50px 76px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    background: #141414;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    @include tablet-only {
+      padding: 30px 50px;
+      flex-direction: column;
+    }
+    @include mobile-only {
+      padding: 20px 20px;
+      flex-direction: column;
+    }
+
+    .info {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 104px;
+      color: #fff;
+      @include tablet-only {
+        width: 100%;
+        gap: 60px;
+      }
+      @include mobile-only {
+        width: 100%;
+        gap: 20px;
+      }
+      %info {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 50%;
+        h5 {
+          color: #fff;
+          font-family: Manrope;
+          font-size: 26px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 30px; /* 115.385% */
+          text-transform: uppercase;
+          @include mobile-only {
+            font-size: 20px;
+          }
+        }
+        p {
+          color: #fff;
+          font-family: Manrope;
+          font-size: 20px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 30px; /* 150% */
+          @include mobile-only {
+            font-size: 14px;
+          }
+        }
+      }
+      .infoBlock1 {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        align-items: flex-start;
+        .info1 {
+          width: 100%;
+          h5 {
+            color: #fff;
+            font-family: Manrope;
+            font-size: 50px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            text-transform: capitalize;
+            @include mobile-only {
+              font-size: 24px;
+            }
+          }
+        }
+        .info2 {
+          width: 100%;
+          p {
+            color: #fff;
+            font-family: Manrope;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 160%; /* 32px */
+            @include mobile-only {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+      .lowBlock {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        align-items: flex-start;
+        .infoBlock2 {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          .info3 {
+            @extend %info;
+          }
+          .info4 {
+            @extend %info;
+          }
+        }
+        .infoBlock3 {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          .info5 {
+            @extend %info;
+          }
+          .info6 {
+            @extend %info;
+            .icons {
+              display: flex;
+              gap: 10px;
+            }
+          }
+        }
+      }
+    }
+    .form {
+      background: #dedee0;
+      padding: 75px 50px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      border-radius: 50px;
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+      -ms-border-radius: 50px;
+      -o-border-radius: 50px;
+      @include tablet-only {
+        width: 100%;
+      }
+      @include mobile-only {
+        width: 100%;
+      }
+      h6 {
+        color: #1c1a1a;
+        font-family: Manrope;
+        font-size: 26px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 30px; /* 115.385% */
+        text-transform: uppercase;
+      }
+      p {
+        color: #1c1a1a;
+        font-family: Manrope;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 30px; /* 150% */
+      }
+      .contactForm {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        color: #141414;
+        width: 100%;
+        .formM {
+          color: #141414;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 15px;
+          .submitButton {
+            border-radius: 100px;
+            background: linear-gradient(
+              85deg,
+              #141414 15.74%,
+              rgba(20, 20, 20, 0) 204.53%
+            );
+          }
+        }
+      }
+    }
+  }
+}

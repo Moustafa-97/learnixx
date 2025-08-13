@@ -17,6 +17,18 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.egiptoexclusivo.com', // Add any other domains you might use
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org', // Add any other domains you might use
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

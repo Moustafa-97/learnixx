@@ -29,7 +29,8 @@ const Header: React.FC = () => {
   const pathname = usePathname()
   const locale = useLocale()
   const t = useTranslations("header")
-  
+  console.log(pathname)
+
   const mobileMenuRef = useRef<HTMLDivElement>(null)
   const languageDropdownRef = useRef<HTMLDivElement>(null)
 
@@ -86,17 +87,17 @@ const Header: React.FC = () => {
       document.addEventListener("mousedown", handleOutsideClick)
       // Prevent body scroll when mobile menu is open
       if (isMobileMenuOpen) {
-        document.body.style.overflow = 'hidden'
+        document.body.style.overflow = "hidden"
       }
     } else {
-      document.body.style.overflow = 'unset'
+      document.body.style.overflow = "unset"
     }
 
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick)
-      document.body.style.overflow = 'unset'
+      document.body.style.overflow = "unset"
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobileMenuOpen, isLanguageDropdownOpen])
 
   const handleLanguageChange = (langCode: string) => {
@@ -111,15 +112,15 @@ const Header: React.FC = () => {
 
   // Enhanced keyboard navigation
   const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
+    if (event.key === "Escape") {
       setIsMobileMenuOpen(false)
       setIsLanguageDropdownOpen(false)
     }
   }
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown as any)
-    return () => document.removeEventListener('keydown', handleKeyDown as any)
+    document.addEventListener("keydown", handleKeyDown as any)
+    return () => document.removeEventListener("keydown", handleKeyDown as any)
   }, [])
 
   return (
@@ -157,7 +158,9 @@ const Header: React.FC = () => {
 
             {/* Language Dropdown */}
             <li className={styles.navItem}>
-              <div ref={languageDropdownRef} className={styles.languageDropdown}>
+              <div
+                ref={languageDropdownRef}
+                className={styles.languageDropdown}>
                 <button
                   className={styles.languageButton}
                   onClick={toggleLanguageDropdown}
@@ -201,7 +204,7 @@ const Header: React.FC = () => {
         {/* Contact Button */}
         <div className={styles.contactSection}>
           <Link href={`/${locale}/contact`} className={styles.contactButton}>
-            <span>{t("contactUs")}</span>
+            <span style={pathname !== `/${locale}` ? { color: "#141414" } : {color: "#fff"}}>{t("contactUs")}</span>
             <FaArrowRight className={styles.arrow} />
           </Link>
         </div>
@@ -264,9 +267,10 @@ const Header: React.FC = () => {
               <Link
                 href={`/${locale}/contact`}
                 className={styles.mobileContactButton}
-                onClick={closeMobileMenu}>
-                <span>{t("contactUs")}</span>
-                <FaArrowRight className={styles.arrow} />
+                onClick={closeMobileMenu}
+                style={pathname !== `/${locale}` ? { color: "#141414" } : {color: "#fff"}}>
+                <span style={pathname !== `/${locale}` ? { color: "#141414" } : {color: "#fff"}}>{t("contactUs")}</span>
+                <FaArrowRight style={pathname !== `/${locale}` ? { fill: "#141414" } : {fill: "#fff"}} className={styles.arrow} />
               </Link>
             </div>
           </div>

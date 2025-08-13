@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // components/UI/Course_Container/CourseContainer.tsx
 "use client"
 import React, { useState, useEffect, useMemo } from "react"
-import { useRouter, usePathname } from "next/navigation"
+import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import { useLocale } from "next-intl"
 import styles from "./CourseContainer.module.scss"
 import CourseCard from "../Course_Card/CourseCard"
@@ -52,6 +53,10 @@ interface ApiResponse {
 }
 
 function CourseContainer() {
+  const params = useSearchParams() as any
+  const cityId = params.get("cityId")
+  const cityName = params.get("cityName")
+
   const router = useRouter()
   const pathname = usePathname()
   const locale = useLocale() as "en" | "ar"
@@ -71,7 +76,7 @@ function CourseContainer() {
         setLoading(true)
         setError(null)
         const response = await axios.get<ApiResponse>(
-          `${process.env.NEXT_PUBLIC_API}/api/v1/courses`,
+          `${process.env.NEXT_PUBLIC_API}/api/v1/courses${cityId ? `?cityId=${cityId}` : ""}`,
           {
             headers: {
               "Accept-Language": locale,
@@ -88,7 +93,7 @@ function CourseContainer() {
     }
 
     fetchAllCourses()
-  }, [locale])
+  }, [cityId, locale])
 
   // Search courses when search params change
   useEffect(() => {
@@ -109,7 +114,7 @@ function CourseContainer() {
         const searchQuery = [subject, location].filter(Boolean).join(" ")
 
         const response = await axios.get<ApiResponse>(
-          `${process.env.NEXT_PUBLIC_API}/api/v1/courses`,
+          `${process.env.NEXT_PUBLIC_API}/api/v1/courses${cityId ? `?cityId=${cityId}` : ""}`,
           {
             params: {
               search: searchQuery,
@@ -130,7 +135,7 @@ function CourseContainer() {
     }
 
     searchCourses()
-  }, [courseSearchParams, locale])
+  }, [cityId, courseSearchParams, locale])
 
   // Determine which courses to display
   const filteredCourses = useMemo(() => {
@@ -151,7 +156,9 @@ function CourseContainer() {
 
   // Handle course enrollment navigation
   const handleEnrollNow = (courseId: number) => {
-    router.push(`/${locale}/courses/${courseId}`)
+    router.push(
+      `/${locale}/courses/${courseId}${cityId && cityName ? `?cityId=${cityId}&cityName=${cityName}` : ""}`
+    )
   }
 
   // Scroll to courses section
@@ -244,62 +251,76 @@ function CourseContainer() {
   return (
     <div className={styles.wrapper}>
       {/* Active filters */}
-      {isSearchActive && (
-        <div className={styles.filterSection}>
-          <div className={styles.activeFilters}>
-            <span className={styles.filterLabel}>Active filters:</span>
+      {isSearchActive ||
+        (cityId && (
+          <div className={styles.filterSection}>
+            <div className={styles.activeFilters}>
+              <span className={styles.filterLabel}>Active filters:</span>
 
-            {courseSearchParams.subject && (
-              <div className={styles.filterChip}>
-                <span>Subject: {courseSearchParams.subject}</span>
-                <button
-                  onClick={handleClearSubject}
-                  aria-label={`Remove ${courseSearchParams.subject} filter`}
-                  className={styles.chipClose}>
-                  ×
-                </button>
-              </div>
-            )}
+              {courseSearchParams.subject && (
+                <div className={styles.filterChip}>
+                  <span>Subject: {courseSearchParams.subject}</span>
+                  <button
+                    onClick={handleClearSubject}
+                    aria-label={`Remove ${courseSearchParams.subject} filter`}
+                    className={styles.chipClose}>
+                    ×
+                  </button>
+                </div>
+              )}
+              {cityId && (
+                <div className={styles.filterChip}>
+                  <span>City: {cityName}</span>
+                  <button
+                    onClick={handleClearSubject}
+                    aria-label={`Remove ${courseSearchParams.subject} filter`}
+                    className={styles.chipClose}>
+                    ×
+                  </button>
+                </div>
+              )}
 
-            {courseSearchParams.location && (
-              <div className={styles.filterChip}>
-                <span>Location: {courseSearchParams.location}</span>
-                <button
-                  onClick={handleClearLocation}
-                  aria-label={`Remove ${courseSearchParams.location} filter`}
-                  className={styles.chipClose}>
-                  ×
-                </button>
-              </div>
-            )}
+              {courseSearchParams.location && (
+                <div className={styles.filterChip}>
+                  <span>Location: {courseSearchParams.location}</span>
+                  <button
+                    onClick={handleClearLocation}
+                    aria-label={`Remove ${courseSearchParams.location} filter`}
+                    className={styles.chipClose}>
+                    ×
+                  </button>
+                </div>
+              )}
 
-            <button onClick={handleClearAll} className={styles.clearAllButton}>
-              Clear all
-            </button>
+              <button
+                onClick={handleClearAll}
+                className={styles.clearAllButton}>
+                Clear all
+              </button>
+            </div>
+
+            <div className={styles.resultInfo}>
+              {searchLoading ? (
+                <div className={styles.searchLoading}>
+                  <div className={styles.smallSpinner}></div>
+                  <span>Searching...</span>
+                </div>
+              ) : error ? (
+                <div className={styles.searchError}>
+                  <span>{error}</span>
+                  <button onClick={handleRetry} className={styles.retryButton}>
+                    Retry
+                  </button>
+                </div>
+              ) : (
+                <p className={styles.resultCount}>
+                  {filteredCourses.length} course
+                  {filteredCourses.length !== 1 ? "s" : ""} found
+                </p>
+              )}
+            </div>
           </div>
-
-          <div className={styles.resultInfo}>
-            {searchLoading ? (
-              <div className={styles.searchLoading}>
-                <div className={styles.smallSpinner}></div>
-                <span>Searching...</span>
-              </div>
-            ) : error ? (
-              <div className={styles.searchError}>
-                <span>{error}</span>
-                <button onClick={handleRetry} className={styles.retryButton}>
-                  Retry
-                </button>
-              </div>
-            ) : (
-              <p className={styles.resultCount}>
-                {filteredCourses.length} course
-                {filteredCourses.length !== 1 ? "s" : ""} found
-              </p>
-            )}
-          </div>
-        </div>
-      )}
+        ))}
 
       {/* Course grid */}
       {filteredCourses.length > 0 ? (

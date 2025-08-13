@@ -241,6 +241,19 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   color: var(--Neutral-10, #fff);
 }
+.clearButton {
+  @extend %searchButtonBase;
+
+  border: #141414 2px solid;
+  background: transparent;
+
+  color: var(--Neutral-10, #141414);
+  :hover {
+    background: #141414;
+    opacity: 0.8;
+    color: #e2e8f0;
+  }
+}
 .searchButtonCourses {
   @extend %searchButtonBase;
 
