@@ -1,5 +1,6 @@
 import CourseInDetail from "@/components/UI/CourseInDetail/CourseInDetail"
 import React from "react"
+import styles from "../page.module.scss"
 
 interface PageProps {
   params: Promise<{
@@ -25,7 +26,7 @@ async function page({ params }: PageProps) {
 
   return (
     <>
-      <section>
+      <section className={styles.page}>
         <CourseInDetail courseID={courseIdNumber} />
       </section>
     </>

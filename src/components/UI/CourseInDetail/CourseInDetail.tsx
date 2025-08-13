@@ -56,9 +56,13 @@ function CourseInDetail({ courseID }: CourseInDetailProps) {
 
   const handleApplyClick = () => {
     // Handle enrollment logic
-    router.push(
-      `/${locale}/register?courseID=${courseID}&cityId=${cityID}&cityName=${cityName}`
-    )
+    if (cityID && cityName) {
+      router.push(
+        `/${locale}/register?courseID=${courseID}&cityId=${cityID}&cityName=${cityName}`
+      )
+    } else {
+      router.push(`/${locale}/register?courseID=${courseID}`)
+    }
     console.log(`Apply for course ${courseID}`)
   }
 

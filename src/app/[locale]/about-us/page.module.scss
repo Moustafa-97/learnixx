@@ -49,13 +49,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 132px;
-  margin: 70px auto;
+  justify-content: center;
+  //   gap: 132px;
+  margin-top: 70px;
   @include tablet-only {
-    margin: 50px auto;
+    margin-top: 50px;
   }
   @include mobile-only {
-    margin: 30px auto;
+    margin-top: 30px;
   }
   // Hero animation
   .hero {
@@ -65,34 +66,6 @@
 
   .pageContainer {
     width: 100%;
-    padding: 0px 100px;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-    z-index: 10;
-
-    @include tablet-only {
-      padding: 0px 20px;
-    }
-    @include mobile-only {
-      padding: 0px 20px;
-    }
-
-    // Header animation
-    .header {
-      animation: slideInFromLeft 0.6s ease-out;
-      animation-delay: 0.3s;
-      animation-fill-mode: both;
-      z-index: 10;
-    }
-
-    // Content animation
-    .content {
-      animation: fadeInUp 0.8s ease-out;
-      animation-delay: 0.5s;
-      animation-fill-mode: both;
-      z-index: 1;
-    }
   }
 }
 

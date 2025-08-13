@@ -18,10 +18,10 @@ import { useRouter } from "next/navigation"
 import axios from "axios"
 import styles from "./RegistrationForm.module.scss"
 import Image from "next/image"
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { format } from 'date-fns'
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
+import { DatePicker } from "@mui/x-date-pickers/DatePicker"
+import { format } from "date-fns"
 
 // Types
 interface Trainer {
@@ -63,13 +63,6 @@ interface RegistrationForm {
   cityId: number
   trainerId: number
 }
-
-// Mock cities data - replace with actual API call if needed
-const cities = [
-  { id: 1, name: "Cairo" },
-  { id: 2, name: "Alexandria" },
-  { id: 3, name: "Giza" },
-]
 
 export default function CourseRegistrationForm() {
   const router = useRouter()
@@ -132,7 +125,7 @@ export default function CourseRegistrationForm() {
     } catch (err) {
       console.error("Error fetching course data:", err)
       setError("Failed to load course information")
-        } finally {
+    } finally {
       setLoading(false)
     }
   }
@@ -258,9 +251,9 @@ export default function CourseRegistrationForm() {
                     rules={{ required: "Start date is required" }}
                     render={({ field }) => (
                       <DatePicker
-                                                value={field.value ? new Date(field.value) : null}
-                        onChange={(date) => {
-                          field.onChange(date ? format(date, 'yyyy-MM-dd') : '')
+                        value={field.value ? new Date(field.value) : null}
+                        onChange={date => {
+                          field.onChange(date ? format(date, "yyyy-MM-dd") : "")
                         }}
                         slotProps={{
                           textField: {
@@ -282,20 +275,24 @@ export default function CourseRegistrationForm() {
                   <Controller
                     name="endDate"
                     control={control}
-                    rules={{ 
+                    rules={{
                       required: "End date is required",
-                      validate: (value) => {
-                        if (startDate && value && new Date(value) < new Date(startDate)) {
+                      validate: value => {
+                        if (
+                          startDate &&
+                          value &&
+                          new Date(value) < new Date(startDate)
+                        ) {
                           return "End date must be after start date"
                         }
                         return true
-                      }
+                      },
                     }}
                     render={({ field }) => (
                       <DatePicker
                         value={field.value ? new Date(field.value) : null}
-                        onChange={(date) => {
-                          field.onChange(date ? format(date, 'yyyy-MM-dd') : '')
+                        onChange={date => {
+                          field.onChange(date ? format(date, "yyyy-MM-dd") : "")
                         }}
                         slotProps={{
                           textField: {
@@ -323,14 +320,24 @@ export default function CourseRegistrationForm() {
                     <RadioGroup
                       {...field}
                       value={field.value}
-                      sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}
-                      onChange={(e) => field.onChange(parseInt(e.target.value))}
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                      onChange={e => field.onChange(parseInt(e.target.value))}
                       className={styles.trainerGrid}>
                       {course.trainers.map(trainer => (
                         <FormControlLabel
                           key={trainer.id}
                           value={trainer.id}
-                          sx={{ display: "flex", flexDirection: "column", alignItems: "center", margin:"auto" }}
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            margin: "auto",
+                          }}
                           control={<Radio sx={{ display: "none" }} />}
                           label={
                             <div
@@ -380,7 +387,7 @@ export default function CourseRegistrationForm() {
                       placeholder="e.g., Marketing Manager"
                       error={!!errors.jobTitle}
                       helperText={errors.jobTitle?.message}
-                                            className={styles.input}
+                      className={styles.input}
                     />
                   )}
                 />
@@ -410,9 +417,9 @@ export default function CourseRegistrationForm() {
                 <Controller
                   name="cityId"
                   control={control}
-                  rules={{ 
+                  rules={{
                     required: "Please select a city",
-                    validate: (value) => value !== 0 || "Please select a city"
+                    validate: value => value !== 0 || "Please select a city",
                   }}
                   render={({ field }) => (
                     <TextField
@@ -426,11 +433,11 @@ export default function CourseRegistrationForm() {
                       <MenuItem value={0} disabled>
                         choose the city
                       </MenuItem>
-                      {cities.map(city => (
-                        <MenuItem key={city.id} value={city.id}>
-                          {city.name}
-                        </MenuItem>
-                      ))}
+                      {/* {course.city.country.map(city => ( */}
+                      <MenuItem value={course.city.id} key={course.city.id}>
+                        {course.city.country.name}
+                      </MenuItem>
+                      {/* ))}  */}
                     </TextField>
                   )}
                 />
@@ -440,9 +447,36 @@ export default function CourseRegistrationForm() {
                 type="submit"
                 variant="contained"
                 fullWidth
+                sx={{
+                  background:
+                    "linear-gradient(85deg,#141414 1.59%,rgba(20, 20, 20, 0) 121.45%)",
+                  textTransform: "none",
+                  boxShadow: "none",
+                  "&:hover": {
+                    background:
+                      "linear-gradient(85deg,#141414 1.59%,rgba(20, 20, 20, 0) 121.45%)",
+                    boxShadow: "none",
+                  },
+                  "&:active": {
+                    boxShadow: "none",
+                  },
+                  "&:focus": {
+                    boxShadow: "none",
+                  },
+                  "&.Mui-disabled": {
+                    background: "#ccc",
+                    color: "rgba(0, 0, 0, 0.26)",
+                  },
+                }}
+                disableRipple
+                disableElevation
                 disabled={submitting}
                 className={styles.submitButton}>
-                {submitting ? <CircularProgress size={24} /> : "Apply now"}
+                {submitting ? (
+                  <CircularProgress size={24} sx={{ color: "#fff" }} />
+                ) : (
+                  "Apply now"
+                )}
               </Button>
             </form>
           </div>

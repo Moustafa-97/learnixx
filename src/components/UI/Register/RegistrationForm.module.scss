@@ -215,17 +215,20 @@
   margin-top: 0.25rem;
 }
 .submitButton {
-  background-color: #4a4a4a;
-  color: #fff;
-  padding: 14px 24px;
-  border-radius: 28px;
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: none;
-  margin-top: 1rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-
+  border-radius: 100px;
+  background: linear-gradient(
+    85deg,
+    #141414 1.59%,
+    rgba(20, 20, 20, 0) 121.45%
+  );
+  display: flex;
+  width: 271px;
+  height: 59px;
+  padding: 0 50px;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
   &:hover {
     background-color: #333;
     transform: translateY(-2px);
