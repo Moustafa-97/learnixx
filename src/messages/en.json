@@ -263,17 +263,90 @@
     "title": "Cities we are support",
     "subtitle": "October 15-17, 2052 | Horizon Convention Center, Amsterdam"
   },
-  "contact":{
+  "contact": {
     "contactus": "Send us a message",
-    "connect":"We’re here to connect and assist you",
-    "connectDescription":"Have questions about the summit? Need help with registration or travel? Our team is ready to assist you.",
-    "info":{
-      "contactUs":"Contact Us",
-      "location":"Location",
-      "email":"Email",
-      "followUs":"Follow Us"
+    "connect": "We’re here to connect and assist you",
+    "connectDescription": "Have questions about the summit? Need help with registration or travel? Our team is ready to assist you.",
+    "info": {
+      "contactUs": "Contact Us",
+      "location": "Location",
+      "email": "Email",
+      "followUs": "Follow Us"
     },
-    "touch":"get in touch",
-    "description":"Reach out with inquiries about tickets, partnerships, or event details."
-  }    
+    "touch": "get in touch",
+    "description": "Reach out with inquiries about tickets, partnerships, or event details."
+  },
+
+  "AiDriven": {
+    "weAre": "We are",
+    "comingSoon": "Coming Soon.",
+    "copyright": "© Copyrights Learnix | All Rights Reserved",
+    "timeLabels": {
+      "days": "D",
+      "hours": "H",
+      "minutes": "M",
+      "seconds": "S"
+    }
+  },
+  "ExploreHeader": {
+    "sections": {
+      "ReadyCourses": {
+        "id": "Ready Courses",
+        "label": "Explore Career Ready Courses",
+        "description": "Career-based courses in management, tech, marketing, finance, and more delivered in 5 focused weekdays."
+      },
+      "LeadWeekend": {
+        "id": "Lead Weekend",
+        "label": "Elite Leadership Weekend",
+        "description": "3-day leadership retreats in Barcelona  guided by Europe’s top trainers and built around your personal growth."
+      },
+      "CustomizeWithAI": {
+        "id": "Customize with AI",
+        "label": "AI-Customized Learning",
+        "description": "Personalized training paths built with AI to fit your goals, pace, and skills. Smart. Flexible. Just for you."
+      }
+    }
+  },
+  "LastWeekend": {
+    "poweredBy": "Powered by Yalla Lead",
+    "joinMembers": "Join with 80k+ other members",
+    "getStarted": "Get Started",
+    "title": "Elite Leadership Weekend in Barcelona",
+    "description": "3-day leadership retreats in Barcelona guided by Europe’s top trainers and built around your personal growth."
+  },
+  "whatClientSays": {
+    "title": "What Our Client Says"
+  },
+  "Trainers": {
+    "title": "Trainers",
+    "description": "Meet the industry leaders and develop your skills with them",
+    "trainers": [
+      {
+        "name": "Dr. Lisa Chang",
+        "title": "Chief AI Scientist"
+      },
+      {
+        "name": "Mark Reynolds",
+        "title": "Senior Tech Architect"
+      },
+      {
+        "name": "Sarah Johnson",
+        "title": "Data Science Lead"
+      },
+      {
+        "name": "David Kim",
+        "title": "Blockchain Specialist"
+      }
+    ]
+  },
+
+  "aboutCards": {
+    "worldClassTrainers": "world class trainers",
+    "trainersDescription": "Learn from top European trainers and industry leaders who are guiding the next generation of professionals worldwide.",
+    "andMore": "And more",
+    "professionalSkills": "Professional Skills",
+    "professionalSkillsDescription": "Explore leadership development, strategic thinking, effective communication, project management, and global business practices with top leaders.",
+    "primeLearningLocations": "Prime Learning Locations",
+    "primeLearningLocationsDescription": "Enjoy the best meeting rooms in prime locations across Europe's most vibrant cities."
+  }
 }

@@ -41,7 +41,7 @@ function TrainerCard({ trainer }: TrainerCardProps) {
               aria-label={`View ${trainer.name}'s LinkedIn profile`}
             >
               <FaLinkedin className={styles.linkedinIcon} /> 
-              <span>LinkedIn</span>
+              {/* <span>Full Review</span> */}
             </button>
           )}
         </div>

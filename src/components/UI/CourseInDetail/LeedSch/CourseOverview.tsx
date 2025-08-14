@@ -86,7 +86,7 @@ const CourseOverview: React.FC<CourseOverviewProps> = ({
           </h3>
 
           {/* Dynamic Course Information */}
-          <h4 className={styles.scheduleSubtitle}>{t("schedule.title")}</h4>
+          <h4 className={styles.scheduleTitle}>{t("schedule.title")}</h4>
           <div className={styles.scheduleList}>
             {courseInfoItems.map((item, index) => (
               <div key={index} className={styles.scheduleItem}>

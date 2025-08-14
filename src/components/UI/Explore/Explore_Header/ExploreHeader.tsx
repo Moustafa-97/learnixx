@@ -1,28 +1,34 @@
 import useStore from "@/store/useStore"
 import styles from "./ExploreHeader.module.scss"
+import { useTranslations } from "next-intl"
 
 export default function ExploreHeader() {
   const { activeHomeSection, setActiveHomeSection } = useStore()
+  const t = useTranslations("ExploreHeader")
 
   const sections: Array<{
-    id: "Ready Courses" | "Lead Weekend" | "Customize with AI"
+    key: "Ready Courses" | "Lead Weekend" | "Customize with AI"
+    id: string
     label: string
     description?: string
   }> = [
     {
-      id: "Ready Courses",
-      label: "Explore Career Ready Courses",
-      description: "Career-based courses in management, tech, marketing, finance, and more  delivered in 5 focused weekdays.",
+      key: "Ready Courses",
+      id: t("sections.ReadyCourses.id"),
+      label: t("sections.ReadyCourses.label"),
+      description: t("sections.ReadyCourses.description"),
     },
     {
-      id: "Lead Weekend",
-      label: "Lead Weekend",
-      description: "Join our weekend leadership programs",
+      key: "Lead Weekend",
+      id: t("sections.LeadWeekend.id"),
+      label: t("sections.LeadWeekend.label"),
+      description: t("sections.LeadWeekend.description"),
     },
     {
-      id: "Customize with AI",
-      label: "Customize with AI",
-      description: "Create personalized learning paths",
+      key: "Customize with AI",
+      id: t("sections.CustomizeWithAI.id"),
+      label: t("sections.CustomizeWithAI.label"),
+      description: t("sections.CustomizeWithAI.description"),
     },
   ]
 
@@ -44,7 +50,7 @@ export default function ExploreHeader() {
           <button
             key={section.id}
             className={`${styles.button} ${activeHomeSection === section.id ? styles.active : ""}`}
-            onClick={() => setActiveHomeSection(section.id)}>
+            onClick={() => setActiveHomeSection(section.key)}>
             <span className={styles.label}>{section.id}</span>
           </button>
         ))}

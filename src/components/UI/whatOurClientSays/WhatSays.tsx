@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react"
 import styles from "./WhatSays.module.scss"
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa"
+import { useTranslations } from "next-intl"
 // import { useTranslations } from "next-intl"
 
 function WhatSays() {
@@ -49,12 +50,12 @@ function WhatSays() {
   }, [nextSlide])
 
   const currentItem = whatSays[currentSlide]
-
+  const t = useTranslations("whatClientSays")
   return (
     <>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2>What Our Client Says</h2>
+          <h2>{t("title")}</h2>
         </div>
         <div className={styles.content}>
           <div className={styles.slider}>

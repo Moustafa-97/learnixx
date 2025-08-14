@@ -13,11 +13,12 @@
     left: 50%;
     width: 50%;
     height: 50%;
-    border-radius: 25px;
-    -webkit-border-radius: 25px;
-    -moz-border-radius: 25px;
-    -ms-border-radius: 25px;
-    -o-border-radius: 25px;
+    border-radius: 16px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    -ms-border-radius: 16px;
+    -o-border-radius: 16px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     transform: translateX(-50%);
     -webkit-transform: translateX(-50%);
     -moz-transform: translateX(-50%);
@@ -35,20 +36,71 @@
     }
   }
   .details {
-    background: #000;
-    border-radius: 12px;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    -ms-border-radius: 12px;
-    -o-border-radius: 12px;
-    padding: 16px;
     display: flex;
+    width: 393px;
+    height: 249px;
+    padding: 20px;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    gap: 8px;
-    color: #fff;
-    height: 60%;
-    width: 100%;
+    gap: 12px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    background: linear-gradient(
+      180deg,
+      #141414 25.93%,
+      rgba(20, 20, 20, 0.6) 119.56%
+    );
+    .name {
+      color: #f2f2f2;
+      text-align: center;
+
+      /* Title/h3 */
+      font-family: Montserrat;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      text-transform: uppercase;
+    }
+    .title {
+      color: #f2f2f2;
+      text-align: center;
+
+      /* Description/p */
+      font-family: Montserrat;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+    .linkedinButton {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      cursor: pointer;
+      color: #f2f2f2;
+      font-family: Manrope;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 28.7px; /* 205% */
+      letter-spacing: 0.5px;
+      text-decoration-line: underline;
+      text-decoration-style: solid;
+      text-decoration-skip-ink: auto;
+      text-decoration-thickness: auto;
+      text-underline-offset: auto;
+      text-underline-position: from-font;
+      .linkedinIcon {
+        width: 25px;
+        height: 25px;
+        fill: blue;
+      }
+    }
   }
 }

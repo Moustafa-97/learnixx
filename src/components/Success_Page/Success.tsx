@@ -3,8 +3,12 @@
 
 import React, { useEffect } from "react"
 import confetti from "canvas-confetti"
+import { useRouter } from "next/router"
+import { useLocale } from "next-intl"
 
 export default function SuccessPage() {
+  const locale = useLocale()
+  const router = useRouter()
   useEffect(() => {
     const duration = 10 * 1000
     const animationEnd = Date.now() + duration
@@ -41,6 +45,9 @@ export default function SuccessPage() {
 
   return (
     <div
+      onClick={() => {
+        router.push(`/${locale}`)
+      }}
       style={{
         position: "relative",
         minHeight: "100vh",

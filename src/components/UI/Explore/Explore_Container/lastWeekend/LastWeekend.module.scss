@@ -215,3 +215,40 @@
     }
   }
 }
+.container {
+  &:dir(rtl) {
+    .cards {
+      flex-direction: row-reverse;
+
+      @include mobile-only {
+        flex-direction: column;
+      }
+    }
+
+    .small1,
+    .small2,
+    .bigCont {
+      text-align: right;
+      align-items: flex-end;
+    }
+
+    .big {
+      .bigImg {
+        right: auto;
+        left: 0;
+        transform: scaleX(-1);
+      }
+    }
+  }
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 30px;
+
+  @include mobile-only {
+    flex-direction: column;
+  }
+}
