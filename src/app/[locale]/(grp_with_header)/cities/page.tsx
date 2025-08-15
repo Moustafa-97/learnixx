@@ -11,7 +11,7 @@ function page() {
         <div className={styles.hero}>
           <HeroCity />
         </div>
-        <div className={styles.pageContainer}>
+        <div id="cityPage" className={styles.pageContainer}>
           <div className={styles.header}>
             <CityHeader />
           </div>

@@ -21,7 +21,7 @@ export default function CoursesPage(props: any) {
         <div className={styles.header}>
           <CourseHeader />
         </div>
-        <div className={styles.content}>
+        <div id="coursesPage" className={styles.content}>
           {/* This component syncs URL params with store */}
           <CourseSearchSync subject={subject} location={location} />
           <CourseContainer />

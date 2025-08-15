@@ -9,7 +9,7 @@ function LeadWeekend() {
       <section>
         <HeroLead />
       </section>
-      <section>
+      <section id="leedPage">
         <CourseOverview />
       </section>
       <section>

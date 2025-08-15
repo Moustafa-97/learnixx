@@ -75,7 +75,7 @@ export default function CourseRegistrationForm() {
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
-const locale = useLocale()
+  const locale = useLocale()
   const {
     control,
     handleSubmit,
@@ -97,9 +97,10 @@ const locale = useLocale()
 
   const selectedTrainerId = watch("trainerId")
   const startDate = watch("startDate")
+  console.log(courseId)
 
   useEffect(() => {
-    if (courseId) {
+    if (courseId && courseId !== "Leed") {
       fetchCourseData()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -130,6 +131,24 @@ const locale = useLocale()
       setLoading(false)
     }
   }
+
+  const [leetTrainer, setLeetTrainer] = useState<Trainer[] | null>(null)
+
+  useEffect(() => {
+    if (courseId === "Leed") {
+      const fetchLeetTrainer = async () => {
+        try {
+          const { data } = await axios.get<{ data: Trainer[] }>(
+            `${process.env.NEXT_PUBLIC_API}/api/v1/trainers?leadWeekend=true`
+          )
+          setLeetTrainer(data.data)
+        } catch (err) {
+          console.error("Error fetching Leet Trainer:", err)
+        }
+      }
+      fetchLeetTrainer()
+    }
+  }, [courseId])
 
   const onSubmit = async (data: RegistrationForm) => {
     try {
@@ -166,7 +185,7 @@ const locale = useLocale()
     )
   }
 
-  if (!course) {
+  if (!course && courseId !== "Leed") {
     return (
       <div className={styles.errorContainer}>
         <Alert severity="error">Course not found</Alert>
@@ -329,42 +348,81 @@ const locale = useLocale()
                       }}
                       onChange={e => field.onChange(parseInt(e.target.value))}
                       className={styles.trainerGrid}>
-                      {course.trainers.map(trainer => (
-                        <FormControlLabel
-                          key={trainer.id}
-                          value={trainer.id}
-                          sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            margin: "auto",
-                          }}
-                          control={<Radio sx={{ display: "none" }} />}
-                          label={
-                            <div
-                              className={`${styles.trainerCard} ${
-                                selectedTrainerId === trainer.id
-                                  ? styles.selected
-                                  : ""
-                              }`}>
-                              <Image
-                                src={trainer.trainerPicture}
-                                alt={trainer.name}
-                                className={styles.trainerImage}
-                                width={100}
-                                height={100}
-                              />
-                              <h4 className={styles.trainerName}>
-                                {trainer.name}
-                              </h4>
-                              <p className={styles.trainerTitle}>
-                                {trainer.title}
-                              </p>
-                            </div>
-                          }
-                          className={styles.trainerLabel}
-                        />
-                      ))}
+                      {courseId !== "Leed"
+                        ? course &&
+                          course.trainers.map(trainer => (
+                            <FormControlLabel
+                              key={trainer.id}
+                              value={trainer.id}
+                              sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                margin: "auto",
+                              }}
+                              control={<Radio sx={{ display: "none" }} />}
+                              label={
+                                <div
+                                  className={`${styles.trainerCard} ${
+                                    selectedTrainerId === trainer.id
+                                      ? styles.selected
+                                      : ""
+                                  }`}>
+                                  <Image
+                                    src={trainer.trainerPicture}
+                                    alt={trainer.name}
+                                    className={styles.trainerImage}
+                                    width={100}
+                                    height={100}
+                                  />
+                                  <h4 className={styles.trainerName}>
+                                    {trainer.name}
+                                  </h4>
+                                  <p className={styles.trainerTitle}>
+                                    {trainer.title}
+                                  </p>
+                                </div>
+                              }
+                              className={styles.trainerLabel}
+                            />
+                          ))
+                        : leetTrainer &&
+                          leetTrainer.map(trainer => (
+                            <FormControlLabel
+                              key={trainer.id}
+                              value={trainer.id}
+                              sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                margin: "auto",
+                              }}
+                              control={<Radio sx={{ display: "none" }} />}
+                              label={
+                                <div
+                                  className={`${styles.trainerCard} ${
+                                    selectedTrainerId === trainer.id
+                                      ? styles.selected
+                                      : ""
+                                  }`}>
+                                  <Image
+                                    src={trainer.trainerPicture}
+                                    alt={trainer.name}
+                                    className={styles.trainerImage}
+                                    width={100}
+                                    height={100}
+                                  />
+                                  <h4 className={styles.trainerName}>
+                                    {trainer.name}
+                                  </h4>
+                                  <p className={styles.trainerTitle}>
+                                    {trainer.title}
+                                  </p>
+                                </div>
+                              }
+                              className={styles.trainerLabel}
+                            />
+                          ))}
                     </RadioGroup>
                   )}
                 />
@@ -435,10 +493,11 @@ const locale = useLocale()
                         choose the city
                       </MenuItem>
                       {/* {course.city.country.map(city => ( */}
-                      <MenuItem value={course.city.id} key={course.city.id}>
-                        {course.city.country.name}
+                      <MenuItem
+                        value={course ? course.city.id : "Leed"}
+                        key={course && course.city.id}>
+                        {course ? course.city.country.name : "Leed"}
                       </MenuItem>
-                      {/* ))}  */}
                     </TextField>
                   )}
                 />

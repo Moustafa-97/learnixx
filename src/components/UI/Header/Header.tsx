@@ -203,8 +203,17 @@ const Header: React.FC = () => {
 
         {/* Contact Button */}
         <div className={styles.contactSection}>
-          <Link href={`/${locale}/contact`} className={styles.contactButton}>
-            <span style={pathname !== `/${locale}` ? { color: "#141414" } : {color: "#fff"}}>{t("contactUs")}</span>
+          <Link href={`/${locale}/contact`} className={pathname !== `/${locale}` ?styles.contactButton: styles.whiteContactButton}>
+            <span
+              // className={pathname !== `/${locale}` ? "" : styles.whiteTextHover}
+              // style={
+              //   pathname !== `/${locale}`
+              //     ? { color: "#141414" }
+              //     : { color: "#fff" }
+              // }
+              >
+              {t("contactUs")}
+            </span>
             <FaArrowRight className={styles.arrow} />
           </Link>
         </div>
@@ -268,9 +277,27 @@ const Header: React.FC = () => {
                 href={`/${locale}/contact`}
                 className={styles.mobileContactButton}
                 onClick={closeMobileMenu}
-                style={pathname !== `/${locale}` ? { color: "#141414" } : {color: "#fff"}}>
-                <span style={pathname !== `/${locale}` ? { color: "#141414" } : {color: "#fff"}}>{t("contactUs")}</span>
-                <FaArrowRight style={pathname !== `/${locale}` ? { fill: "#141414" } : {fill: "#fff"}} className={styles.arrow} />
+                style={
+                  pathname !== `/${locale}`
+                    ? { color: "#141414" }
+                    : { color: "#fff" }
+                }>
+                <span
+                  style={
+                    pathname !== `/${locale}`
+                      ? { color: "#141414" }
+                      : { color: "#fff" }
+                  }>
+                  {t("contactUs")}
+                </span>
+                <FaArrowRight
+                  style={
+                    pathname !== `/${locale}`
+                      ? { fill: "#141414" }
+                      : { fill: "#fff" }
+                  }
+                  className={styles.arrow}
+                />
               </Link>
             </div>
           </div>

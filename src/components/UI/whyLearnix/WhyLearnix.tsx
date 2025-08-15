@@ -1,3 +1,4 @@
+"use client"
 import React from "react"
 import styles from "./WhyLearnix.module.scss"
 import arrowbig from "@/../public/whyLearnix/arrowbig.svg"
@@ -9,11 +10,16 @@ import world from "@/../public/whyLearnix/world.svg"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { useLocale } from "next-intl" // Add this import
+import { useRouter } from "next/navigation"
 
 function WhyLearnix() {
   const t = useTranslations("whyLearnix")
   const locale = useLocale() // Get current locale
   const isRTL = locale === 'ar' // Check if Arabic
+  const router = useRouter()
+  const handleNavigation = () => {
+    router.push(`/${locale}/courses`)
+  }
   
   return (
     <>
@@ -43,7 +49,7 @@ function WhyLearnix() {
               <p>
                 {t("cards.globalConnections.description")}
               </p>
-              <button>{t("cards.globalConnections.buttonText")}</button>
+              <button onClick={handleNavigation}>{t("cards.globalConnections.buttonText")}</button>
             </div>
             <div className={styles.smallCard}>
               <Image
@@ -102,7 +108,7 @@ function WhyLearnix() {
               <p>
                 {t("cards.practicalTrainers.description")}
               </p>
-              <button>{t("cards.practicalTrainers.buttonText")}</button>
+              <button onClick={handleNavigation}>{t("cards.practicalTrainers.buttonText")}</button>
             </div>
           </div>
         </div>

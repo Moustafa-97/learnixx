@@ -1,6 +1,8 @@
+"use client"
 import React from "react"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import styles from "./CourseOverview.module.scss"
+import { useRouter } from "next/navigation"
 
 interface CourseOverviewProps {
   title?: string
@@ -20,7 +22,7 @@ const CourseOverview: React.FC<CourseOverviewProps> = ({
   price,
   schedule,
   hasExclusiveMaterials = true,
-  onApplyClick,
+  // onApplyClick,
 }) => {
   const t = useTranslations("courseOverview")
 
@@ -32,6 +34,11 @@ const CourseOverview: React.FC<CourseOverviewProps> = ({
     },
     { day: t("schedule.days.sunday"), time: t("schedule.times.morning") },
   ]
+  const router = useRouter()
+  const locale = useLocale()
+  const onApplyClick = () => {
+    router.push(`/${locale}/register?courseID=Leed&cityId=Leed&cityName=Leed`)
+  }
 
   return (
     <div className={styles.courseCard}>

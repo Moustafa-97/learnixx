@@ -1,16 +1,22 @@
+"use client"
 import React from "react"
 import styles from "./ExploreCard.module.scss"
 // import Image from "next/image"
 import { Course } from "@/types/courses"
-
+import { useRouter } from "next/navigation"
+import { useLocale } from "next-intl"
 
 function ExploreCard(props: { card: Course }) {
-  
   const { card } = props
+  const router = useRouter()
+  const locale = useLocale()
+  const handleNavigation = () => {
+    router.push(`/${locale}/courses/${card.id}`)
+  }
 
   return (
     <>
-      <div key={card.id} className={styles.card}>
+      <div onClick={handleNavigation} key={card.id} className={styles.card}>
         <div className={styles.cardHeader}>
           {/* {card.icon && (
             //   typeof card.icon === "string" ? (

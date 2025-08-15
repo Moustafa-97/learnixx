@@ -242,6 +242,62 @@
       transform: rotateZ(-45deg) translateX(4px);
     }
   }
+  .whiteContactButton {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent;
+    color: #141414;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 16px;
+    border: 1px solid #141414;
+    transition: all 0.3s ease;
+    @media (max-width: 1024px) {
+      font-size: 14px;
+      padding: 6px 10px;
+    }
+
+    &:hover {
+      background-color: #141414;
+      color: white;
+      transform: translateY(-2px);
+      border-color: #141414;
+
+      .arrow {
+        background: #fff;
+        color: #141414;
+      }
+    }
+
+    .arrow {
+      background: #141414;
+      color: #fff;
+      padding: 6px;
+      font-size: 24px;
+      transition: transform 0.3s ease;
+      -webkit-transition: transform 0.3s ease;
+      -moz-transition: transform 0.3s ease;
+      -ms-transition: transform 0.3s ease;
+      -o-transition: transform 0.3s ease;
+      transform: rotateZ(-45deg);
+      -webkit-transform: rotateZ(-45deg);
+      -moz-transform: rotateZ(-45deg);
+      -ms-transform: rotateZ(-45deg);
+      -o-transform: rotateZ(-45deg);
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
+    }
+
+    &:hover .arrow {
+      transform: rotateZ(-45deg) translateX(4px);
+    }
+  }
 }
 
 .mobileMenuButton {

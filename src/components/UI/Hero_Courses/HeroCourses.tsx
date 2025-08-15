@@ -1,3 +1,4 @@
+"use client"
 import React from "react"
 import styles from "./HeroCourses.module.scss"
 import { useTranslations } from "next-intl"
@@ -5,6 +6,12 @@ import { FaArrowUp } from "react-icons/fa"
 
 function HeroCourses() {
   const t = useTranslations("hero.courses")
+  const handleScroll = () => {
+    const element = document.getElementById("coursesPage")
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+  }
   return (
     <>
       <section className={styles.hero}>
@@ -13,7 +20,7 @@ function HeroCourses() {
           <p>{t("subtitle")}</p>
         </div>
         <div className={styles.cta}>
-          <button className={styles.searchButton}>
+          <button onClick={handleScroll} className={styles.searchButton}>
             <span>{t("searchPlaceholder")}</span>
             <FaArrowUp />
           </button>
