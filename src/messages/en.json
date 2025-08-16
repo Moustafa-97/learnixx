@@ -153,6 +153,20 @@
     "items": {
       "title": "What You Will Learn",
       "subtitle": "Lead Weekend is an intensive 10-hour leadership experience designed to equip ambitious professionals with essential leadership skills. Spread across three days in vibrant Barcelona, the course combines expert guidance with practical learning to help you become an effective and inspiring leader.",
+      "lead": {
+        "panel1": {
+          "unit": "Communication",
+          "content": "Effective communication is the foundation of good leadership. Learn how to clearly articulate your vision, provide constructive feedback, and actively listen to your team to build trust and alignment."
+        },
+        "panel2": {
+          "unit": "Emotional Intelligence",
+          "content": "Master understanding and managing emotions—both your own and others’—to build stronger relationships, resolve conflicts, and create a positive, productive work environment."
+        },
+        "panel3": {
+          "unit": "Strategic Thinking",
+          "content": "Develop critical thinking skills to analyze situations, anticipate challenges, and craft long-term strategies that drive your team and organization toward success."
+        }
+      },
       "panel1": {
         "question": "Who can attend these courses?",
         "answer": "Our courses are designed for professionals at all levels seeking to enhance their skills and advance their careers."
@@ -239,6 +253,10 @@
     "title": "Course overview",
     "description": "Lead instructor is a former Apple designer with extensive experience designed to equip ambitious professionals with essential leadership skills. Spread across three days in vibrant Barcelona, the course combines expert guidance with immersive learning to help you step into leadership.",
     "price": "₹ 120,000",
+    "startDate":"Start Date",
+    "location":"Location",
+    "fees":"Fees",
+    "courseInfo": "Course Info",
     "schedule": {
       "title": "Schedule:",
       "days": {
@@ -337,7 +355,12 @@
         "name": "David Kim",
         "title": "Blockchain Specialist"
       }
-    ]
+    ],
+    "course": {
+      "title": "Explore Our Trainers & Connect With Them",
+      "subtitle": "Our Trainers",
+      "noTrainersMessage": "No trainer information available for this course."
+    }
   },
 
   "aboutCards": {

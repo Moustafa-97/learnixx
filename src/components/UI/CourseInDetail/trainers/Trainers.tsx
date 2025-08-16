@@ -11,7 +11,7 @@ interface TrainersProps {
 }
 
 function Trainers({ trainers = [], loading = false, error }: TrainersProps) {
-  const t = useTranslations("trainers")
+  const t = useTranslations("Trainers.course")
 
   // Show fallback if no trainers
   if (!trainers || trainers.length === 0) {

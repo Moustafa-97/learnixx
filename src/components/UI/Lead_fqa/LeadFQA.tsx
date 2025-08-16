@@ -12,8 +12,6 @@ const FAQ_PANEL_IDS = [
   "panel1",
   "panel2",
   "panel3",
-  "panel4",
-  "panel5",
 ] as const
 
 function LeadFQA() {
@@ -40,10 +38,10 @@ function LeadFQA() {
         expandIcon={<LuCross />}
         aria-controls={`${panelId}-content`}
         id={`${panelId}-header`}>
-        <Typography component="span">{t(`items.${panelId}.unit`)}</Typography>
+        <Typography component="span">{t(`items.lead.${panelId}.unit`)}</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>{t(`items.${panelId}.content`)}</Typography>
+        <Typography>{t(`items.lead.${panelId}.content`)}</Typography>
       </AccordionDetails>
     </Accordion>
   )
