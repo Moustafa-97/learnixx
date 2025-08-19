@@ -11,11 +11,13 @@
   align-items: center;
 
   @media screen and (max-width: 1300px) {
+    min-height: 450px;
     padding: 88px 80px;
     grid-template-columns: 1fr;
   }
 
   @include mobile-only {
+    min-height: 350px;
     grid-template-columns: 1fr;
     padding: 32px 20px;
   }
@@ -36,10 +38,12 @@
 
     @media screen and (max-width: 1300px) {
       height: fit-content;
+      min-height: 450px;
     }
 
     @include mobile-only {
-      height: 412px;
+      min-height: 350px;
+      height: fit-content;
       padding: 32px 20px;
     }
 
@@ -51,7 +55,7 @@
       color: #fff;
 
       @include mobile-only {
-        height: 412px;
+        height: 250px;
       }
 
       .header {
@@ -63,6 +67,7 @@
           font-weight: 700;
           line-height: normal;
           text-align: start;
+          text-transform: capitalize;
 
           @include mobile-only {
             font-size: 24px;
@@ -73,7 +78,7 @@
       .body {
         display: grid;
         grid-template-columns: auto 1fr;
-        align-items: center;
+        align-items: flex-start;
         gap: 20px;
 
         .arrow {
@@ -110,7 +115,7 @@
           p {
             color: #fff;
             font-family: Manrope;
-            font-size: 16px;
+            font-size: 20px;
             font-style: normal;
             font-weight: 400;
             line-height: 150%;
@@ -129,7 +134,7 @@
 
       .imgs {
         display: flex;
-        margin-inline-start: -38px;
+        // margin-inline-start: -38px;
 
         @include mobile-only {
           margin-inline-start: 0px;
@@ -145,8 +150,8 @@
           }
 
           @include mobile-only {
-            width: 50px;
-            height: 50px;
+            width: 65px;
+            height: 65px;
           }
         }
       }

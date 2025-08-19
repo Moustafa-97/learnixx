@@ -48,6 +48,7 @@
   "header": {
     "logoAlt": "Company Logo",
     "nav": {
+      "home": "Home",
       "aboutUs": "About Us",
       "courses": "Courses",
       "cities": "Cities",

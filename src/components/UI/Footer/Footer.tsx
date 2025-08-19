@@ -107,6 +107,7 @@ function Footer() {
             width={1000}
             height={1000}
             className={styles.top}
+            style={{ objectFit: "cover" }}
           />
         </div>
 
