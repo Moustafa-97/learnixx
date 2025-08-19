@@ -47,6 +47,7 @@
   "header": {
     "logoAlt": "شعار الشركة",
     "nav": {
+      "home":"الرئيسية",
       "aboutUs": "من نحن",
       "courses": "الدورات",
       "cities": "المدن",
