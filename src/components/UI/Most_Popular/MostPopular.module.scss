@@ -1,0 +1,63 @@
+@import "@/styles/_breakpoints.scss";
+
+.container {
+  width: 100vw;
+  height: fit-content;
+  padding: 88px 100px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  @include mobile-only {
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    color: #141414;
+    text-align: center;
+    font-family: Manrope;
+    font-size: 56px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; /* 67.2px */
+    @include mobile-only {
+      font-size: 24px;
+    }
+  }
+  [dir="rtl"] & {
+    flex-direction: row-reverse;
+  }
+}
+
+.arrows {
+  display: flex;
+  gap: 20px;
+
+//   [dir="rtl"] & {
+//     flex-direction: row-reverse;
+//   }
+}
+
+.arrowBtn {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #f0f0f0;
+  }
+}
+
+.cards {
+  width: 100%;
+}
+
+.cardSlide {
+  display: flex;
+  justify-content: center;
+}

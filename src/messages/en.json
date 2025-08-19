@@ -254,9 +254,9 @@
     "title": "Course overview",
     "description": "Lead instructor is a former Apple designer with extensive experience designed to equip ambitious professionals with essential leadership skills. Spread across three days in vibrant Barcelona, the course combines expert guidance with immersive learning to help you step into leadership.",
     "price": "₹ 120,000",
-    "startDate":"Start Date",
-    "location":"Location",
-    "fees":"Fees",
+    "startDate": "Start Date",
+    "location": "Location",
+    "fees": "Fees",
     "courseInfo": "Course Info",
     "schedule": {
       "title": "Schedule:",
@@ -372,5 +372,8 @@
     "professionalSkillsDescription": "Explore leadership development, strategic thinking, effective communication, project management, and global business practices with top leaders.",
     "primeLearningLocations": "Prime Learning Locations",
     "primeLearningLocationsDescription": "Enjoy the best meeting rooms in prime locations across Europe's most vibrant cities."
+  },
+  "MostPopular": {
+    "title": "Most Popular Courses"
   }
 }
