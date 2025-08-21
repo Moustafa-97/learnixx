@@ -29,6 +29,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'yllaaa-bucket.fra1.digitaloceanspaces.com', // Add any other domains you might use
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

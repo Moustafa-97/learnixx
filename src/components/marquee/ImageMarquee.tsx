@@ -3,6 +3,7 @@ import Image, { StaticImageData } from "next/image"
 import Marquee from "react-fast-marquee"
 
 import styles from "./ImageMarquee.module.scss"
+import { useLocale } from "next-intl"
 
 interface ImageItem {
   id: string | number
@@ -32,8 +33,8 @@ interface ImageMarqueeProps {
 
 export default function ImageMarquee({
   images,
-  speed = 40,
-  pauseOnHover = true,
+  speed = 60,
+  pauseOnHover = false,
   pauseOnClick = false,
   direction = "left",
   // gradient = true,
@@ -51,14 +52,14 @@ export default function ImageMarquee({
   //     window.open(image.link, "_blank")
   //   }
   // }
-
+  const locale = useLocale()
   return (
     <div className={`${styles.marqueeContainer} ${className}`}>
       <Marquee
         speed={speed}
         pauseOnHover={pauseOnHover}
         pauseOnClick={pauseOnClick}
-        direction={direction}
+        direction={locale !== "ar" ? direction : "right"}
         // gradient={gradient}
         // gradientColor={gradientColor}
         gradientWidth={gradientWidth}

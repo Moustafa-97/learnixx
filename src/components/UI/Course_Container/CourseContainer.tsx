@@ -18,7 +18,7 @@ interface Category {
 interface Country {
   id: number
   name: string
-  iso: string
+  iso?: string
 }
 
 interface City {
@@ -33,8 +33,9 @@ interface Course {
   startDate: string
   price: number
   categories: Category[]
-  country: Country
-  city: City
+  country: Country | null
+  city: City | null
+
 }
 
 interface Meta {

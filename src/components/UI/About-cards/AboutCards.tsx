@@ -33,25 +33,25 @@ function AboutCards() {
             <div className={styles.imgs}>
               <Image
                 src={image}
-                alt={t("trainerImageAlt")}
+                alt={"alt"}
                 width={100}
                 height={100}
               />
               <Image
                 src={image}
-                alt={t("trainerImageAlt")}
+                alt={"alt"}
                 width={100}
                 height={100}
               />
               <Image
                 src={image}
-                alt={t("trainerImageAlt")}
+                alt={"alt"}
                 width={100}
                 height={100}
               />
               <Image
                 src={image}
-                alt={t("trainerImageAlt")}
+                alt={"alt"}
                 width={100}
                 height={100}
               />

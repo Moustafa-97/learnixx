@@ -7,7 +7,7 @@ interface CourseOverviewProps {
   description: string
   startDate: string
   price: number
-  city: City
+  city: City | null
   schedule?: Array<{
     day: string
     time: string
@@ -68,7 +68,7 @@ const CourseOverview: React.FC<CourseOverviewProps> = ({
     {
       icon: "📍",
       label: t("location", { default: "Location" }),
-      value: `${city.name}, ${city.country.name}`,
+      value: `${city && city.name}, ${city && city.country.name}`,
     },
     {
       icon: "💰",
