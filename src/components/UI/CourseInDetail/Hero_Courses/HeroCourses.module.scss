@@ -132,6 +132,11 @@
     }
   }
   .svg {
+    //
+    &.svgLeft {
+      left: 0;
+      right: auto;
+    }
     position: absolute;
     bottom: 0;
     right: 0;

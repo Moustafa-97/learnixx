@@ -1,7 +1,7 @@
 "use client"
 import React from "react"
 import styles from "./HeroCourses.module.scss"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { FaArrowUp } from "react-icons/fa"
 
 function HeroLead() {
@@ -12,6 +12,7 @@ function HeroLead() {
       element.scrollIntoView({ behavior: "smooth" })
     }
   }
+  const locale = useLocale()
   return (
     <>
       <section className={styles.hero}>
@@ -25,7 +26,7 @@ function HeroLead() {
             <FaArrowUp />
           </button>
         </div>
-        <div className={styles.svg}>
+        <div className={`${styles.svg}  ${locale === "ar" && styles.svgLeft}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="430"

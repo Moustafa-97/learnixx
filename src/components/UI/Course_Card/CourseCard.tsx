@@ -1,3 +1,4 @@
+"use client"
 import React from "react"
 import { Course } from "@/types/courses"
 import styles from "./CourseCard.module.scss"
@@ -41,18 +42,21 @@ function CourseCard({ course, onEnrollNow }: CourseCardProps) {
             {t("startsAt")}: {course.startDate} {/* ✅ Fixed */}
           </p>
           <div className={styles.location}>
-            <div className={styles.svgContainer}>
-              <ReactCountryFlag
-                countryCode={course.country.iso} // ✅ Fixed
-                svg
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-              />
-            </div>
+            {course.country && course.country.iso && (
+              <div className={styles.svgContainer}>
+                <ReactCountryFlag
+                  countryCode={course.country.iso} // ✅ Fixed
+                  svg
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+              </div>
+            )}
             <span className={styles.locationText}>
-              {course.country.name} {/* ✅ Fixed */}
+              {course.country && course.country.name && course.country.name}{" "}
+              {/* ✅ Fixed */}
             </span>
           </div>
           <p className={styles.price}>

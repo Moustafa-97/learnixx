@@ -1,10 +1,11 @@
 import React from "react"
 import styles from "./AboutHero.module.scss"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { FaArrowUp } from "react-icons/fa"
 
 function AboutHero() {
   const t = useTranslations("hero.about")
+  const locale = useLocale()
   return (
     <>
       <section className={styles.hero}>
@@ -18,7 +19,7 @@ function AboutHero() {
             <FaArrowUp />
           </button>
         </div>
-        <div className={styles.svg}>
+        <div className={`${styles.svg} ${locale === "ar" && styles.svgLeft}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="439"

@@ -133,7 +133,7 @@ function CourseInDetail({ courseID }: CourseInDetailProps) {
               description={course.description}
               startDate={course.startDate}
               price={course.price}
-              city={course.city}
+              city={course.city&&course.city}
               onApplyClick={handleApplyClick}
             />
           )}
