@@ -64,6 +64,22 @@ interface RegistrationForm {
   cityId: number
   trainerId: number
 }
+interface apiCity {
+  data: {
+    id: number
+    name: string
+    iso: string
+  }[]
+  meta: {
+    page: number
+    perPage: number
+    total: number
+    totalPages: number
+    hasNext: boolean
+    hasPrev: boolean
+  }
+  lang: string
+}
 
 export default function CourseRegistrationForm() {
   const router = useRouter()
@@ -105,7 +121,35 @@ export default function CourseRegistrationForm() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId])
+  const [leetCity, setLeetCity] = useState<apiCity | null>(null)
+  useEffect(() => {
+    if (
+      courseId === "Leed" ||
+      !courseId ||
+      !cityIdParam ||
+      cityIdParam === "any"
+    ) {
+      const fetchLeetCity = async () => {
+        try {
+          const { data } = await axios.get<apiCity>(
+            `${process.env.NEXT_PUBLIC_API}/api/v1/globe/countries`,
+            {
+              headers: {
+                "Accept-Language": locale,
+              },
+            }
+          )
+          setLeetCity(data)
+        } catch (err) {
+          console.error("Error fetching Leet City:", err)
+        }
+      }
+      fetchLeetCity()
+    }
+  }, [courseId, cityIdParam, locale])
 
+  console.log(leetCity);
+  
   const fetchCourseData = async () => {
     try {
       setLoading(true)
@@ -492,12 +536,21 @@ export default function CourseRegistrationForm() {
                       <MenuItem value={0} disabled>
                         choose the city
                       </MenuItem>
-                      {/* {course.city.country.map(city => ( */}
-                      <MenuItem
-                        value={course ? course.city.id : "Leed"}
-                        key={course && course.city.id}>
-                        {course ? course.city.country.name : "Leed"}
-                      </MenuItem>
+                      {cityIdParam === "any" || cityIdParam ? (
+                        <MenuItem
+                          value={course ? course.city.id : "Leed"}
+                          key={course && course.city.id}>
+                          {course ? course.city.country.name : "Leed"}
+                        </MenuItem>
+                      ) : (
+                        leetCity?.data.map(city => (
+                          <MenuItem
+                            value={course ? city.id : "Leed"}
+                            key={course && city.id}>
+                            {course ? city.name : "Leed"}
+                          </MenuItem>
+                        ))
+                      )}
                     </TextField>
                   )}
                 />
