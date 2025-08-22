@@ -7,6 +7,8 @@ import { notFound } from "next/navigation"
 import "../globals.css"
 import Header from "@/components/UI/Header/Header"
 import Footer from "@/components/UI/Footer/Footer"
+import TourComponents from "@/components/A_GUIDE/TourComponents"
+import { TourProviderClient } from "@/components/A_GUIDE/TourProviderClient"
 
 export default async function LocaleLayout({
   children,
@@ -27,13 +29,16 @@ export default async function LocaleLayout({
       {/* <NextIntlClientProvider messages={messages}>
         <CssBaseline />
         <AOSInit /> */}
-      <header>
-        <Header />
-      </header>
-      <div>{children}</div>
-      <footer>
-        <Footer />
-      </footer>
+      <TourProviderClient>
+        <TourComponents />
+        <header>
+          <Header />
+        </header>
+        <div>{children}</div>
+        <footer>
+          <Footer />
+        </footer>
+      </TourProviderClient>
       {/* </NextIntlClientProvider> */}
     </>
   )
