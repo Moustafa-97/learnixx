@@ -37,21 +37,12 @@ export default function ImageMarquee({
   pauseOnHover = false,
   pauseOnClick = false,
   direction = "left",
-  // gradient = true,
-  // gradientColor = "#ffffff",
   gradientWidth = 100,
   gap = 20,
   className = "",
   imageClassName = "",
   autoFill = true,
 }: ImageMarqueeProps) {
-  // const handleImageClick = (image: ImageItem) => {
-  //   if (image.onClick) {
-  //     image.onClick()
-  //   } else if (image.link) {
-  //     window.open(image.link, "_blank")
-  //   }
-  // }
   const locale = useLocale()
   return (
     <div className={`${styles.marqueeContainer} ${className}`}>

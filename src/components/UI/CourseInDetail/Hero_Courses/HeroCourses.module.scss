@@ -6,10 +6,12 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 20px;
   overflow: hidden;
   width: 86.1vw;
   max-width: 1440px;
-  height: 743px;
+  height: fit-content;
+  min-height: 743px;
   flex-shrink: 0;
   padding: 82px 50px 116px 50px;
   background: var(--csk-141414900, #1a1a1a);

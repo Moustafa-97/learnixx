@@ -13,7 +13,8 @@ function CityCard({ city }: CityCardProps) {
   const locale = useLocale()
   const router = useRouter()
   const handleNavigation = () => {
-    router.push(`/${locale}/courses?cityId=${city.id}&cityName=${city.name}`)
+    // ?cityId=${city.id}&cityName=${city.name}
+    router.push(`/${locale}/courses`)
   }
   return (
     <div onClick={handleNavigation} className={styles.card}>

@@ -2,7 +2,9 @@
 .courseContainer {
   display: flex;
   width: 405px;
-  height: 384px;
+  height: 100%;
+  // height: max-content;
+  // min-height: 384px;
   padding: 29.5px 19px 28.5px 19px;
   justify-content: center;
   align-items: center;
@@ -38,8 +40,10 @@
   .card {
     display: flex;
     width: 100%;
+    height: -webkit-fill-available;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: space-between;
     gap: 14px;
     flex-shrink: 0;
     .imageContainer {
