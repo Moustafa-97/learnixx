@@ -145,7 +145,7 @@ const Header: React.FC = () => {
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             {navRoutes.map(route => (
-              <li key={route.key} className={styles.navItem}>
+              <li data-tour={route.key} key={route.key} className={styles.navItem}>
                 <Link
                   href={route.href}
                   className={`${styles.navLink} ${isActiveRoute(route.href) ? styles.active : ""}`}>
