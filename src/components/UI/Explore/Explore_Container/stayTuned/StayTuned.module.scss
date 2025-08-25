@@ -36,36 +36,28 @@
   left: 50%;
   transform: translateX(-50%);
 
-  // Trapezoid shape using clip-path
   width: 300px;
   height: 400px;
   background: linear-gradient(180deg, #141414 0%, rgba(20, 20, 20, 0) 100%);
 
-  // Create trapezoid shape: narrow at top, wide at bottom
   clip-path: polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%);
 
-  margin-top: 100px; // Position below the chandelier
+  margin-top: 100px;
   filter: blur(15px);
   opacity: 0.7;
   z-index: 1;
 }
 
-// Text Container - Fixed positioning
 .textContainer {
   position: absolute;
-  bottom: -340px; // Position at bottom of container
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   z-index: 4;
 
-  // Make sure text fits within container width
   width: 100%;
   text-align: center;
-
-  // Create a mask that follows the shadow animation
-  position: relative;
   overflow: hidden;
-  width: 100%;
 }
 
 .stayTunedText {
@@ -78,44 +70,40 @@
   text-transform: uppercase;
   margin: 0;
 
-  // Default state: outlined text (transparent background, border only)
+  // Outlined text
   color: transparent;
   -webkit-text-stroke: 3px #141414;
-  //   text-stroke: 3px #141414;
 
-  // Make text non-selectable for better UX
   user-select: none;
-
-  // Position relative for pseudo-element
   position: relative;
 
-  
-  // Create the filled text overlay that animates with the shadow
+  // Filled text overlay that animates
   &::before {
     content: "STAYTUNED";
     position: absolute;
     top: 0;
-    left: 45px;
-
-    // Same text properties
-    font-family: Manrope;
-    font-size: 220px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    letter-spacing: 4.4px;
-    text-transform: uppercase;
-
-    // Filled text color
+    left: 0;
+    
+    // Inherit all text properties from parent
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    
+    // Filled text (no stroke)
     color: #141414;
     -webkit-text-stroke: none;
-    // text-stroke: none;
-
-    // Inverted animation - filled text appears where shadow is NOT
+    
+    // Center the before element exactly over the parent text
+    width: 100%;
+    text-align: center;
+    
+    // Apply the sweeping animation
     animation: text-light-sweep-inverted 10s ease-in-out infinite;
-
     z-index: 1;
-   
   }
 }
 
@@ -144,32 +132,67 @@
   }
 }
 
-// Responsive adjustments for smaller screens
+// Responsive adjustments - Only need to update parent
+@media (max-width: 1440px) {
+  .stayTunedText {
+    font-size: 200px;
+    letter-spacing: 3.6px;
+    -webkit-text-stroke: 2.5px #141414;
+  }
+}
 @media (max-width: 1400px) {
   .stayTunedText {
     font-size: 180px;
     letter-spacing: 3.6px;
     -webkit-text-stroke: 2.5px #141414;
-    // text-stroke: 2.5px #141414;
-
-    &::before {
-      font-size: 180px;
-      letter-spacing: 3.6px;
-    }
+  }
+}
+@media (max-width: 1300px) {
+  .stayTunedText {
+    font-size: 165px;
+    letter-spacing: 3.6px;
+    -webkit-text-stroke: 2.5px #141414;
   }
 }
 
 @media (max-width: 1200px) {
   .stayTunedText {
-    font-size: 150px;
+    font-size: 140px;
     letter-spacing: 3px;
     -webkit-text-stroke: 2px #141414;
-    // text-stroke: 2px #141414;
-
-    &::before {
-      font-size: 150px;
-      letter-spacing: 3px;
-    }
+  }
+}
+@media (max-width: 1000px) {
+  .container{
+    height: 550px;
+  }
+  @keyframes pendulum-swing {
+  0% {
+    transform: translateX(-50%) rotateZ(25deg);
+    -webkit-transform: translateX(-50%) rotateZ(25deg);
+    -moz-transform: translateX(-50%) rotateZ(25deg);
+    -ms-transform: translateX(-50%) rotateZ(25deg);
+    -o-transform: translateX(-50%) rotateZ(25deg);
+}
+  50% {
+    transform: translateX(-50%) rotateZ(-25deg);
+    -webkit-transform: translateX(-50%) rotateZ(-25deg);
+    -moz-transform: translateX(-50%) rotateZ(-25deg);
+    -ms-transform: translateX(-50%) rotateZ(-25deg);
+    -o-transform: translateX(-50%) rotateZ(-25deg);
+}
+  100% {
+    transform: translateX(-50%) rotateZ(25deg);
+    -webkit-transform: translateX(-50%) rotateZ(25deg);
+    -moz-transform: translateX(-50%) rotateZ(25deg);
+    -ms-transform: translateX(-50%) rotateZ(25deg);
+    -o-transform: translateX(-50%) rotateZ(25deg);
+}
+}
+  .stayTunedText {
+    font-size: 120px;
+    letter-spacing: 3px;
+    -webkit-text-stroke: 2px #141414;
   }
 }
 
@@ -178,27 +201,33 @@
     font-size: 100px;
     letter-spacing: 2.4px;
     -webkit-text-stroke: 2px #141414;
-    // text-stroke: 2px #141414;
-
-    &::before {
-      font-size: 100px;
-      left: 0px;
-      letter-spacing: 2.4px;
-    }
   }
 }
 
 @media (max-width: 600px) {
+  .container{
+    height: 450px;
+  }
+  .line{ 
+    height: 210px;
+  }
   .stayTunedText {
     font-size: 60px;
     letter-spacing: 1.6px;
     -webkit-text-stroke: 1.5px #141414;
-    // text-stroke: 1.5px #141414;
-
-    &::before {
-      font-size: 60px;
-      left: 17px;
-      letter-spacing: 1.6px;
-    }
   }
 }
+@media (max-width: 440px) {
+  .stayTunedText {
+    font-size: 50px;
+    letter-spacing: 1.6px;
+    -webkit-text-stroke: 1.5px #141414;
+  }
+}
+
+// Alternative: Use fluid typography instead of breakpoints
+// .stayTunedText {
+//   font-size: clamp(60px, 15vw, 220px);
+//   letter-spacing: clamp(1.6px, 0.3vw, 4.4px);
+//   -webkit-text-stroke: clamp(1.5px, 0.3vw, 3px) #141414;
+// }
