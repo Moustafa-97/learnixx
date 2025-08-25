@@ -4,6 +4,12 @@
   width: 100vw;
   height: fit-content;
   padding: 88px 100px;
+  @include tablet-only {
+    padding: 64px 48px;
+  }
+  @include mobile-only {
+    padding: 48px 24px;
+  }
 }
 .header {
   display: flex;
@@ -35,9 +41,9 @@
   display: flex;
   gap: 20px;
 
-//   [dir="rtl"] & {
-//     flex-direction: row-reverse;
-//   }
+  //   [dir="rtl"] & {
+  //     flex-direction: row-reverse;
+  //   }
 }
 
 .arrowBtn {

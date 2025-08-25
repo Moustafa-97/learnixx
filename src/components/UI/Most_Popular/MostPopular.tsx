@@ -6,9 +6,10 @@ import "keen-slider/keen-slider.min.css"
 import styles from "./MostPopular.module.scss"
 import MostPopularCard from "./Card/MostPopularCard"
 
-import image1 from "@/../public/mostPopular/Aviations.png"
-import image2 from "@/../public/mostPopular/Businesss.png"
-import image3 from "@/../public/mostPopular/Defenses.png"
+import image1 from "@/../public/mostPopular/img111.png"
+import image2 from "@/../public/mostPopular/img222.png"
+import image3 from "@/../public/mostPopular/img333.png"
+import image4 from "@/../public/mostPopular/img444.png"
 import { useLocale, useTranslations } from "next-intl"
 
 function MostPopular() {
@@ -26,6 +27,7 @@ function MostPopular() {
     { id: 1, image: image1 },
     { id: 2, image: image2 },
     { id: 3, image: image3 },
+    { id: 4, image: image4 },
   ]
 
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({

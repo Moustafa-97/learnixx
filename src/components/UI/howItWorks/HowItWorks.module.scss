@@ -70,6 +70,12 @@
           font-weight: 600;
           line-height: 120%; /* 129.6px */
           opacity: 0.15;
+          @include tablet-only {
+            font-size: 80px;
+          }
+          @include mobile-only {
+            font-size: 50px;
+          }
         }
       }
     }

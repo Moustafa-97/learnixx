@@ -52,12 +52,12 @@
   justify-content: center;
   //   gap: 132px;
   margin-top: 95px;
-  @include tablet-only {
-    margin-top: 50px;
-  }
-  @include mobile-only {
-    margin-top: 30px;
-  }
+  // @include tablet-only {
+  //   margin-top: 50px;
+  // }
+  // @include mobile-only {
+  //   margin-top: 30px;
+  // }
   // Hero animation
   .hero {
     width: 100%;
