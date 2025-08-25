@@ -62,11 +62,11 @@ function Footer() {
         },
         {
           name: t("navigation.cities.madrid"),
-          link: `/${locale}/cities?city=madrid`,
+          link: `/${locale}/cities?search=madrid`,
         },
         {
           name: t("navigation.cities.paris"),
-          link: `/${locale}/cities?city=paris`,
+          link: `/${locale}/cities?search=paris`,
         },
       ],
     },

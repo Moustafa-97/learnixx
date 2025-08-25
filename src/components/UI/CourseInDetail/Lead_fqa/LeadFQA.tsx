@@ -78,7 +78,7 @@ function LeadFQA({ curriculums = [], loading = false, error }: LeadFQAProps) {
       <div className={styles.section}>
         <div className={styles.header}>
           <h6>{t("smallTitle")}</h6>
-          <h2>{t("title")}</h2>
+          <h2>{t("title2")}</h2>
         </div>
         <div className={styles.container}>
           <div className={styles.containerHeader}>

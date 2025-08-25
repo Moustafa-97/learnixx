@@ -9,52 +9,55 @@ import styles from "./Cities.module.scss"
 
 function Cities() {
   const searchParams = useSearchParams()
-  const cityId = searchParams.get('cityId')
-  const searchQuery = searchParams.get('search')
-  
+  const cityId = searchParams.get("cityId")
+  const searchQuery = searchParams.get("search")
+
   const [cities, setCities] = useState<City[]>([])
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [hasMore, setHasMore] = useState(true)
-  
+
   // Use ref to track loading state without causing re-renders
   const loadingRef = useRef(false)
   const observerTarget = useRef<HTMLDivElement>(null)
 
-  const fetchCities = useCallback(async (pageNum: number) => {
-    // Check ref instead of state to avoid dependency issues
-    if (loadingRef.current) return
+  const fetchCities = useCallback(
+    async (pageNum: number) => {
+      // Check ref instead of state to avoid dependency issues
+      if (loadingRef.current) return
 
-    loadingRef.current = true
-    setLoading(true)
-    setError(null)
+      loadingRef.current = true
+      setLoading(true)
+      setError(null)
 
-    try {
-      // Build URL with search params
-      const params = new URLSearchParams()
-      params.append('page', pageNum.toString())
-      params.append('perPage', '10')
-      
-      // Add filters if they exist
-      if (cityId) params.append('cityId', cityId)
-      if (searchQuery) params.append('search', searchQuery)
+      try {
+        // Build URL with search params
+        const params = new URLSearchParams()
+        params.append("page", pageNum.toString())
+        params.append("perPage", "10")
 
-      const url = `${process.env.NEXT_PUBLIC_API}/api/v1/globe/cities?${params.toString()}`
-      const response = await axios.get<CitiesApiResponse>(url)
+        // Add filters if they exist
+        if (cityId) params.append("cityId", cityId)
+        if (searchQuery) params.append("search", searchQuery)
 
-      const { data, meta } = response.data
+        const url = `${process.env.NEXT_PUBLIC_API}/api/v1/globe/cities?${params.toString()}`
+        const response = await axios.get<CitiesApiResponse>(url)
 
-      setCities(prev => (pageNum === 1 ? data : [...prev, ...data]))
-      setHasMore(meta.hasNext)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to fetch cities")
-      console.error("Error fetching cities:", err)
-    } finally {
-      setLoading(false)
-      loadingRef.current = false
-    }
-  }, [cityId, searchQuery])
+        const { data, meta } = response.data
+
+        setCities(prev => (pageNum === 1 ? data : [...prev, ...data]))
+        setHasMore(meta.hasNext)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to fetch cities")
+        console.error("Error fetching cities:", err)
+      } finally {
+        setLoading(false)
+        loadingRef.current = false
+      }
+    },
+    [cityId, searchQuery]
+  )
 
   // Reset when search params change
   useEffect(() => {
@@ -123,7 +126,7 @@ function Cities() {
             {cityId && <span>City ID: {cityId}</span>}
           </div>
         )}
-        
+
         <div className={styles.citiesGrid}>
           {cities.map(city => (
             <CityCard key={city.id} city={city} />
@@ -132,7 +135,7 @@ function Cities() {
 
         {cities.length === 0 && !loading && (
           <div className={styles.noResults}>
-            No cities found{searchQuery ? ` for "${searchQuery}"` : ''}
+            No cities found{searchQuery ? ` for "${searchQuery}"` : ""}
           </div>
         )}
 

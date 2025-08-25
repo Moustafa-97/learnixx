@@ -1,5 +1,5 @@
-import CourseRegistrationForm from "@/components/UI/Register/Register"
 import React from "react"
+import CourseRegistrationForm from "@/components/UI/Register/Register"
 
 function page() {
   return (

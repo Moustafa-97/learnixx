@@ -51,7 +51,7 @@ interface Course {
   endDate?: string
   price: number
   trainers: Trainer[]
-  city: City
+  city: City | null
 }
 
 interface RegistrationForm {
@@ -86,9 +86,13 @@ export default function CourseRegistrationForm() {
   const searchParams = useSearchParams()
   const courseId = searchParams.get("courseID")
   const cityIdParam = searchParams.get("cityId")
+  const cityName = searchParams.get("cityName")
+  console.log("City ID:", cityIdParam)
+  console.log("City Name:", cityName)
+  console.log("Course ID:", courseId)
 
   const [course, setCourse] = useState<Course | null>(null)
-  const [loading, setLoading] = useState(true)
+  // const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const locale = useLocale()
@@ -106,14 +110,13 @@ export default function CourseRegistrationForm() {
       startDate: "",
       endDate: "",
       companyName: "",
-      cityId: cityIdParam ? parseInt(cityIdParam) : 0,
+      cityId: cityIdParam && cityIdParam !== "Leed" ? parseInt(cityIdParam) : 0,
       trainerId: 0,
     },
   })
 
   const selectedTrainerId = watch("trainerId")
   const startDate = watch("startDate")
-  console.log(courseId)
 
   useEffect(() => {
     if (courseId && courseId !== "Leed") {
@@ -123,16 +126,11 @@ export default function CourseRegistrationForm() {
   }, [courseId])
   const [leetCity, setLeetCity] = useState<apiCity | null>(null)
   useEffect(() => {
-    if (
-      courseId === "Leed" ||
-      !courseId ||
-      !cityIdParam ||
-      cityIdParam === "any"
-    ) {
+    if (courseId === "Leed") {
       const fetchLeetCity = async () => {
         try {
           const { data } = await axios.get<apiCity>(
-            `${process.env.NEXT_PUBLIC_API}/api/v1/globe/countries`,
+            `${process.env.NEXT_PUBLIC_API}/api/v1/globe/cities?${cityName ? `search=${cityName}` : ""}`,
             {
               headers: {
                 "Accept-Language": locale,
@@ -146,13 +144,11 @@ export default function CourseRegistrationForm() {
       }
       fetchLeetCity()
     }
-  }, [courseId, cityIdParam, locale])
+  }, [courseId, cityIdParam, locale, cityName])
 
-  console.log(leetCity);
-  
   const fetchCourseData = async () => {
     try {
-      setLoading(true)
+      // setLoading(true)
       const { data } = await axios.get<Course>(
         `${process.env.NEXT_PUBLIC_API}/api/v1/courses/${courseId}`
       )
@@ -166,13 +162,13 @@ export default function CourseRegistrationForm() {
 
       // Set city if not provided in params
       if (!cityIdParam && data.city) {
-        setValue("cityId", data.city.id)
+        setValue("cityId", data.city ? data.city.id : 0)
       }
     } catch (err) {
       console.error("Error fetching course data:", err)
       setError("Failed to load course information")
     } finally {
-      setLoading(false)
+      // setLoading(false)
     }
   }
 
@@ -200,17 +196,40 @@ export default function CourseRegistrationForm() {
       setError(null)
 
       // Ensure trainerId is an integer
-      const submissionData = {
-        ...data,
-        trainerId: parseInt(data.trainerId.toString()),
-        cityId: parseInt(data.cityId.toString()),
+      //
+      if (courseId !== "Leed") {
+        // Include dates for non-Leed courses
+        const submissionData = {
+          fullName: data.fullName,
+          email: data.email,
+          jobTitle: data.jobTitle,
+          startDate: data.startDate,
+          endDate: data.endDate,
+          companyName: data.companyName,
+          cityId: parseInt(data.cityId.toString()),
+          trainerId: parseInt(data.trainerId.toString()),
+        }
+
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_API}/api/v1/courses/${courseId}/register`,
+          submissionData
+        )
+      } else {
+        // Exclude dates for Leed
+        const submissionData = {
+          fullName: data.fullName,
+          email: data.email,
+          jobTitle: data.jobTitle,
+          companyName: data.companyName,
+          cityId: parseInt(data.cityId.toString()),
+          trainerId: parseInt(data.trainerId.toString()),
+        }
+
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_API}/api/v1/lead-weekend/apply`,
+          submissionData
+        )
       }
-
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/api/v1/courses/${courseId}/register`,
-        submissionData
-      )
-
       // Handle success - redirect or show success message
       router.push(`/${locale}/registration-success`)
     } catch (err) {
@@ -221,13 +240,13 @@ export default function CourseRegistrationForm() {
     }
   }
 
-  if (loading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <CircularProgress />
-      </div>
-    )
-  }
+  // if (loading) {
+  //   return (
+  //     <div className={styles.loadingContainer}>
+  //       <CircularProgress />
+  //     </div>
+  //   )
+  // }
 
   if (!course && courseId !== "Leed") {
     return (
@@ -536,18 +555,30 @@ export default function CourseRegistrationForm() {
                       <MenuItem value={0} disabled>
                         choose the city
                       </MenuItem>
-                      {cityIdParam !== "Leed" || cityIdParam ? (
+                      {cityIdParam !== "Leed" ? (
                         <MenuItem
-                          value={course ? course.city.id : "Leed"}
-                          key={course && course.city.id}>
-                          {course ? course.city.country.name : "Leed"}
+                          value={
+                            course
+                              ? course.city
+                                ? course.city.id
+                                : leetCity?.data[0]?.id
+                              : "0"
+                          }
+                          key={
+                            (cityIdParam || course) && course?.city
+                              ? course.city?.id
+                              : cityIdParam
+                          }>
+                          {course
+                            ? course.city
+                              ? course.city.country.name
+                              : cityName
+                            : "Leed"}
                         </MenuItem>
                       ) : (
                         leetCity?.data.map(city => (
-                          <MenuItem
-                            value={course ? city.id : "Leed"}
-                            key={course && city.id}>
-                            {course ? city.name : "Leed"}
+                          <MenuItem value={city?.id} key={course && city.id}>
+                            {city.name}
                           </MenuItem>
                         ))
                       )}
