@@ -16,7 +16,7 @@ function About() {
       <section className={styles.pageContainer}>
         <AboutCards />
       </section>
-      <section className={styles.pageContainer}>
+      <section id="trainers" className={styles.pageContainer}>
         <Trainers />
       </section>
       <section className={styles.pageContainer}>

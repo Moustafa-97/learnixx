@@ -26,15 +26,15 @@ function Footer() {
         { name: t("navigation.home.courses"), link: `/${locale}/courses` },
         {
           name: t("navigation.home.whyLearnix"),
-          link: `#why-learnix`,
+          link: `/${locale}#why-learnix`,
         },
         {
           name: t("navigation.home.topCourses"),
-          link: `#top-courses`,
+          link: `/${locale}#top-courses`,
         },
         {
           name: t("navigation.home.testimonials"),
-          link: `#testimonials`,
+          link: `/${locale}#testimonials`,
         },
         { name: t("navigation.home.contactUs"), link: `/${locale}/contact` },
       ],
@@ -44,13 +44,13 @@ function Footer() {
       sections: [
         {
           name: t("navigation.about.howItWorks"),
-          link: `#how-it-works`,
+          link: `/${locale}#how-it-works`,
         },
         {
           name: t("navigation.about.testimonials"),
-          link: `#testimonials`,
+          link: `/${locale}#testimonials`,
         },
-        { name: t("navigation.about.trainers"), link: `/${locale}/trainers` },
+        { name: t("navigation.about.trainers"), link: `/${locale}/about-us#trainers` },
       ],
     },
     {

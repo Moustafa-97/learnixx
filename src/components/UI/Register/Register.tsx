@@ -408,6 +408,13 @@ export default function CourseRegistrationForm() {
                         flexDirection: "row",
                         alignItems: "center",
                         justifyContent: "space-between",
+                        flexWrap: "nowrap",
+                        //responsive
+                        "@media (max-width: 768px)": {
+                          flexDirection: "column",
+                          alignItems: "flex-start",
+                          width: "100%",
+                        },
                       }}
                       onChange={e => field.onChange(parseInt(e.target.value))}
                       className={styles.trainerGrid}>
@@ -422,10 +429,25 @@ export default function CourseRegistrationForm() {
                                 flexDirection: "column",
                                 alignItems: "center",
                                 margin: "auto",
+                                "@media (max-width: 768px)": {
+                                  width: "100%",
+                                },
+                                "& .MuiFormControlLabel-label": {
+                                  "@media (max-width: 768px)": {
+                                    width: "100%",
+                                  },
+                                },
                               }}
-                              control={<Radio sx={{ display: "none" }} />}
+                              control={
+                                <Radio
+                                  sx={{ display: "none", width: "100%" }}
+                                />
+                              }
                               label={
                                 <div
+                                  style={{
+                                    width: "100%",
+                                  }}
                                   className={`${styles.trainerCard} ${
                                     selectedTrainerId === trainer.id
                                       ? styles.selected
@@ -459,8 +481,20 @@ export default function CourseRegistrationForm() {
                                 flexDirection: "column",
                                 alignItems: "center",
                                 margin: "auto",
+                                "@media (max-width: 768px)": {
+                                  width: "100%",
+                                },
+                                "& .MuiFormControlLabel-label": {
+                                  "@media (max-width: 768px)": {
+                                    width: "100%",
+                                  },
+                                },
                               }}
-                              control={<Radio sx={{ display: "none" }} />}
+                              control={
+                                <Radio
+                                  sx={{ display: "none", width: "100%" }}
+                                />
+                              }
                               label={
                                 <div
                                   className={`${styles.trainerCard} ${
