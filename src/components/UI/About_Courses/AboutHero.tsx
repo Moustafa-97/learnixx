@@ -38,8 +38,8 @@ function AboutHero() {
                 x2="26.7612"
                 y2="-21.8399"
                 gradientUnits="userSpaceOnUse">
-                <stop stop-color="#F2F2F2" />
-                <stop offset="1" stop-color="#F2F2F2" stop-opacity="0" />
+                <stop stopColor="#F2F2F2" />
+                <stop offset="1" stopColor="#F2F2F2" stopOpacity="0" />
               </linearGradient>
             </defs>
           </svg>

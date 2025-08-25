@@ -34,17 +34,17 @@
     h1 {
       color: #fff;
       font-family: Manrope;
-      font-size: 100px;
+      font-size: 64px;
       font-style: normal;
       font-weight: 700;
       line-height: normal;
       max-width: 80%;
       @include tablet-only {
-        font-size: 60px;
+        font-size: 40px;
         max-width: 100%;
       }
       @include mobile-only {
-        font-size: 40px;
+        font-size: 26px;
         max-width: 100%;
       }
     }

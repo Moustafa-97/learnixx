@@ -13,16 +13,16 @@ export default function ExploreHeader() {
     description?: string
   }> = [
     {
-      key: "Ready Courses",
-      id: t("sections.ReadyCourses.id"),
-      label: t("sections.ReadyCourses.label"),
-      description: t("sections.ReadyCourses.description"),
-    },
-    {
       key: "Lead Weekend",
       id: t("sections.LeadWeekend.id"),
       label: t("sections.LeadWeekend.label"),
       description: t("sections.LeadWeekend.description"),
+    },
+    {
+      key: "Ready Courses",
+      id: t("sections.ReadyCourses.id"),
+      label: t("sections.ReadyCourses.label"),
+      description: t("sections.ReadyCourses.description"),
     },
     {
       key: "Customize with AI",

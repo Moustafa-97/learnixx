@@ -536,7 +536,7 @@ export default function CourseRegistrationForm() {
                       <MenuItem value={0} disabled>
                         choose the city
                       </MenuItem>
-                      {cityIdParam === "any" || cityIdParam ? (
+                      {cityIdParam !== "Leed" || cityIdParam ? (
                         <MenuItem
                           value={course ? course.city.id : "Leed"}
                           key={course && course.city.id}>

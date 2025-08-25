@@ -4,12 +4,13 @@ import React, { useState, useRef, useEffect } from "react"
 import styles from "./ExploreContainer.module.scss"
 import ExploreCard from "./card/ExploreCard"
 import { CoursesApiResponse } from "@/types/courses"
-import { useLocale } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import useStore from "@/store/useStore"
 import ExploreHeader from "../Explore_Header/ExploreHeader"
 import LastWeekend from "./lastWeekend/LastWeekend"
 import StayTuned from "./stayTuned/StayTuned"
 import axios from "axios"
+import { useRouter } from "next/navigation"
 
 export default function ExploreContainer() {
   const locale = useLocale() as "en" | "ar"
@@ -17,6 +18,8 @@ export default function ExploreContainer() {
   const [isScrollable, setIsScrollable] = useState(false)
   const tabsContainerRef = useRef<HTMLDivElement>(null)
   const tabsRef = useRef<HTMLDivElement>(null)
+
+  const t = useTranslations("hero.explore")
 
   // Loading states
   const [categoriesLoading, setCategoriesLoading] = useState(true)
@@ -134,6 +137,20 @@ export default function ExploreContainer() {
   }
 
   const { activeHomeSection } = useStore()
+  const router = useRouter()
+  const handleNavigation = () => {
+    switch (activeHomeSection) {
+      case "Customize with AI":
+        router.push(`/${locale}/custimize-ai`)
+        break
+      case "Lead Weekend":
+        router.push(`/${locale}/lead-week`)
+        break
+      case "Ready Courses":
+        router.push(`/${locale}/courses`)
+        break
+    }
+  }
 
   const renderSectionContent = () => {
     switch (activeHomeSection) {
@@ -251,6 +268,9 @@ export default function ExploreContainer() {
       </div>
       <div className={styles.exploreHeaderContent}>
         {renderSectionContent()}
+      </div>
+      <div className={styles.exploreFooter}>
+        <button onClick={handleNavigation}>{t("title")}</button>
       </div>
     </div>
   )

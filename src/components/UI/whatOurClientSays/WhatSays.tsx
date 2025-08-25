@@ -1,8 +1,9 @@
 "use client"
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useState, useEffect, useCallback, lazy, Suspense } from "react"
 import styles from "./WhatSays.module.scss"
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa"
 import { useTranslations } from "next-intl"
+const Video = lazy(() => import("./Video"))
 // import { useTranslations } from "next-intl"
 
 function WhatSays() {
@@ -86,9 +87,12 @@ function WhatSays() {
             </div>
           </div>
           <div className={styles.videoContainer}>
-            <video autoPlay loop muted playsInline className={styles.video}>
-              <source src="/says/says.mp4" type="video/mp4" />
-            </video>
+            {/* <video autoPlay loop muted playsInline  className={styles.video}>
+              <source src="/says/says.mp4" type="video/mp4"  />
+            </video> */}
+            <Suspense fallback={<div>Loading...</div>}>
+              <Video />
+            </Suspense>
           </div>
         </div>
       </div>

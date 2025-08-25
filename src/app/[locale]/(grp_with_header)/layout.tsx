@@ -8,6 +8,12 @@ import "../globals.css"
 import Header from "@/components/UI/Header/Header"
 import Footer from "@/components/UI/Footer/Footer"
 import TourComponents from "@/components/A_GUIDE/TourComponents"
+// dynanamic tourContainer
+// import dynamic from "next/dynamic"
+// const TourComponents = dynamic(() => import("@/components/A_GUIDE/TourComponents"), {
+//   ssr: true
+// })
+
 import { TourProviderClient } from "@/components/A_GUIDE/TourProviderClient"
 
 export default async function LocaleLayout({

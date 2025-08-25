@@ -28,6 +28,9 @@
       "title": "WE SUPPORT ALL CITIES IN EUROPE",
       "subtitle": "Unlock your potential with hands-on programs designed for tomorrow’s tech leaders. Master in-demand skills through expert-led courses, real projects, and global certification.",
       "searchPlaceholder": "Explore Cities"
+    },
+    "explore": {
+      "title": "EXPLORE MORE"
     }
   },
   "about": {
@@ -73,7 +76,8 @@
     "anySubject": "Any Subject",
     "anyLocation": "Any Location",
     "noResults": "No courses found. Try different search terms.",
-    "clearSearch": "Clear Search"
+    "clearSearch": "Clear Search",
+    "searchCitiesPlaceholder": "e.g., Paris, Berlin, Rome..."
   },
   "courses": {
     "section": {
@@ -150,7 +154,7 @@
 
   "faq": {
     "smallTitle": "Course content",
-    "title": "Our Comprehensive curriculum, Designed for professionals",
+    "title": "Frequently Asked Questions",
     "items": {
       "title": "What You Will Learn",
       "subtitle": "Lead Weekend is an intensive 10-hour leadership experience designed to equip ambitious professionals with essential leadership skills. Spread across three days in vibrant Barcelona, the course combines expert guidance with practical learning to help you become an effective and inspiring leader.",
@@ -197,7 +201,7 @@
       "subscribe": "Subscribe"
     },
     "company": {
-      "description": "Learnix connects learners from the Middle East and Africa with expert European trainers. Build real skills and earn recognized certifications in tech, business, and more."
+      "description": "Learnix connects learners from the World with Europe’s Top Leaders, Build real skills and earn recognized certifications in tech, business, and more."
     },
     "contact": {
       "phone": "Phone",
@@ -225,12 +229,16 @@
         "paris": "Paris"
       }
     },
-    "copyright": "© 2023 Learnix. All rights reserved"
+    "copyright": "© 2025 Learnix. All rights reserved"
   },
 
-  "whyUs": {
+  "whyUs2": {
+    "title": "why attend this course?",
+    "description": "Discover why this course is the essential guide for aspiring professionals, innovators, and career changers."
+  },
+    "whyUs": {
     "title": "WHY Choose us?",
-    "description": "Discover why Next-Gen AI Summit is the must-attend event for AI professionals, innovators, and industry leaders.",
+    "description": "Discover why our team is the essential partner for aspiring leaders, businesses, and trailblazers.",
     "cards": {
       "1": {
         "title": "Cutting-Edge Insights",
@@ -279,8 +287,8 @@
     "applyButton": "Apply now"
   },
   "city": {
-    "title": "Cities we are support",
-    "subtitle": "October 15-17, 2052 | Horizon Convention Center, Amsterdam"
+    "title": "Cities we support",
+    "subtitle": "Choose a city to explore courses and programs at your desired location."
   },
   "contact": {
     "contactus": "Send us a message",
@@ -327,7 +335,7 @@
     }
   },
   "LastWeekend": {
-    "poweredBy": "Powered by Yalla Lead",
+    "poweredBy": "Powered by Learnix",
     "joinMembers": "Join with 80k+ other members",
     "getStarted": "Get Started",
     "title": "Elite Leadership Weekend in Barcelona",

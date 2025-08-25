@@ -90,6 +90,14 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   color: $text-color;
   transition: $transition;
   outline: none;
+  &:active {
+    border: none;
+    outline: none;
+  }
+  &:target {
+    border: none;
+    outline: none;
+  }
 
   // RTL support
   :global(body[dir="rtl"]) & {
@@ -105,9 +113,8 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   &:focus {
-    background: $input-bg-focus;
-    border-color: $primary-color;
-    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    border: none;
+    outline: none;
   }
 
   &:disabled {

@@ -24,8 +24,8 @@ function CityCard({ city }: CityCardProps) {
           alt={city.name}
           className={styles.image}
           loading="lazy"
-          width={100}
-          height={100}
+          width={1000}
+          height={1000}
         />
       </div>
       <div className={styles.content}>
