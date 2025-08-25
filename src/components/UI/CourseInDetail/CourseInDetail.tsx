@@ -120,6 +120,15 @@ function CourseInDetail({ courseID }: CourseInDetailProps) {
         </div>
         <div>
           {course && (
+            <Trainers
+              trainers={course.trainers}
+              loading={loading}
+              error={error}
+            />
+          )}
+        </div>
+        <div>
+          {course && (
             <LeadFQA
               curriculums={course.curriculums}
               loading={loading}
@@ -127,23 +136,15 @@ function CourseInDetail({ courseID }: CourseInDetailProps) {
             />
           )}
         </div>
+
         <div>
           {course && (
             <CourseOverview
               description={course.description}
               startDate={course.startDate}
               price={course.price}
-              city={course.city&&course.city}
+              city={course.city && course.city}
               onApplyClick={handleApplyClick}
-            />
-          )}
-        </div>
-        <div>
-          {course && (
-            <Trainers
-              trainers={course.trainers}
-              loading={loading}
-              error={error}
             />
           )}
         </div>

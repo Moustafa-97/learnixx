@@ -17,16 +17,16 @@ export default function HomePage() {
       <section>
         <ExploreContainer />
       </section>
-      <section>
+      <section id="why-learnix">
         <WhyLearnix />
       </section>
-      <section>
+      <section id="how-it-works">
         <HowItWorks />
       </section>
-      <section>
+      <section id="top-courses">
         <MostPopular />
       </section>
-      <section>
+      <section id="testimonials">
         <WhatSays />
       </section>
       <section>

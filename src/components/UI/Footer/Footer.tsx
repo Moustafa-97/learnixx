@@ -26,17 +26,17 @@ function Footer() {
         { name: t("navigation.home.courses"), link: `/${locale}/courses` },
         {
           name: t("navigation.home.whyLearnix"),
-          link: `/${locale}/why-learnix`,
+          link: `#why-learnix`,
         },
         {
           name: t("navigation.home.topCourses"),
-          link: `/${locale}/top-courses`,
+          link: `#top-courses`,
         },
         {
           name: t("navigation.home.testimonials"),
-          link: `/${locale}/testimonials`,
+          link: `#testimonials`,
         },
-        { name: t("navigation.home.contactUs"), link: `/${locale}/contact-us` },
+        { name: t("navigation.home.contactUs"), link: `/${locale}/contact` },
       ],
     },
     {
@@ -44,11 +44,11 @@ function Footer() {
       sections: [
         {
           name: t("navigation.about.howItWorks"),
-          link: `/${locale}/how-it-works`,
+          link: `#how-it-works`,
         },
         {
           name: t("navigation.about.testimonials"),
-          link: `/${locale}/testimonials`,
+          link: `#testimonials`,
         },
         { name: t("navigation.about.trainers"), link: `/${locale}/trainers` },
       ],
@@ -58,15 +58,15 @@ function Footer() {
       sections: [
         {
           name: t("navigation.cities.explore"),
-          link: `/${locale}/explore-cities`,
+          link: `/${locale}/cities`,
         },
         {
           name: t("navigation.cities.madrid"),
-          link: `/${locale}/explore-cities?city=madrid`,
+          link: `/${locale}/cities?city=madrid`,
         },
         {
           name: t("navigation.cities.paris"),
-          link: `/${locale}/explore-cities?city=paris`,
+          link: `/${locale}/cities?city=paris`,
         },
       ],
     },
@@ -74,11 +74,12 @@ function Footer() {
   const [email, setEmail] = React.useState("")
   const onSubmit = () => {
     axios
-      .post(`${process.env.NEXT_PUBLIC_API}/api/v1/contact/get-in-touch`, {
+      .post(`${process.env.NEXT_PUBLIC_API}/api/v1/contact/join-us`, {
         email: email,
       })
       .then(res => {
         console.log(res)
+        setEmail("")
       })
       .catch(err => console.log(err))
   }

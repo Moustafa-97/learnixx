@@ -9,6 +9,12 @@
   align-items: center;
   justify-content: center;
   gap: 40px;
+  @include tablet-only {
+    padding: 88px 50px;
+  }
+  @include mobile-only {
+    padding: 38px 10px;
+  }
 }
 .exploreHeaderContent {
   width: 100%;
@@ -89,6 +95,7 @@
   justify-content: space-between;
   @include mobile-only {
     width: 100vw;
+    padding: auto;
     overflow-x: scroll;
     justify-content: flex-start;
     scrollbar-width: none;
@@ -468,5 +475,33 @@
 
   @include mobile-only {
     min-height: 350px;
+  }
+}
+.exploreFooter {
+  margin: auto;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  button {
+    display: flex;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    border-radius: 100px;
+    border: 1px solid var(--csk-141414800, #333);
+    background: var(--Pure-White-FFFFFF, #fff);
+    backdrop-filter: blur(5px);
+    color: var(--csk-141414500, #141414);
+
+    /* body-B */
+    font-family: Manrope;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%; /* 24px */
   }
 }

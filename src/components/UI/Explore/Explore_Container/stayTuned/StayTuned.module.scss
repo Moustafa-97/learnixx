@@ -1,3 +1,4 @@
+@import "@/styles/_breakpoints.scss";
 .container {
   width: 100%;
   height: 700px;
@@ -64,6 +65,7 @@
   // Create a mask that follows the shadow animation
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 .stayTunedText {
@@ -87,12 +89,13 @@
   // Position relative for pseudo-element
   position: relative;
 
+  
   // Create the filled text overlay that animates with the shadow
   &::before {
     content: "STAYTUNED";
     position: absolute;
     top: 0;
-    left: 1px;
+    left: 45px;
 
     // Same text properties
     font-family: Manrope;
@@ -112,6 +115,7 @@
     animation: text-light-sweep-inverted 10s ease-in-out infinite;
 
     z-index: 1;
+   
   }
 }
 
@@ -121,7 +125,7 @@
     clip-path: polygon(0% 0%, 25% 0%, 15% 100%, 0% 100%);
   }
   50% {
-    clip-path: polygon(75% 0%, 100% 0%, 100% 100%, 85% 100%);
+    clip-path: polygon(80% 0%, 100% 0%, 100% 100%, 80% 100%);
   }
   100% {
     clip-path: polygon(0% 0%, 25% 0%, 15% 100%, 0% 100%);
@@ -171,13 +175,14 @@
 
 @media (max-width: 900px) {
   .stayTunedText {
-    font-size: 120px;
+    font-size: 100px;
     letter-spacing: 2.4px;
     -webkit-text-stroke: 2px #141414;
     // text-stroke: 2px #141414;
 
     &::before {
-      font-size: 120px;
+      font-size: 100px;
+      left: 0px;
       letter-spacing: 2.4px;
     }
   }
@@ -185,13 +190,14 @@
 
 @media (max-width: 600px) {
   .stayTunedText {
-    font-size: 80px;
+    font-size: 60px;
     letter-spacing: 1.6px;
     -webkit-text-stroke: 1.5px #141414;
     // text-stroke: 1.5px #141414;
 
     &::before {
-      font-size: 80px;
+      font-size: 60px;
+      left: 17px;
       letter-spacing: 1.6px;
     }
   }

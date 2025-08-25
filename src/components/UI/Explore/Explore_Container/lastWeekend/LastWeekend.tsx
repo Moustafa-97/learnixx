@@ -1,11 +1,18 @@
+"use client"
 import React from "react"
 import styles from "./LastWeekend.module.scss"
 import Image from "next/image"
 import bigI from "@/../public/leed/big.png"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
+import { useRouter } from "next/navigation"
 
 function LastWeekend() {
-  const t = useTranslations("LastWeekend");
+  const t = useTranslations("LastWeekend")
+  const locale = useLocale()
+  const router = useRouter()
+  const handleButtonClick = () => {
+    router.push(`/${locale}/lead-week`)
+  }
 
   return (
     <div className={styles.container}>
@@ -17,7 +24,7 @@ function LastWeekend() {
           <div className={styles.small2}>
             <div className={styles.small2Cont}>
               <p>{t("joinMembers")}</p>
-              <button>{t("getStarted")}</button>
+              <button onClick={handleButtonClick}>{t("getStarted")}</button>
             </div>
           </div>
         </div>

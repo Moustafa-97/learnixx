@@ -12,7 +12,7 @@ interface WhyUsProps {
 
 function WhyUs({ outcomes = [], loading = false, error }: WhyUsProps) {
   const locale = useLocale()
-  const t = useTranslations("whyUs")
+  const t = useTranslations("whyUs2")
 
   // Transform outcomes to match the card structure
   const whyCards = outcomes.map((outcome, index) => ({

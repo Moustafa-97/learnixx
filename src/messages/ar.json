@@ -72,7 +72,8 @@
     "anySubject": "أي موضوع",
     "anyLocation": "أي مكان",
     "noResults": "لم يتم العثور على دورات. جرب مصطلحات بحث مختلفة.",
-    "clearSearch": "مسح البحث"
+    "clearSearch": "مسح البحث",
+    "searchCitiesPlaceholder": "مثال: باريس، برلين، روما..."
   },
   "courses": {
     "section": {

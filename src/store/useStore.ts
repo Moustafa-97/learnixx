@@ -22,7 +22,7 @@ interface SearchState {
 }
 
 // Home page sections
-type HomeSection = "Ready Courses" | "Lead Weekend" | "Customize with AI"
+type HomeSection = "Lead Weekend" | "Ready Courses" | "Customize with AI"
 
 interface HomeSectionState {
   activeHomeSection: HomeSection
@@ -108,7 +108,7 @@ const useStore = create<AppState>()(
       ],
 
       // Home Page Section Management
-      activeHomeSection: "Ready Courses", // Default to first section
+      activeHomeSection: "Lead Weekend", // Default to first section
       setActiveHomeSection: section => set({ activeHomeSection: section }),
 
       // User
