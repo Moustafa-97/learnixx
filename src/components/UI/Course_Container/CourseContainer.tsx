@@ -35,7 +35,6 @@ interface Course {
   categories: Category[]
   country: Country | null
   city: City | null
-
 }
 
 interface Meta {
@@ -77,7 +76,7 @@ function CourseContainer() {
         setLoading(true)
         setError(null)
         const response = await axios.get<ApiResponse>(
-          `${process.env.NEXT_PUBLIC_API}/api/v1/courses${cityId ? `?cityId=${cityId}` : ""}`,
+          `${process.env.NEXT_PUBLIC_API}/api/v1/courses`,
           {
             headers: {
               "Accept-Language": locale,
@@ -343,11 +342,16 @@ function CourseContainer() {
               ? "No courses match your current filters."
               : "No courses are currently available."}
           </p>
-          {isSearchActive && (
-            <button onClick={handleClearAll} className={styles.viewAllButton}>
-              View All Courses
-            </button>
-          )}
+          <div className={styles.courseGrid}>
+            {allCourses.map(course => (
+              <div key={course.id} className={styles.courseContainer}>
+                <CourseCard
+                  course={course}
+                  onEnrollNow={() => handleEnrollNow(course.id)}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

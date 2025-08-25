@@ -37,7 +37,7 @@ const CourseOverview: React.FC<CourseOverviewProps> = ({
   const router = useRouter()
   const locale = useLocale()
   const onApplyClick = () => {
-    router.push(`/${locale}/register?courseID=Leed&cityId=Leed&cityName=Leed`)
+    router.push(`/${locale}/register?courseID=Leed&cityId=Leed&cityName=Barcelona`)
   }
 
   return (

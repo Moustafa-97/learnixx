@@ -3,7 +3,7 @@
 
 import React, { useEffect } from "react"
 import confetti from "canvas-confetti"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { useLocale } from "next-intl"
 
 export default function SuccessPage() {

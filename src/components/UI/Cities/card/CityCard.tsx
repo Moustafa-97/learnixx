@@ -14,7 +14,7 @@ function CityCard({ city }: CityCardProps) {
   const router = useRouter()
   const handleNavigation = () => {
     // ?cityId=${city.id}&cityName=${city.name}
-    router.push(`/${locale}/courses`)
+    router.push(`/${locale}/courses?cityId=${city.id}&cityName=${city.name}`)
   }
   return (
     <div onClick={handleNavigation} className={styles.card}>
