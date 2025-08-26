@@ -86,13 +86,13 @@ function WhatSays() {
                 className={styles.leftArrow}
                 onClick={prevSlide}
                 aria-label="Previous testimonial">
-                <FaArrowLeft />
+                {locale === "ar" ? <FaArrowRight /> : <FaArrowLeft />}
               </button>
               <button
                 className={styles.rightArrow}
                 onClick={nextSlide}
                 aria-label="Next testimonial">
-                <FaArrowRight />
+                {locale === "ar" ? <FaArrowLeft /> : <FaArrowRight />}
               </button>
             </div>
           </div>
