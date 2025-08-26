@@ -161,7 +161,7 @@ function Footer() {
                     <span>{t("contact.phone")}:</span> 0123456789
                   </p>
                   <p>
-                    <span>{t("contact.email")}:</span> kK8b9@example.com
+                    <span>{t("contact.email")}:</span> learnix@info.com
                   </p>
                 </div>
               </div>
