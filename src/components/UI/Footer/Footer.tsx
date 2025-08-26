@@ -160,8 +160,8 @@ function Footer() {
                   <p>
                     <span>{t("contact.phone")}:</span> 0123456789
                   </p>
-                  <p onClick={() => window.open("mailto:learnix@info.com", "_blank")}>
-                    <span>{t("contact.email")}:</span> learnix@info.com
+                  <p onClick={() => window.open("mailto:info@learnixplus.com", "_blank")}>
+                    <span>{t("contact.email")}:</span> info@learnixplus.com
                   </p>
                 </div>
               </div>

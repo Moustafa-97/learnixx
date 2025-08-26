@@ -390,3 +390,42 @@
     }
   }
 }
+// Add this to your existing RegistrationForm.module.scss
+
+// Date range picker styles
+.dateRangeInput {
+  width: 100%;
+
+  .MuiOutlinedInput-root {
+    border-radius: 8px;
+    background-color: #f8f9fa;
+
+    fieldset {
+      border: 1px solid #e0e0e0;
+    }
+
+    &:hover fieldset {
+      border-color: #999;
+    }
+
+    &.Mui-focused fieldset {
+      border-color: #000;
+    }
+  }
+
+  .MuiInputBase-input {
+    padding: 12px 16px;
+    font-size: 1rem;
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+}
+
+// Override MUI DateRangePicker styles for better RTL support
+[dir="rtl"] {
+  .MuiDateRangeCalendar-root {
+    flex-direction: row-reverse;
+  }
+}
