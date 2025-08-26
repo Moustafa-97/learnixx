@@ -2,23 +2,141 @@
   width: 402px;
   height: 439px;
   border-radius: 30px;
-  overflow: hidden; // ensures rounded corners clip the image
+  overflow: hidden;
   position: relative;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background: #f8f8f8; // fallback in case image doesn’t load
+  background: #f8f8f8;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  cursor: pointer;
+  
+  // Add hover effect for the entire container
+  &:hover {
+    .content {
+      .title h3 {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .desc p {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .btn button {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+.content {
+  z-index: 2;
+  position: relative;
+  margin-top: 45px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 18px;
+  
+  .logo {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    img {
+      width: 81px;
+      height: 28px;
+      aspect-ratio: 81/28;
+    }
+  }
+  
+  .title {
+    h3 {
+      font-family: Manrope;
+      font-size: 40px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 40px;
+      background: linear-gradient(
+        95deg,
+        #f2f2f2 0.42%,
+        rgba(242, 242, 242, 0) 147.66%
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      
+      // Animation properties
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease-in-out;
+      transition-delay: 0.1s;
+    }
+  }
+  
+  .desc {
+    p {
+      color: #fff;
+      font-family: "Red Hat Display";
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      
+      // Animation properties
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease-in-out;
+      transition-delay: 0.2s;
+    }
+  }
+  
+  .btn {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    
+    button {
+      display: flex;
+      width: 121px;
+      height: 39px;
+      padding: 18px 24px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      outline: none;
+      border: none;
+      flex-shrink: 0;
+      border-radius: 20px;
+      cursor: pointer;
+      background: var(--csk-141414200, #ccc);
+      
+      // Animation properties
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease-in-out;
+      transition-delay: 0.3s;
+      
+      &:hover {
+        background: var(--csk-141414200-hover, darken(#ccc, 5%));
+      }
+    }
+  }
 }
 
 .bgImage {
   width: 100%;
   height: 100%;
-  position: relative;
+  position: absolute;
+  z-index: 1;
 
   img {
-    object-fit: cover; // Make sure image fills & clips nicely
+    object-fit: cover;
     width: 100% !important;
     height: 100% !important;
-  }
+    filter: drop-shadow(0 4px 1px rgba(0, 0, 0));
+    -webkit-filter: drop-shadow(0 4px 1px rgba(0, 0, 0));
+}
 }
