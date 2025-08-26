@@ -5,12 +5,18 @@ import styles from "./Trainers.module.scss"
 import TrainerCard from "./card/TrainerCard"
 
 interface TrainersProps {
-  trainers: Trainer[];
-  loading?: boolean;
-  error?: string | null;
+  trainers: Trainer[]
+  loading?: boolean
+  error?: string | null
+  courseID: number | string
 }
 
-function Trainers({ trainers = [], loading = false, error }: TrainersProps) {
+function Trainers({
+  trainers = [],
+  loading = false,
+  error,
+  courseID,
+}: TrainersProps) {
   const t = useTranslations("Trainers.course")
 
   // Show fallback if no trainers
@@ -22,7 +28,11 @@ function Trainers({ trainers = [], loading = false, error }: TrainersProps) {
           <h3>{t("title", { default: "Meet our Trainers" })}</h3>
         </div>
         <div className={styles.noTrainers}>
-          <p>{t("noTrainersMessage", { default: "No trainer information available for this course." })}</p>
+          <p>
+            {t("noTrainersMessage", {
+              default: "No trainer information available for this course.",
+            })}
+          </p>
         </div>
       </div>
     )
@@ -43,9 +53,8 @@ function Trainers({ trainers = [], loading = false, error }: TrainersProps) {
         <div className={styles.header}>
           <h6>{t("subtitle")}</h6>
           <h3>{t("title")}</h3>
-          
         </div>
-        
+
         {loading ? (
           <div className={getTrainersGridClass()}>
             {[...Array(Math.min(3, trainers.length || 2))].map((_, index) => (
@@ -66,7 +75,11 @@ function Trainers({ trainers = [], loading = false, error }: TrainersProps) {
         ) : (
           <div className={getTrainersGridClass()}>
             {trainers.map(trainer => (
-              <TrainerCard key={trainer.id} trainer={trainer} />
+              <TrainerCard
+                key={trainer.id}
+                trainer={trainer}
+                courseID={courseID}
+              />
             ))}
           </div>
         )}

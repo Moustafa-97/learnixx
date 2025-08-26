@@ -1647,9 +1647,6 @@ export default function CourseRegistrationForm() {
               {/* Date Range Selection - Only show for non-Leed courses */}
               {!isLeedCourse && (
                 <div className={styles.formGroup}>
-                  <label className={styles.label}>
-                    {t("fields.dateRange.label")}
-                  </label>
                   <Controller
                     name="dateRange"
                     control={control}
@@ -1669,8 +1666,8 @@ export default function CourseRegistrationForm() {
                         error={!!errors.dateRange}
                         helperText={errors.dateRange?.message}
                         minDate={new Date()}
-                        fullWidth
-                        className={styles.input}
+                        label={t("fields.dateRange.label")}
+                        className={styles.dateRangeField}
                       />
                     )}
                   />

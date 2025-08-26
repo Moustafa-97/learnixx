@@ -37,10 +37,10 @@ const Header: React.FC = () => {
   // Enhanced navRoutes with locale
   const navRoutes: NavRoute[] = [
     { key: "home", href: `/${locale}` },
-    { key: "aboutUs", href: `/${locale}/about-us` },
     { key: "courses", href: `/${locale}/courses` },
     { key: "cities", href: `/${locale}/cities` },
     { key: "leadWeek", href: `/${locale}/lead-week` },
+    { key: "aboutUs", href: `/${locale}/about-us` },
     { key: "customizeAI", href: `/${locale}/customize-ai` },
   ]
 

@@ -12,7 +12,7 @@ import Trainers from "./trainers/Trainers"
 import { useRouter, useSearchParams } from "next/navigation"
 
 interface CourseInDetailProps {
-  courseID: number | string |null
+  courseID: number | string | null
 }
 
 function CourseInDetail({ courseID }: CourseInDetailProps) {
@@ -124,6 +124,7 @@ function CourseInDetail({ courseID }: CourseInDetailProps) {
               trainers={course.trainers}
               loading={loading}
               error={error}
+              courseID={courseID as number | string}
             />
           )}
         </div>

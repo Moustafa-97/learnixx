@@ -12,22 +12,22 @@
   cursor: pointer;
   
   // Add hover effect for the entire container
-  &:hover {
-    .content {
-      .title h3 {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .desc p {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .btn button {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  }
+  // &:hover {
+  //   .content {
+  //     .title h3 {
+  //       opacity: 1;
+  //       transform: translateY(0);
+  //     }
+  //     .desc p {
+  //       opacity: 1;
+  //       transform: translateY(0);
+  //     }
+  //     .btn button {
+  //       opacity: 1;
+  //       transform: translateY(0);
+  //     }
+  //   }
+  // }
 }
 
 .content {
@@ -69,8 +69,8 @@
       -webkit-text-fill-color: transparent;
       
       // Animation properties
-      opacity: 0;
-      transform: translateY(20px);
+      // opacity: 0;
+      // transform: translateY(20px);
       transition: all 0.3s ease-in-out;
       transition-delay: 0.1s;
     }
@@ -86,8 +86,8 @@
       line-height: normal;
       
       // Animation properties
-      opacity: 0;
-      transform: translateY(20px);
+      // opacity: 0;
+      // transform: translateY(20px);
       transition: all 0.3s ease-in-out;
       transition-delay: 0.2s;
     }
@@ -114,8 +114,8 @@
       background: var(--csk-141414200, #ccc);
       
       // Animation properties
-      opacity: 0;
-      transform: translateY(20px);
+      // opacity: 0;
+      // transform: translateY(20px);
       transition: all 0.3s ease-in-out;
       transition-delay: 0.3s;
       

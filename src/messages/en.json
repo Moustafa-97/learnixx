@@ -17,7 +17,7 @@
     },
     "about": {
       "title": "Our Trainers Are Leaders Not Lecturers",
-      "subtitle": "Built for ambitious learners worldwide, Yalla Lead connects you with top-tier trainers, industry leaders, and career-driven programs. We provide the people, places, and experiences to help you learn, grow, and lead.",
+      "subtitle": "Built for ambitious learners worldwide, LEARNIX connects you with top-tier trainers, industry leaders, and career-driven programs. We provide the people, places, and experiences to help you learn, grow, and lead.",
       "searchPlaceholder": "Join Now"
     },
     "lead": {
@@ -96,7 +96,7 @@
   },
   "whyLearnix": {
     "title": "Why Choose LEARNIX?",
-    "subtitle": "Advance your career with expert-led programs. Yalla Lead connects learners from the world to Europe’s top leaders in business, tech, and leadership.",
+    "subtitle": "Advance your career with expert-led programs. LEARNIX connects learners from the world to Europe’s top leaders in business, tech, and leadership.",
     "cards": {
       "globalConnections": {
         "iconAlt": "Global Connections Icon",
@@ -410,7 +410,8 @@
       "dateRange": {
         "label": "Select Course Dates",
         "placeholder": "Select start date - end date",
-        "error": "Please select both start and end dates"
+        "error": "Please select both start and end dates",
+        "apply": "Apply"
       },
       "trainer": {
         "label": "Select the trainer",

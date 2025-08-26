@@ -14,22 +14,12 @@ import {
   isAfter,
   isBefore,
   isWithinInterval,
+  isEqual,
 } from "date-fns"
-import {
-  CalendarToday,
-  ChevronLeft,
-  ChevronRight,
-  Close,
-} from "@mui/icons-material"
-import {
-  IconButton,
-  Paper,
-  Popper,
-  ClickAwayListener,
-  TextField,
-} from "@mui/material"
-import { useLocale } from "next-intl"
+import { ar, enUS } from "date-fns/locale"
+import { CalendarToday } from "@mui/icons-material"
 import styles from "./DateRangePicker.module.scss"
+import { useLocale, useTranslations } from "next-intl"
 
 interface DateRangePickerProps {
   value: [Date | null, Date | null]
@@ -39,6 +29,7 @@ interface DateRangePickerProps {
   helperText?: string
   minDate?: Date
   maxDate?: Date
+  disabledDates?: Date[]
   className?: string
   fullWidth?: boolean
   label?: string
@@ -50,8 +41,9 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
   placeholder = "Select date range",
   error,
   helperText,
-  minDate,
+  minDate = new Date(),
   maxDate,
+  disabledDates = [],
   className,
   fullWidth = true,
   label,
@@ -61,14 +53,75 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
   const [startDate, setStartDate] = useState<Date | null>(value[0])
   const [endDate, setEndDate] = useState<Date | null>(value[1])
   const [hoverDate, setHoverDate] = useState<Date | null>(null)
-  const anchorRef = useRef<HTMLDivElement>(null)
+  const [screenWidth, setScreenWidth] = useState<number>(0)
+  const containerRef = useRef<HTMLDivElement>(null)
   const locale = useLocale()
+  const t = useTranslations("registration")
   const isRTL = locale === "ar"
+
+  // Get the appropriate locale for date-fns
+  const dateLocale = isRTL ? ar : enUS
+
+  // Arabic month names
+  const arabicMonths = [
+    "يناير",
+    "فبراير",
+    "مارس",
+    "أبريل",
+    "مايو",
+    "يونيو",
+    "يوليو",
+    "أغسطس",
+    "سبتمبر",
+    "أكتوبر",
+    "نوفمبر",
+    "ديسمبر",
+  ]
+
+  // Arabic weekday names
+  const arabicWeekDays = [
+    "السبت",
+    "الأحد",
+    "الإثنين",
+    "الثلاثاء",
+    "الأربعاء",
+    "الخميس",
+    "الجمعة",
+  ]
+  const englishWeekDays = ["S", "M", "T", "W", "T", "F", "S"]
+
+  // Handle screen width for responsive design
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth)
+    }
+    setScreenWidth(window.innerWidth)
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
+  const isMobile = screenWidth <= 768
 
   useEffect(() => {
     setStartDate(value[0])
     setEndDate(value[1])
   }, [value])
+
+  // Close when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false)
+      }
+    }
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside)
+      return () => document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [open])
 
   const handleDateClick = (date: Date) => {
     if (!startDate || (startDate && endDate)) {
@@ -77,28 +130,40 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
       setEndDate(null)
     } else {
       // Complete the range
-      if (isAfter(date, startDate)) {
+      if (isAfter(date, startDate) || isEqual(date, startDate)) {
         setEndDate(date)
-        onChange([startDate, date])
-        setTimeout(() => setOpen(false), 200)
       } else {
-        // If clicked date is before start date, reset
+        // If clicked date is before start date, make it the new start
+        setEndDate(startDate)
         setStartDate(date)
-        setEndDate(null)
       }
     }
   }
 
-  const handleMonthChange = (direction: "prev" | "next") => {
-    setCurrentMonth(
-      direction === "prev"
-        ? subMonths(currentMonth, 1)
-        : addMonths(currentMonth, 1)
-    )
+  const handleApply = () => {
+    if (startDate && endDate) {
+      onChange([startDate, endDate])
+      setOpen(false)
+    }
   }
 
-  const renderCalendar = () => {
-    const monthStart = startOfMonth(currentMonth)
+  const isDateDisabled = (date: Date) => {
+    if (minDate && isBefore(date, minDate)) return true
+    if (maxDate && isAfter(date, maxDate)) return true
+    return disabledDates.some(disabledDate => isSameDay(date, disabledDate))
+  }
+
+  const formatMonthYear = (date: Date) => {
+    if (isRTL) {
+      const month = arabicMonths[date.getMonth()]
+      const year = date.getFullYear()
+      return `${month} ${year}`
+    }
+    return format(date, "MMMM yyyy", { locale: dateLocale })
+  }
+
+  const renderMonth = (monthDate: Date) => {
+    const monthStart = startOfMonth(monthDate)
     const monthEnd = endOfMonth(monthStart)
     const calendarStart = startOfWeek(monthStart)
     const calendarEnd = endOfWeek(monthEnd)
@@ -111,23 +176,11 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
       currentDate = addDays(currentDate, 1)
     }
 
-    const weekDays = isRTL
-      ? ["س", "ج", "خ", "أ", "ث", "إ", "ح"]
-      : ["S", "M", "T", "W", "T", "F", "S"]
+    const weekDays = isRTL ? arabicWeekDays : englishWeekDays
 
     return (
       <div className={styles.calendar}>
-        <div className={styles.calendarHeader}>
-          <IconButton onClick={() => handleMonthChange("prev")} size="small">
-            {isRTL ? <ChevronRight /> : <ChevronLeft />}
-          </IconButton>
-          <span className={styles.monthYear}>
-            {format(currentMonth, "MMMM yyyy")}
-          </span>
-          <IconButton onClick={() => handleMonthChange("next")} size="small">
-            {isRTL ? <ChevronLeft /> : <ChevronRight />}
-          </IconButton>
-        </div>
+        <div className={styles.monthYear}>{formatMonthYear(monthDate)}</div>
 
         <div className={styles.weekDays}>
           {weekDays.map((day, index) => (
@@ -151,11 +204,11 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
               startDate &&
               !endDate &&
               hoverDate &&
-              isAfter(hoverDate, startDate) &&
-              isWithinInterval(day, { start: startDate, end: hoverDate })
-            const isDisabled =
-              (minDate && isBefore(day, minDate)) ||
-              (maxDate && isAfter(day, maxDate))
+              ((isAfter(hoverDate, startDate) &&
+                isWithinInterval(day, { start: startDate, end: hoverDate })) ||
+                (isBefore(hoverDate, startDate) &&
+                  isWithinInterval(day, { start: hoverDate, end: startDate })))
+            const isDisabled = isDateDisabled(day)
             const isToday = isSameDay(day, new Date())
 
             return (
@@ -173,9 +226,9 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
                   ${endDate && isSameDay(day, endDate) ? styles.rangeEnd : ""}
                 `}
                 onClick={() => !isDisabled && handleDateClick(day)}
-                onMouseEnter={() => setHoverDate(day)}
+                onMouseEnter={() => !isDisabled && setHoverDate(day)}
                 disabled={isDisabled}>
-                {format(day, "d")}
+                {format(day, "d", { locale: dateLocale })}
               </button>
             )
           })}
@@ -186,180 +239,82 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
 
   const formatDateRange = () => {
     if (startDate && endDate) {
-      return `${format(startDate, "dd/MM/yyyy")} - ${format(endDate, "dd/MM/yyyy")}`
+      if (isRTL) {
+        // Arabic date format: DD/MM/YYYY
+        return `${format(startDate, "dd/MM/yyyy")} - ${format(endDate, "dd/MM/yyyy")}`
+      }
+      return `${format(startDate, "yyyy-MM-dd")} - ${format(endDate, "yyyy-MM-dd")}`
     }
     return ""
   }
 
-  const handleClear = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    setStartDate(null)
-    setEndDate(null)
-    onChange([null, null])
+  const handleNavigation = (direction: "prev" | "next") => {
+    setCurrentMonth(
+      direction === "prev"
+        ? subMonths(currentMonth, 1)
+        : addMonths(currentMonth, 1)
+    )
   }
 
   return (
-    <>
-      <div ref={anchorRef} className={className}>
-        <TextField
-          fullWidth={fullWidth}
-          value={formatDateRange()}
-          placeholder={placeholder}
-          onClick={() => setOpen(true)}
-          error={error}
-          helperText={helperText}
-          label={label}
-          InputProps={{
-            readOnly: true,
-            startAdornment: <CalendarToday className={styles.calendarIcon} />,
-            endAdornment: (startDate || endDate) && (
-              <IconButton size="small" onClick={handleClear}>
-                <Close fontSize="small" />
-              </IconButton>
-            ),
-          }}
-          className={styles.input}
-        />
+    <div ref={containerRef} className={`${styles.container} ${className}`}>
+      {label && <label className={styles.label}>{label}</label>}
+
+      <div
+        className={`${styles.selectButton} ${error ? styles.error : ""} ${fullWidth ? styles.fullWidth : ""}`}
+        onClick={() => setOpen(true)}>
+        <p>
+          <span className={styles.selectText}>
+            {startDate && endDate ? formatDateRange() : placeholder}
+          </span>
+          <span>
+            <CalendarToday className={styles.selectButtonIcon} />
+          </span>
+        </p>
       </div>
 
-      <Popper
-        open={open}
-        anchorEl={anchorRef.current}
-        placement="bottom-start"
-        className={styles.popper}
-        modifiers={[
-          {
-            name: "flip",
-            enabled: true,
-          },
-          {
-            name: "preventOverflow",
-            enabled: true,
-          },
-        ]}>
-        <ClickAwayListener onClickAway={() => setOpen(false)}>
-          <Paper className={styles.paper} elevation={8}>
-            <div className={styles.dateRangePicker}>
-              <div className={styles.header}>
-                <div className={styles.headerTitle}>
-                  {startDate && !endDate
-                    ? "Select end date"
-                    : "Select date range"}
-                </div>
-                <IconButton size="small" onClick={() => setOpen(false)}>
-                  <Close />
-                </IconButton>
-              </div>
+      {helperText && (
+        <div
+          className={`${styles.helperText} ${error ? styles.errorText : ""}`}>
+          {helperText}
+        </div>
+      )}
 
-              <div className={styles.calendarsContainer}>
-                {renderCalendar()}
-                <div className={styles.divider} />
-                <div className={styles.calendar}>
-                  {(() => {
-                    const nextMonth = addMonths(currentMonth, 1)
-                    const monthStart = startOfMonth(nextMonth)
-                    const monthEnd = endOfMonth(monthStart)
-                    const calendarStart = startOfWeek(monthStart)
-                    const calendarEnd = endOfWeek(monthEnd)
-
-                    const days = []
-                    let currentDate = calendarStart
-
-                    while (currentDate <= calendarEnd) {
-                      days.push(currentDate)
-                      currentDate = addDays(currentDate, 1)
-                    }
-
-                    const weekDays = isRTL
-                      ? ["س", "ج", "خ", "أ", "ث", "إ", "ح"]
-                      : ["S", "M", "T", "W", "T", "F", "S"]
-
-                    return (
-                      <>
-                        <div className={styles.calendarHeader}>
-                          <div style={{ width: 40 }} />
-                          <span className={styles.monthYear}>
-                            {format(nextMonth, "MMMM yyyy")}
-                          </span>
-                          <div style={{ width: 40 }} />
-                        </div>
-
-                        <div className={styles.weekDays}>
-                          {weekDays.map((day, index) => (
-                            <div key={index} className={styles.weekDay}>
-                              {day}
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className={styles.daysGrid}>
-                          {days.map((day, index) => {
-                            const isCurrentMonth = isSameMonth(day, monthStart)
-                            const isSelected =
-                              (startDate && isSameDay(day, startDate)) ||
-                              (endDate && isSameDay(day, endDate))
-                            const isInRange =
-                              startDate &&
-                              endDate &&
-                              isWithinInterval(day, {
-                                start: startDate,
-                                end: endDate,
-                              })
-                            const isHoverRange =
-                              startDate &&
-                              !endDate &&
-                              hoverDate &&
-                              isAfter(hoverDate, startDate) &&
-                              isWithinInterval(day, {
-                                start: startDate,
-                                end: hoverDate,
-                              })
-                            const isDisabled =
-                              (minDate && isBefore(day, minDate)) ||
-                              (maxDate && isAfter(day, maxDate))
-                            const isToday = isSameDay(day, new Date())
-
-                            return (
-                              <button
-                                key={index}
-                                className={`
-                                  ${styles.day}
-                                  ${!isCurrentMonth ? styles.otherMonth : ""}
-                                  ${isSelected ? styles.selected : ""}
-                                  ${isInRange ? styles.inRange : ""}
-                                  ${isHoverRange ? styles.hoverRange : ""}
-                                  ${isDisabled ? styles.disabled : ""}
-                                  ${isToday ? styles.today : ""}
-                                  ${startDate && isSameDay(day, startDate) ? styles.rangeStart : ""}
-                                  ${endDate && isSameDay(day, endDate) ? styles.rangeEnd : ""}
-                                `}
-                                onClick={() =>
-                                  !isDisabled && handleDateClick(day)
-                                }
-                                onMouseEnter={() => setHoverDate(day)}
-                                disabled={isDisabled}>
-                                {format(day, "d")}
-                              </button>
-                            )
-                          })}
-                        </div>
-                      </>
-                    )
-                  })()}
-                </div>
-              </div>
-
-              {startDate && endDate && (
-                <div className={styles.footer}>
-                  <div className={styles.selectedRange}>
-                    {formatDateRange()}
-                  </div>
-                </div>
-              )}
+      {open && (
+        <div className={styles.calendarWrapper} dir="ltr">
+          <div className={styles.calendarContainer}>
+            <div className={styles.navigation}>
+              <button
+                className={styles.navButton}
+                onClick={() => handleNavigation("prev")}
+                type="button">
+                ‹
+              </button>
+              <button
+                className={styles.navButton}
+                onClick={() => handleNavigation("next")}
+                type="button">
+                ›
+              </button>
             </div>
-          </Paper>
-        </ClickAwayListener>
-      </Popper>
-    </>
+
+            <div className={styles.calendars}>
+              {renderMonth(currentMonth)}
+              {!isMobile && renderMonth(addMonths(currentMonth, 1))}
+            </div>
+
+            <div className={styles.footer}>
+              <button
+                onClick={handleApply}
+                className={styles.applyButton}
+                disabled={!startDate || !endDate}
+                type="button">
+                {t("fields.dateRange.apply") || "Apply"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
