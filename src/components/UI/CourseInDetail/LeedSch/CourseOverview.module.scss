@@ -43,6 +43,11 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+        .dayIcon {
+          font-size: 18px;
+          fill: #dedee0;
+          color: #dedee0;
+        }
         .scheduleItem {
           display: flex;
           align-items: center;
@@ -128,45 +133,45 @@
     }
   }
   .applyButton {
-  border: none;
-  outline: none;
-  cursor: pointer;
-  position: absolute;
-  bottom: 20px;
-  display: flex;
-  width: 271px;
-  height: 59px;
-  padding: 0 50px;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  flex-shrink: 0;
-  border-radius: 100px;
-  background: linear-gradient(
-    85deg,
-    #141414 1.59%,
-    rgba(20, 20, 20, 0) 121.45%
-  );
-  color: #fff;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 23px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    width: 271px;
+    height: 59px;
+    padding: 0 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+    border-radius: 100px;
+    background: linear-gradient(
+      85deg,
+      #141414 1.59%,
+      rgba(20, 20, 20, 0) 121.45%
+    );
+    color: #fff;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 23px;
 
-  // Using CSS logical properties (modern approach)
-  inset-inline-end: 20px;
+    // Using CSS logical properties (modern approach)
+    inset-inline-end: 20px;
 
-  @media screen and (max-width: 1300px) {
-    padding: 0 25px;
-    width: 200px;
+    @media screen and (max-width: 1300px) {
+      padding: 0 25px;
+      width: 200px;
+    }
+
+    @media screen and (max-width: 1024px) {
+      padding: 0 25px;
+      width: 200px;
+      position: relative;
+      bottom: auto;
+      inset-inline-end: auto;
+    }
   }
-  
-  @media screen and (max-width: 1024px) {
-    padding: 0 25px;
-    width: 200px;
-    position: relative;
-    bottom: auto;
-    inset-inline-end: auto;
-  }
-}
 }

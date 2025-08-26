@@ -277,20 +277,21 @@
           max-width: none;
           width: 100%;
         }
-
-        h2 {
-          color: var(--neutral-neutral-900, #1e242c);
-          font-family: Manrope;
-          font-size: 28px;
-          font-weight: 700;
-          margin-bottom: 8px;
+        .companyInfo {
+          width: 100%;
+        }
+        img {
+          width: 80px;
+          height: 40px;
 
           @include tablet-only {
-            font-size: 24px;
+            width: 80px;
+            height: 40px;
           }
 
           @include mobile-only {
-            font-size: 22px;
+            width: 40px;
+            height: 20px;
           }
         }
 
@@ -330,6 +331,58 @@
 
             span {
               font-weight: 800;
+            }
+          }
+        }
+
+        // RTL styles for Arabic
+        &.rtl {
+          align-items: flex-end;
+          text-align: right;
+
+          .description {
+            text-align: right;
+            direction: rtl;
+          }
+
+          .social {
+            width: 100%;
+
+            p {
+              text-align: right;
+              direction: rtl;
+
+              span {
+                margin-left: 5px;
+                margin-right: 0;
+              }
+            }
+          }
+        }
+      }
+
+      // Global RTL support using [dir="rtl"] attribute
+      [dir="rtl"] {
+        .logoSection {
+          align-items: flex-end;
+          text-align: right;
+
+          .description {
+            text-align: right;
+            direction: rtl;
+          }
+
+          .social {
+            width: 100%;
+
+            p {
+              text-align: right;
+              direction: rtl;
+
+              span {
+                margin-left: 5px;
+                margin-right: 0;
+              }
             }
           }
         }
@@ -532,5 +585,83 @@
         }
       }
     }
+  }
+}
+.successMessage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #10b981;
+  color: white;
+  border-radius: 56px;
+  font-family: Manrope;
+  font-size: 16px;
+  font-weight: 600;
+  animation: slideIn 0.3s ease-out;
+  box-shadow: 0 4px 24px rgba(16, 185, 129, 0.25);
+
+  @include tablet-only {
+    font-size: 15px;
+    padding: 10px 20px;
+  }
+
+  @include mobile-only {
+    font-size: 14px;
+    padding: 8px 16px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  svg {
+    font-size: 20px;
+
+    @include mobile-only {
+      font-size: 18px;
+    }
+  }
+
+  span {
+    line-height: 1.5;
+  }
+}
+
+.emailForm {
+  button {
+    // ... existing styles ...
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+
+      &:hover {
+        background: var(--csk-141414500, #141414);
+        transform: none;
+      }
+    }
+  }
+
+  .inputC {
+    input {
+      // ... existing styles ...
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+// Animation for success message
+@keyframes slideIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }

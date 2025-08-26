@@ -11,6 +11,12 @@ function HeroCourses(props: Props) {
   const { details } = props
   const t = useTranslations("hero.courses")
   const locale = useLocale()
+  const handleScroll = () => {
+    const element = document.getElementById("coursesPage")
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+  }
   return (
     <>
       <section className={styles.hero}>
@@ -19,8 +25,8 @@ function HeroCourses(props: Props) {
           <p>{details.description}</p>
         </div>
         <div className={styles.cta}>
-          <button className={styles.searchButton}>
-            <span>{t("searchPlaceholder")}</span>
+          <button onClick={handleScroll} className={styles.searchButton}>
+            <span>{t("searchPlaceholder2")}</span>
             <FaArrowUp />
           </button>
         </div>

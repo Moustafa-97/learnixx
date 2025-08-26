@@ -2,7 +2,10 @@ import React from "react"
 import { useLocale, useTranslations } from "next-intl"
 import { City } from "@/types/career"
 import styles from "./CourseOverview.module.scss"
-
+import { LuMonitorPlay } from "react-icons/lu"
+import { LiaChalkboardSolid } from "react-icons/lia"
+import { TbClockMinus } from "react-icons/tb"
+import { FaLaptop } from "react-icons/fa"
 interface CourseOverviewProps {
   description: string
   startDate: string
@@ -18,9 +21,9 @@ interface CourseOverviewProps {
 
 const CourseOverview: React.FC<CourseOverviewProps> = ({
   description,
-  startDate,
+  // startDate,
   price,
-  city,
+  // city,
   // schedule,
   // hasExclusiveMaterials = true,
   onApplyClick,
@@ -29,21 +32,21 @@ const CourseOverview: React.FC<CourseOverviewProps> = ({
   const locale = useLocale()
 
   // Format the start date based on locale
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString(locale === "ar" ? "ar-EG" : "en-US", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    })
-  }
+  // const formatDate = (dateString: string) => {
+  //   const date = new Date(dateString)
+  //   return date.toLocaleDateString(locale === "ar" ? "ar-EG" : "en-US", {
+  //     weekday: "long",
+  //     year: "numeric",
+  //     month: "long",
+  //     day: "numeric",
+  //   })
+  // }
 
   // Format price with currency
   const formatPrice = (priceValue: number) => {
     return new Intl.NumberFormat(locale === "ar" ? "ar-EG" : "en-US", {
       style: "currency",
-      currency: "USD",
+      currency: "EUR",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(priceValue)
@@ -61,19 +64,24 @@ const CourseOverview: React.FC<CourseOverviewProps> = ({
   // Course information items for the sidebar
   const courseInfoItems = [
     {
-      icon: "📅",
-      label: t("startDate", { default: "Start Date" }),
-      value: formatDate(startDate),
+      icon: <LuMonitorPlay />,
+      label: t("expert", { default: "Expert-led sessions" }),
+      // value: formatDate(startDate),
     },
     {
-      icon: "📍",
-      label: t("location", { default: "Location" }),
-      value: `${city && city.name}, ${city && city.country.name}`,
+      icon: <LiaChalkboardSolid />,
+      label: t("preminum", { default: "Premium venue access" }),
+      // value: `${city && city.name}, ${city && city.country.name}`,
     },
     {
-      icon: "💰",
-      label: t("fees", { default: "Course Fee" }),
-      value: formatPrice(price),
+      icon: <TbClockMinus />,
+      label: t("lunch", { default: "Lunch included" }),
+      // value: formatPrice(price),
+    },
+    {
+      icon: <FaLaptop />,
+      label: t("exclusive", { default: "Exclusive materials" }),
+      // value: formatPrice(price),
     },
   ]
 
@@ -86,38 +94,19 @@ const CourseOverview: React.FC<CourseOverviewProps> = ({
           </h3>
 
           {/* Dynamic Course Information */}
-          <h4 className={styles.scheduleTitle}>{t("schedule.title")}</h4>
           <div className={styles.scheduleList}>
             {courseInfoItems.map((item, index) => (
               <div key={index} className={styles.scheduleItem}>
                 <span className={styles.dayIcon}>{item.icon}</span>
                 <div className={styles.infoContent}>
                   <span className={styles.scheduleText}>{item.label}</span>
-                  <span className={styles.scheduleText}>{item.value}</span>
+                  {/* <span className={styles.scheduleText}>{item.value}</span> */}
                 </div>
               </div>
             ))}
           </div>
 
           {/* Schedule Section */}
-
-          {/* <div className={styles.scheduleList}>
-            {(schedule || defaultSchedule).map((item, index) => (
-              <div key={index} className={styles.scheduleItem}>
-                <span className={styles.dayIcon}>📅</span>
-                <span className={styles.scheduleText}>
-                  {item.day} {item.time}
-                </span>
-              </div>
-            ))}
-          </div> */}
-
-          {/* {hasExclusiveMaterials && (
-            <div className={styles.exclusiveMaterials}>
-              <span className={styles.checkboxIcon}>🔑</span>
-              <p className={styles.checkboxLabel}>{t("exclusiveMaterials")}</p>
-            </div>
-          )} */}
         </div>
       </div>
 
@@ -129,7 +118,7 @@ const CourseOverview: React.FC<CourseOverviewProps> = ({
           <div className={styles.priceText}>
             {t("pricing.startingAt", { price: formatPrice(price) })}
           </div>
-          <div className={styles.paymentNote}>{t("pricing.paymentNote")}</div>
+          {/* <div className={styles.paymentNote}>{t("pricing.paymentNote")}</div> */}
         </div>
 
         <button className={styles.applyButton} onClick={onApplyClick}>

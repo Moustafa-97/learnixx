@@ -15,7 +15,7 @@ import {
 import styles from "./Header.module.scss"
 
 // You'll need to import your logo
-import logo from "@/../public/logo/header.png"
+import logo from "@/../public/logo/image.png"
 import ReactCountryFlag from "react-country-flag"
 
 interface NavRoute {
