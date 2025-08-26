@@ -160,7 +160,7 @@ function Footer() {
                   <p>
                     <span>{t("contact.phone")}:</span> 0123456789
                   </p>
-                  <p>
+                  <p onClick={() => window.open("mailto:learnix@info.com", "_blank")}>
                     <span>{t("contact.email")}:</span> learnix@info.com
                   </p>
                 </div>
@@ -181,8 +181,19 @@ function Footer() {
             <div className={styles.copyR}>
               <p>{t("copyright")}</p>
               <div className={styles.socialMedia}>
-                <FaLinkedin onClick={() => window.open("https://www.linkedin.com/company/learnix-plus/", "_blank")} />
-                <FaSnapchat onClick={() => window.open("https://t.snapchat.com/cYM0XmXS", "_blank")} />
+                <FaLinkedin
+                  onClick={() =>
+                    window.open(
+                      "https://www.linkedin.com/company/learnix-plus/",
+                      "_blank"
+                    )
+                  }
+                />
+                <FaSnapchat
+                  onClick={() =>
+                    window.open("https://t.snapchat.com/cYM0XmXS", "_blank")
+                  }
+                />
               </div>
             </div>
           </div>
