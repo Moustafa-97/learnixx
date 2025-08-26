@@ -7,7 +7,7 @@ import axios from "axios"
 
 import styles from "./ContactUs.module.scss"
 import { useTranslations } from "next-intl"
-import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa"
+import {  FaLinkedin, FaSnapchat} from "react-icons/fa"
 
 interface ContactFormData {
   name: string
@@ -104,15 +104,24 @@ function ContactUs() {
               <div className={styles.infoBlock3}>
                 <div className={styles.info5}>
                   <h5>{t("info.email")}</h5>
-                  <p>info@nexus.com</p>
+                  <p onClick={() => window.open("mailto:learnix@info.com", "_blank")}>learnix@info.com</p>
                 </div>
                 <div className={styles.info6}>
                   <h5>{t("info.followUs")}</h5>
                   <div className={styles.icons}>
-                    <FaFacebook />
-                    <FaLinkedin />
-                    <FaYoutube />
-                    <FaInstagram />
+                    <FaLinkedin
+                      onClick={() =>
+                        window.open(
+                          "https://www.linkedin.com/company/learnix-plus/",
+                          "_blank"
+                        )
+                      }
+                    />
+                    <FaSnapchat
+                      onClick={() =>
+                        window.open("https://t.snapchat.com/cYM0XmXS", "_blank")
+                      }
+                    />
                   </div>
                 </div>
               </div>
