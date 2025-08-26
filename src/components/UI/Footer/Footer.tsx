@@ -6,11 +6,9 @@ import top from "@/../public/footer/CTA.png"
 import Image from "next/image"
 import {
   FaEnvelope,
-  FaInstagramSquare,
-  FaTelegram,
-  FaTiktok,
-  FaYoutube,
   FaCheckCircle,
+  FaLinkedin,
+  FaSnapchat,
 } from "react-icons/fa"
 import Link from "next/link"
 import { useTranslations, useLocale } from "next-intl"
@@ -163,7 +161,7 @@ function Footer() {
                     <span>{t("contact.phone")}:</span> 0123456789
                   </p>
                   <p>
-                    <span>{t("contact.email")}:</span> kK8b9@example.com
+                    <span>{t("contact.email")}:</span> learnix@info.com
                   </p>
                 </div>
               </div>
@@ -183,10 +181,8 @@ function Footer() {
             <div className={styles.copyR}>
               <p>{t("copyright")}</p>
               <div className={styles.socialMedia}>
-                <FaInstagramSquare />
-                <FaTiktok />
-                <FaTelegram />
-                <FaYoutube />
+                <FaLinkedin onClick={() => window.open("https://www.linkedin.com/company/learnix-plus/", "_blank")} />
+                <FaSnapchat onClick={() => window.open("https://t.snapchat.com/cYM0XmXS", "_blank")} />
               </div>
             </div>
           </div>

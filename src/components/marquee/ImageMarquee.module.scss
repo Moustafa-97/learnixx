@@ -1,9 +1,145 @@
+// .marqueeContainer {
+//   width: 100%;
+//   overflow: hidden;
+//   position: relative;
+//   background:  transparent;
+//   padding: var(--marquee-padding, 20px 0);
+// }
+
+// .imageWrapper {
+//   display: inline-block;
+//   cursor: pointer;
+//   position: relative;
+//   overflow: hidden;
+// }
+
+// .imageContent {
+//   position: relative;
+//   width: 288px;
+//   height: 338px;
+//   background: #c3c3c3;
+//   overflow: hidden;
+//   transition: all 0.3s ease;
+//   border-radius: 20px;
+//   -webkit-border-radius: 20px;
+//   -moz-border-radius: 20px;
+//   -ms-border-radius: 20px;
+//   -o-border-radius: 20px;
+//   &:hover {
+//     transform: var(--image-hover-transform, scale(1.05));
+//     box-shadow: var(--image-hover-shadow, 0 4px 20px rgba(0, 0, 0, 0.1));
+
+//     .imageOverlay {
+//       opacity: 1;
+//     }
+//   }
+// }
+
+// .image {
+//   display: block;
+//   width: 100%;
+//   height: 100%;
+//   overflow: hidden;
+//   object-position: center;
+//   object-fit: contain;
+//   object-fit: var(--image-fit, cover);
+//   transition: transform 0.3s ease;
+//   filter: grayscale(1);
+//   -webkit-filter: grayscale(1);
+// }
+
+// // Responsive
+// @media (max-width: 768px) {
+//   .marqueeContainer {
+//     padding: 10px 0;
+//   }
+
+//   .imageTitle {
+//     font-size: 12px;
+//   }
+// }
+
 .marqueeContainer {
   width: 100%;
   overflow: hidden;
   position: relative;
-  background:  transparent;
+  background: transparent;
   padding: var(--marquee-padding, 20px 0);
+  
+  // Gradient overlays
+  .gradient {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+  }
+  
+  .gradientLeft {
+    left: 0;
+  }
+  
+  .gradientRight {
+    right: 0;
+  }
+  
+  // RTL support - flip gradients
+  &.right {
+    .gradientLeft {
+      left: auto;
+      right: 0;
+      background: linear-gradient(to right, transparent, var(--gradient-color, white)) !important;
+    }
+    
+    .gradientRight {
+      right: auto;
+      left: 0;
+      background: linear-gradient(to left, transparent, var(--gradient-color, white)) !important;
+    }
+  }
+}
+
+.marqueeContent {
+  display: flex;
+  animation: marquee linear infinite;
+  
+  // Pause on hover
+  .marqueeContainer[data-pause-on-hover="true"]:hover & {
+    animation-play-state: paused;
+  }
+  
+  // Pause on click
+  .marqueeContainer[data-pause-on-click="true"]:active & {
+    animation-play-state: paused;
+  }
+}
+
+.marqueeTrack {
+  display: flex;
+  flex-shrink: 0;
+}
+
+// Marquee animation
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+// RTL animation
+.right .marqueeContent {
+  @keyframes marqueeRTL {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  animation-name: marqueeRTL;
 }
 
 .imageWrapper {
@@ -11,6 +147,7 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .imageContent {
@@ -25,13 +162,10 @@
   -moz-border-radius: 20px;
   -ms-border-radius: 20px;
   -o-border-radius: 20px;
+  
   &:hover {
     transform: var(--image-hover-transform, scale(1.05));
     box-shadow: var(--image-hover-shadow, 0 4px 20px rgba(0, 0, 0, 0.1));
-
-    .imageOverlay {
-      opacity: 1;
-    }
   }
 }
 
@@ -53,8 +187,16 @@
   .marqueeContainer {
     padding: 10px 0;
   }
+  
+  .imageContent {
+    width: 200px;
+    height: 235px;
+  }
+}
 
-  .imageTitle {
-    font-size: 12px;
+// Smooth performance optimization
+@media (prefers-reduced-motion: reduce) {
+  .marqueeContent {
+    animation: none !important;
   }
 }

@@ -1,9 +1,9 @@
-import React from "react"
+"use client"
+import React, { useRef, useEffect, useState } from "react"
 import Image, { StaticImageData } from "next/image"
-import Marquee from "react-fast-marquee"
+import { useLocale } from "next-intl"
 
 import styles from "./ImageMarquee.module.scss"
-import { useLocale } from "next-intl"
 
 interface ImageItem {
   id: string | number
@@ -37,6 +37,8 @@ export default function ImageMarquee({
   pauseOnHover = false,
   pauseOnClick = false,
   direction = "left",
+  gradient = true, // Added default value
+  gradientColor = "white", // Added default value
   gradientWidth = 100,
   gap = 20,
   className = "",
@@ -44,37 +46,103 @@ export default function ImageMarquee({
   autoFill = true,
 }: ImageMarqueeProps) {
   const locale = useLocale()
+  const marqueeRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [contentWidth, setContentWidth] = useState(0)
+  const [duplicates, setDuplicates] = useState(1)
+
+  // Determine direction based on locale
+  const actualDirection = locale === "ar" ? "right" : direction
+
+  // Calculate animation duration based on speed
+  const duration = contentWidth / speed
+
+  useEffect(() => {
+    if (contentRef.current && marqueeRef.current) {
+      const content = contentRef.current
+      const container = marqueeRef.current
+      
+      // Calculate content width
+      const width = content.scrollWidth
+      setContentWidth(width)
+      
+      // Calculate how many duplicates needed for seamless loop
+      if (autoFill) {
+        const containerWidth = container.offsetWidth
+        const duplicatesNeeded = Math.ceil(containerWidth / width) + 1
+        setDuplicates(Math.max(2, duplicatesNeeded))
+      }
+    }
+  }, [images, autoFill])
+
+  const renderImages = () => (
+    <>
+      {images.map(image => (
+        <div
+          key={image.id}
+          className={styles.imageWrapper}
+          style={{ marginRight: `${gap}px` }}
+        >
+          <div className={`${styles.imageContent} ${imageClassName}`}>
+            <Image
+              src={image.src}
+              alt={image.alt}
+              width={image.width || 200}
+              height={image.height || 150}
+              className={styles.image}
+              loading="lazy"
+            />
+          </div>
+        </div>
+      ))}
+    </>
+  )
+
   return (
-    <div className={`${styles.marqueeContainer} ${className}`}>
-      <Marquee
-        speed={speed}
-        pauseOnHover={pauseOnHover}
-        pauseOnClick={pauseOnClick}
-        direction={locale !== "ar" ? direction : "right"}
-        // gradient={gradient}
-        // gradientColor={gradientColor}
-        gradientWidth={gradientWidth}
-        autoFill={autoFill}>
-        {images.map(image => (
-          <div
-            key={image.id}
-            className={styles.imageWrapper}
-            style={{ marginRight: `${gap}px` }}
-            // onClick={() => handleImageClick(image)}
-          >
-            <div className={`${styles.imageContent} ${imageClassName}`}>
-              <Image
-                src={image.src}
-                alt={image.alt}
-                width={image.width || 200}
-                height={image.height || 150}
-                className={styles.image}
-                loading="lazy"
-              />
-            </div>
+    <div 
+      ref={marqueeRef}
+      className={`${styles.marqueeContainer} ${className} ${styles[actualDirection]}`}
+      data-pause-on-hover={pauseOnHover}
+      data-pause-on-click={pauseOnClick}
+    >
+      {/* Gradient overlays */}
+      {gradient && (
+        <>
+          <div 
+            className={`${styles.gradient} ${styles.gradientLeft}`}
+            style={{ 
+              width: gradientWidth,
+              background: `linear-gradient(to right, ${gradientColor}, transparent)`
+            }}
+          />
+          <div 
+            className={`${styles.gradient} ${styles.gradientRight}`}
+            style={{ 
+              width: gradientWidth,
+              background: `linear-gradient(to left, ${gradientColor}, transparent)`
+            }}
+          />
+        </>
+      )}
+      
+      <div 
+        className={styles.marqueeContent}
+        style={{
+          animationDuration: `${duration}s`,
+          animationDirection: actualDirection === "right" ? "reverse" : "normal"
+        }}
+      >
+        <div ref={contentRef} className={styles.marqueeTrack}>
+          {renderImages()}
+        </div>
+        
+        {/* Duplicate content for seamless loop */}
+        {[...Array(duplicates - 1)].map((_, index) => (
+          <div key={`duplicate-${index}`} className={styles.marqueeTrack}>
+            {renderImages()}
           </div>
         ))}
-      </Marquee>
+      </div>
     </div>
   )
 }
