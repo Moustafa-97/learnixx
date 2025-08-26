@@ -104,7 +104,7 @@ function ContactUs() {
               <div className={styles.infoBlock3}>
                 <div className={styles.info5}>
                   <h5>{t("info.email")}</h5>
-                  <p onClick={() => window.open("mailto:learnix@info.com", "_blank")}>learnix@info.com</p>
+                  <p onClick={() => window.open("mailto:info@learnixplus.com", "_blank")}>info@learnixplus.com</p>
                 </div>
                 <div className={styles.info6}>
                   <h5>{t("info.followUs")}</h5>

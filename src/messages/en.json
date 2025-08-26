@@ -389,5 +389,54 @@
   },
   "MostPopular": {
     "title": "Most Popular Courses"
+  },
+  "registration": {
+    "title": "Register To Enroll",
+    "subtitle": "Unlock this course and start your personalized learning journey.",
+    "fields": {
+      "fullName": {
+        "label": "Full Name",
+        "placeholder": "Enter your full name",
+        "error": "Full name is required"
+      },
+      "email": {
+        "label": "Email Address",
+        "placeholder": "Enter your email",
+        "errors": {
+          "required": "Email is required",
+          "invalid": "Invalid email address"
+        }
+      },
+      "dateRange": {
+        "label": "Select Course Dates",
+        "placeholder": "Select start date - end date",
+        "error": "Please select both start and end dates"
+      },
+      "trainer": {
+        "label": "Select the trainer",
+        "error": "Please select a trainer"
+      },
+      "jobTitle": {
+        "label": "Job Title",
+        "placeholder": "e.g., Marketing Manager",
+        "error": "Job title is required"
+      },
+      "company": {
+        "label": "Company Name",
+        "placeholder": "e.g., Meta, Freelance, Self-employed",
+        "error": "Company name is required"
+      },
+      "city": {
+        "label": "Select the city",
+        "placeholder": "Choose the city",
+        "error": "Please select a city"
+      }
+    },
+    "submit": "Apply now",
+    "errors": {
+      "courseNotFound": "Course not found",
+      "registrationFailed": "Registration failed. Please try again.",
+      "loadingFailed": "Failed to load course information"
+    }
   }
 }
