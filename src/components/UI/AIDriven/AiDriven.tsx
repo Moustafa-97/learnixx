@@ -3,7 +3,7 @@
 import React from "react"
 import styles from "./AiDriven.module.scss"
 import Image from "next/image"
-import oldLogo from "@/../public/logo/oldLogo.png"
+import oldLogo from "@/../public/logo/image.png"
 // import {
 //   FaInstagramSquare,
 //   FaTelegram,
