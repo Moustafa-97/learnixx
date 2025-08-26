@@ -1,21 +1,40 @@
+"use client"
 import React from "react"
 import { FaLinkedin } from "react-icons/fa"
 import Image from "next/image"
 import { Trainer } from "@/types/career"
 import styles from "./TrainerCard.module.scss"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
+import { useRouter, useSearchParams } from "next/navigation"
 
 interface TrainerCardProps {
   trainer: Trainer
+  courseID: number | string
 }
 
-function TrainerCard({ trainer }: TrainerCardProps) {
+function TrainerCard({ trainer, courseID }: TrainerCardProps) {
   const handleLinkedInClick = () => {
     if (trainer.linkedIn) {
       window.open(trainer.linkedIn, "_blank", "noopener,noreferrer")
     }
   }
+  const param = useSearchParams()
+  const cityID = param.get("cityId")
+  const cityName = param.get("cityName")
+  const router = useRouter()
+  const locale = useLocale()
   const t = useTranslations("Trainers.course")
+  const handleApplyClick = () => {
+    // Handle enrollment logic
+    if (cityID && cityName) {
+      router.push(
+        `/${locale}/register?courseID=${courseID}&cityId=${cityID}&cityName=${cityName}`
+      )
+    } else {
+      router.push(`/${locale}/register?courseID=${courseID}`)
+    }
+    console.log(`Apply for course ${courseID}`)
+  }
   return (
     <>
       <div className={styles.container}>
@@ -39,7 +58,7 @@ function TrainerCard({ trainer }: TrainerCardProps) {
 
             <button
               className={styles.chooseButton}
-              onClick={handleLinkedInClick}
+              onClick={handleApplyClick}
               aria-label={`View ${trainer.name}'s LinkedIn profile`}>
               {t("choose", { default: "Choose your Trainer" })}
               {/* <span>Full Review</span> */}
