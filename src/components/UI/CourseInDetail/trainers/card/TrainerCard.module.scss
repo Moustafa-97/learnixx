@@ -2,85 +2,114 @@
 
 .container {
   width: 100%;
-  height: 350px;
+  height: 443px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 16px;
   position: relative;
-  .image {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 50%;
-    height: 50%;
-    border-radius: 16px;
-    -webkit-border-radius: 16px;
-    -moz-border-radius: 16px;
-    -ms-border-radius: 16px;
-    -o-border-radius: 16px;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-    transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
-    .trainerImage {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 25px;
-      -webkit-border-radius: 25px;
-      -moz-border-radius: 25px;
-      -ms-border-radius: 25px;
-      -o-border-radius: 25px;
-    }
-  }
-  .details {
+  border-radius: 48px;
+  background: #000;
+  .subContainer {
+    width: 90%;
+    height: 418.389px;
+    flex-shrink: 0;
+    border-radius: 48px;
+    border: 3px solid #f2f2f2;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 100%);
+    box-shadow: -2px 0 17px 13px rgba(242, 242, 242, 0.19);
+    position: relative;
+    z-index: 2;
     display: flex;
-    width: 393px;
-    height: 249px;
-    padding: 20px;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
-    gap: 12px;
-    flex-shrink: 0;
-    border-radius: 16px;
-    background: linear-gradient(
-      180deg,
-      #141414 25.93%,
-      rgba(20, 20, 20, 0.6) 119.56%
-    );
-    @media screen and (max-width: 768px) {
-      width: 100%;
-    }
-    .name {
-      color: #f2f2f2;
-      text-align: center;
+    justify-content: center;
+    gap: 16px;
+    .image {
+      width: 157px;
+      height: 169px;
 
-      /* Title/h3 */
-      font-family: Montserrat;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      text-transform: uppercase;
+      .trainerImage {
+        width: 100%;
+        height: 100%;
+        align-self: center;
+        margin: auto;
+        object-fit: cover;
+        border-radius: 25px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        -ms-border-radius: 25px;
+        -o-border-radius: 25px;
+      }
     }
-    .title {
-      color: #f2f2f2;
+    .details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
-
-      /* Description/p */
-      font-family: Montserrat;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
+      justify-content: center;
+      gap: 18px;
+      .name {
+        color: #fff;
+        font-family: Manrope;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+      .title {
+        text-align: center;
+        font-family: Manrope;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        background: linear-gradient(
+          92deg,
+          #f2f2f2 2.02%,
+          rgba(242, 242, 242, 0) 174.56%
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .chooseButton {
+        display: flex;
+        height: 53px;
+        padding: 0 50px;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        align-self: stretch;
+        border-radius: 100px;
+        background: linear-gradient(
+          85deg,
+          rgba(242, 242, 242, 0.4) 1.59%,
+          rgba(242, 242, 242, 0) 121.45%
+        );
+        color: #fff;
+        font-family: Syne;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        &:hover {
+          background: linear-gradient(
+            85deg,
+            rgba(242, 242, 242, 0.6) 1.59%,
+            rgba(242, 242, 242, 0) 121.45%
+          );
+        }
+      }
     }
     .linkedinButton {
-      width: 100%;
+      position: absolute;
+      top: 25px;
+      right: 25px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -101,11 +130,113 @@
       text-decoration-thickness: auto;
       text-underline-offset: auto;
       text-underline-position: from-font;
+
       .linkedinIcon {
-        width: 25px;
-        height: 25px;
-        fill: blue;
+        width: 43px;
+        height: 43px;
+        flex-shrink: 0;
+
+        fill: #fff;
       }
     }
   }
+  // .image {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 50%;
+  //   width: 50%;
+  //   height: 50%;
+  //   border-radius: 16px;
+  //   -webkit-border-radius: 16px;
+  //   -moz-border-radius: 16px;
+  //   -ms-border-radius: 16px;
+  //   -o-border-radius: 16px;
+  //   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  //   transform: translateX(-50%);
+  //   -webkit-transform: translateX(-50%);
+  //   -moz-transform: translateX(-50%);
+  //   -ms-transform: translateX(-50%);
+  //   -o-transform: translateX(-50%);
+  //   .trainerImage {
+  //     width: 100%;
+  //     height: 100%;
+  //     object-fit: cover;
+  //     border-radius: 25px;
+  //     -webkit-border-radius: 25px;
+  //     -moz-border-radius: 25px;
+  //     -ms-border-radius: 25px;
+  //     -o-border-radius: 25px;
+  //   }
+  // }
+  // .details {
+  //   display: flex;
+  //   width: 393px;
+  //   height: 249px;
+  //   padding: 20px;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   justify-content: flex-end;
+  //   gap: 12px;
+  //   flex-shrink: 0;
+  //   border-radius: 16px;
+  //   background: linear-gradient(
+  //     180deg,
+  //     #141414 25.93%,
+  //     rgba(20, 20, 20, 0.6) 119.56%
+  //   );
+  //   @media screen and (max-width: 768px) {
+  //     width: 100%;
+  //   }
+  //   .name {
+  //     color: #f2f2f2;
+  //     text-align: center;
+
+  //     /* Title/h3 */
+  //     font-family: Montserrat;
+  //     font-size: 16px;
+  //     font-style: normal;
+  //     font-weight: 700;
+  //     line-height: normal;
+  //     text-transform: uppercase;
+  //   }
+  //   .title {
+  //     color: #f2f2f2;
+  //     text-align: center;
+
+  //     /* Description/p */
+  //     font-family: Montserrat;
+  //     font-size: 14px;
+  //     font-style: normal;
+  //     font-weight: 400;
+  //     line-height: normal;
+  //   }
+  //   .linkedinButton {
+  //     width: 100%;
+  //     display: flex;
+  //     align-items: center;
+  //     justify-content: center;
+  //     border: none;
+  //     outline: none;
+  //     background-color: transparent;
+  //     cursor: pointer;
+  //     color: #f2f2f2;
+  //     font-family: Manrope;
+  //     font-size: 14px;
+  //     font-style: normal;
+  //     font-weight: 400;
+  //     line-height: 28.7px; /* 205% */
+  //     letter-spacing: 0.5px;
+  //     text-decoration-line: underline;
+  //     text-decoration-style: solid;
+  //     text-decoration-skip-ink: auto;
+  //     text-decoration-thickness: auto;
+  //     text-underline-offset: auto;
+  //     text-underline-position: from-font;
+  //     .linkedinIcon {
+  //       width: 25px;
+  //       height: 25px;
+  //       fill: blue;
+  //     }
+  //   }
+  // }
 }

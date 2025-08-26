@@ -373,7 +373,8 @@
     "course": {
       "title": "Explore Our Trainers & Connect With Them",
       "subtitle": "Our Trainers",
-      "noTrainersMessage": "No trainer information available for this course."
+      "noTrainersMessage": "No trainer information available for this course.",
+      "choose": "Choose your Trainer"
     }
   },
 
