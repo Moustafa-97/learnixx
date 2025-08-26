@@ -16,6 +16,10 @@
     height: 47px;
     flex-shrink: 0;
     aspect-ratio: 182/47;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.1);
+    }
   }
   .text {
     position: absolute;
