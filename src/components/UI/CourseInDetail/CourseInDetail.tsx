@@ -113,7 +113,7 @@ function CourseInDetail({ courseID }: CourseInDetailProps) {
         <div>
           <HeroCourses details={course} />
         </div>
-        <div>
+        <div id="coursesPage">
           {course && (
             <WhyUs outcomes={course.outcomes} loading={loading} error={error} />
           )}

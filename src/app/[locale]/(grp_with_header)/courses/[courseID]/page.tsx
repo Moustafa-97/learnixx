@@ -12,10 +12,10 @@ async function page({ params }: PageProps) {
   // Await the params Promise
   const { courseID } = await params
   console.log("Course ID:", courseID)
-  
+
   // Convert courseID to number
   const courseIdNumber = parseInt(courseID)
-  
+
   console.log("Course IDN:", courseIdNumber)
 
   // Handle invalid courseID

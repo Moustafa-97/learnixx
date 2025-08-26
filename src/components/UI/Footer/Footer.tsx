@@ -10,14 +10,19 @@ import {
   FaTelegram,
   FaTiktok,
   FaYoutube,
+  FaCheckCircle,
 } from "react-icons/fa"
 import Link from "next/link"
 import { useTranslations, useLocale } from "next-intl"
 import axios from "axios"
-
+import logo from "@/../public/logo/image.png"
 function Footer() {
   const t = useTranslations("footer")
   const locale = useLocale()
+
+  const [email, setEmail] = React.useState("")
+  const [showSuccess, setShowSuccess] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(false)
 
   const links = [
     {
@@ -50,7 +55,10 @@ function Footer() {
           name: t("navigation.about.testimonials"),
           link: `/${locale}#testimonials`,
         },
-        { name: t("navigation.about.trainers"), link: `/${locale}/about-us#trainers` },
+        {
+          name: t("navigation.about.trainers"),
+          link: `/${locale}/about-us#trainers`,
+        },
       ],
     },
     {
@@ -71,8 +79,11 @@ function Footer() {
       ],
     },
   ]
-  const [email, setEmail] = React.useState("")
+
   const onSubmit = () => {
+    if (!email || isLoading) return
+
+    setIsLoading(true)
     axios
       .post(`${process.env.NEXT_PUBLIC_API}/api/v1/contact/join-us`, {
         email: email,
@@ -80,8 +91,17 @@ function Footer() {
       .then(res => {
         console.log(res)
         setEmail("")
+        setShowSuccess(true)
+
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          setShowSuccess(false)
+        }, 5000)
       })
       .catch(err => console.log(err))
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   return (
@@ -96,11 +116,28 @@ function Footer() {
                 <input
                   type="email"
                   placeholder={t("cta.emailPlaceholder")}
+                  value={email}
                   onChange={e => setEmail(e.target.value)}
+                  disabled={isLoading}
                 />
               </div>
-              <button onClick={onSubmit}>{t("cta.subscribe")}</button>
+              <button onClick={onSubmit} disabled={isLoading || !email}>
+                {isLoading
+                  ? t("cta.subscribing") || "Subscribing..."
+                  : t("cta.subscribe")}
+              </button>
             </div>
+
+            {/* Success Message */}
+            {showSuccess && (
+              <div className={styles.successMessage}>
+                <FaCheckCircle />
+                <span>
+                  {t("cta.successMessage") ||
+                    "Successfully subscribed to newsletter!"}
+                </span>
+              </div>
+            )}
           </div>
           <Image
             src={top}
@@ -115,8 +152,11 @@ function Footer() {
         <div className={styles.bottom}>
           <div className={styles.bottomContainer}>
             <div className={styles.section}>
-              <div className={styles.logoSection}>
-                <h2>Learnix</h2>
+              <div
+                className={`${styles.logoSection} ${locale === "ar" ? styles.rtl : ""}`}>
+                <div className={styles.companyInfo}>
+                  <Image src={logo} alt="Learnix Logo" />
+                </div>
                 <p className={styles.description}>{t("company.description")}</p>
                 <div className={styles.social}>
                   <p>

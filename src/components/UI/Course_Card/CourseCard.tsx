@@ -38,9 +38,9 @@ function CourseCard({ course, onEnrollNow }: CourseCardProps) {
           <h2 className={styles.title}>{course.title}</h2> {/* ✅ Fixed */}
           <p className={styles.description}>{course.description}</p>{" "}
           {/* ✅ Fixed */}
-          <p className={styles.time}>
-            {t("startsAt")}: {course.startDate} {/* ✅ Fixed */}
-          </p>
+          {/* <p className={styles.time}> */}
+            {/* {t("startsAt")}: {course.startDate} ✅ Fixed */}
+          {/* </p> */}
           <div className={styles.location}>
             {course.country && course.country.iso && (
               <div className={styles.svgContainer}>
