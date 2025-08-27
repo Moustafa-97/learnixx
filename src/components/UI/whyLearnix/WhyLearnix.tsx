@@ -73,7 +73,7 @@ function WhyLearnix() {
           </div>
           <div className={styles.videoContainer}>
             <video autoPlay loop muted playsInline className={styles.video}>
-              <source src="/whyLearnix/video.mp4" type="video/mp4" />
+              <source src="/whyLearnix/video2.mp4" type="video/mp4" />
             </video>
           </div>
           <div className={styles.cards2}>

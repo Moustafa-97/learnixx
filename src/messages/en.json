@@ -148,8 +148,8 @@
       "round33Image": "Round Image 3"
     },
     "stats": {
-      "count": "1K +",
-      "label": "Trainer"
+      "count": "Top",
+      "label": "Leaders"
     }
   },
 
@@ -198,9 +198,9 @@
   },
   "footer": {
     "cta": {
-      "heading": "Subscribe to our newsletter",
+      "heading": "Learn. Grow. Lead.",
       "emailPlaceholder": "Enter your email and we will contact you",
-      "subscribe": "Subscribe",
+      "subscribe": "Get Started",
       "subscribing": "Subscribing...",
       "successMessage": "Successfully subscribed to newsletter!"
     },
@@ -241,7 +241,7 @@
     "description": "Discover why this course is the essential guide for aspiring professionals, innovators, and career changers."
   },
   "whyUs": {
-    "title": "WHY Choose us?",
+    "title": "Why Choose us?",
     "description": "Discover why our team is the essential partner for aspiring leaders, businesses, and trailblazers.",
     "cards": {
       "1": {
@@ -280,7 +280,7 @@
       },
       "times": {
         "evening": "5 PM - 7 PM",
-        "morning_afternoon": "9 AM - 3 PM",
+        "morning_afternoon": "9 AM - 1 PM",
         "morning": "9 AM - 1 PM"
       }
     },
@@ -407,6 +407,13 @@
           "invalid": "Invalid email address"
         }
       },
+
+      "phoneNumber": {
+        "label": "Phone Number",
+        "placeholder": "Enter your phone number",
+        "error": "Phone number is required"
+      },
+
       "dateRange": {
         "label": "Select Course Dates",
         "placeholder": "Select start date - end date",
