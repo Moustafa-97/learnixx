@@ -5,6 +5,7 @@ import { notFound } from "next/navigation"
 import CssBaseline from "@mui/material/CssBaseline"
 import AOSInit from "@/components/common/AOSInit"
 import "./globals.css"
+import ServiceWorkerRegistration from "@/service/ServiceWorkerRegistration"
 // import Header from "@/components/UI/Header/Header"
 // import Footer from "@/components/UI/Footer/Footer"
 
@@ -31,6 +32,7 @@ export default async function LocaleLayout({
           <Header />
         </header> */}
         <body lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
+          <ServiceWorkerRegistration />
           {children}
         </body>
         {/* <footer>

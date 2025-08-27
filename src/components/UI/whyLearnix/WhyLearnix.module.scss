@@ -10,7 +10,7 @@
   @include mobile-only {
     padding: 32px 0;
   }
-    // For RTL languages
+  // For RTL languages
   :global([dir="rtl"]) & {
     direction: rtl;
   }
@@ -296,7 +296,7 @@
 .Icon {
   // Icons might need to be flipped for RTL depending on their design
   margin-inline-end: 0.5rem;
-  
+
   :global([dir="rtl"]) & {
     // Only flip directional icons if needed
     &.directionalIcon {
@@ -309,4 +309,41 @@
   :global([dir="rtl"]) & {
     transform: scaleX(-1);
   }
+}
+
+// WhyLearnix.module.scss additions
+.videoPlaceholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #666;
+}
+
+.spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #141414;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.videoError {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #ff4444;
 }

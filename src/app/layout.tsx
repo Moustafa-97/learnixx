@@ -22,6 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={montserrat.className}>
+      
       {children}
     </html>
   )
