@@ -2,8 +2,8 @@ import React from "react"
 import styles from "./AboutCards.module.scss"
 import Link from "next/link"
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa"
-import image from "@/../public/about/Image.png"
-import Image from "next/image"
+// import image from "@/../public/about/Image.png"
+// import Image from "next/image"
 import { useTranslations, useLocale } from "next-intl"
 
 function AboutCards() {
@@ -30,7 +30,7 @@ function AboutCards() {
             </div>
           </div>
           <div className={styles.cta}>
-            <div className={styles.imgs}>
+            {/* <div className={styles.imgs}>
               <Image
                 src={image}
                 alt={"alt"}
@@ -55,7 +55,7 @@ function AboutCards() {
                 width={100}
                 height={100}
               />
-            </div>
+            </div> */}
             <div className={styles.link}>
               <Link href={`/${locale}/courses`}>
                 {t("andMore")}

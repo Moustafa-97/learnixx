@@ -60,7 +60,7 @@ function CourseCard({ course, onEnrollNow }: CourseCardProps) {
             </span>
           </div>
           <p className={styles.price}>
-            <span>{t("fees")}: </span> ${course.price}{" "}
+            <span>{t("fees")}: </span> € {course.price}{" "}
             {/* ✅ Fixed and added $ */}
           </p>
           <button

@@ -1360,6 +1360,7 @@ interface RegistrationForm {
   fullName: string
   email: string
   jobTitle: string
+  phoneNumber: number
   dateRange: [Date | null, Date | null]
   companyName: string
   cityId: number
@@ -1406,6 +1407,7 @@ export default function CourseRegistrationForm() {
       fullName: "",
       email: "",
       jobTitle: "",
+      phoneNumber: 0,
       dateRange: [null, null],
       companyName: "",
       cityId: 0,
@@ -1445,9 +1447,18 @@ export default function CourseRegistrationForm() {
             }
           )
           cities = data.data || []
-        } else if (course?.city) {
+        } else {
           // Use course city
-          cities = [course.city]
+
+          const { data } = await axios.get<apiCity>(
+            `${process.env.NEXT_PUBLIC_API}/api/v1/globe/cities`,
+            {
+              headers: {
+                "Accept-Language": locale,
+              },
+            }
+          )
+          cities = data.data
         }
 
         setAvailableCities(cities)
@@ -1522,6 +1533,7 @@ export default function CourseRegistrationForm() {
         fullName: data.fullName,
         email: data.email,
         jobTitle: data.jobTitle,
+        phoneNumber: data.phoneNumber,
         companyName: data.companyName,
         cityId: parseInt(data.cityId.toString()),
         trainerId: parseInt(data.trainerId.toString()),
@@ -1774,6 +1786,27 @@ export default function CourseRegistrationForm() {
                       placeholder={t("fields.jobTitle.placeholder")}
                       error={!!errors.jobTitle}
                       helperText={errors.jobTitle?.message}
+                      className={styles.input}
+                    />
+                  )}
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label className={styles.label}>
+                  {t("fields.phoneNumber.label")}
+                </label>
+                <Controller
+                  name="phoneNumber"
+                  control={control}
+                  rules={{ required: t("fields.phoneNumber.error") }}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      type="tel"
+                      placeholder={t("fields.phoneNumber.placeholder")}
+                      error={!!errors.phoneNumber}
+                      helperText={errors.phoneNumber?.message}
                       className={styles.input}
                     />
                   )}
