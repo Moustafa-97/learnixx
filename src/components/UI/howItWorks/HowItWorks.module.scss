@@ -41,6 +41,12 @@
       font-weight: 600;
       line-height: 120%; /* 64.8px */
       align-self: stretch;
+      @include tablet-only {
+        font-size: 32px;
+      }
+      @include mobile-only {
+        font-size: 32px;
+      }
     }
     .cards {
       display: flex;

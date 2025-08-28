@@ -432,6 +432,7 @@ export default function SearchBar({ type = "courses" }: SearchBarProps) {
               top: `${dropdownPosition.top}px`,
               left: `${dropdownPosition.left}px`,
               width: `${dropdownPosition.width}px`,
+             
             }}>
             {isLoadingCategories ? (
               <div className={styles.dropdownItem}>Loading categories...</div>

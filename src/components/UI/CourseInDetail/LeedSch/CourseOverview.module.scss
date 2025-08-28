@@ -9,7 +9,7 @@
   height: fit-content;
   @media screen and (max-width: 1024px) {
     flex-direction: column;
-    padding: 88px 20px;
+    padding: 30px 20px;
   }
 
   .sidebar {
@@ -85,6 +85,7 @@
     padding: 35px 40px;
     flex-shrink: 0;
     border-radius: 50px;
+    
 
     background: #dedee0;
     @media screen and (max-width: 1024px) {
@@ -92,6 +93,12 @@
     }
     @include mobile-only {
       width: 100%;
+      padding: 25px 20px;
+      display: flex;
+      flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
     }
 
     .title {

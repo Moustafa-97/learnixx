@@ -30,6 +30,7 @@
     line-height: 120%; /* 67.2px */
     @include mobile-only {
       font-size: 24px;
+      text-align: start;
     }
   }
   [dir="rtl"] & {
@@ -41,6 +42,9 @@
   display: flex;
   gap: 20px;
 
+  @include mobile-only {
+    gap: 5px;
+  }
   //   [dir="rtl"] & {
   //     flex-direction: row-reverse;
   //   }

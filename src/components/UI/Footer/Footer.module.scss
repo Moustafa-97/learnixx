@@ -240,7 +240,7 @@
     }
 
     @include mobile-only {
-      padding: 30px 20px 16px 20px;
+      padding: 30px 10px 16px 10px;
       height: auto;
       gap: 40px;
     }
@@ -260,7 +260,13 @@
         flex-direction: column;
         gap: 25px;
       }
-
+      .linksContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        align-self: stretch;
+        width: 100%;
+      }
       .logoSection {
         display: flex;
         flex-direction: column;
@@ -281,18 +287,8 @@
           width: 100%;
         }
         img {
-          width: 80px;
+          width: 114px;
           height: 40px;
-
-          @include tablet-only {
-            width: 80px;
-            height: 40px;
-          }
-
-          @include mobile-only {
-            width: 40px;
-            height: 20px;
-          }
         }
 
         .description {
@@ -582,6 +578,11 @@
         h3,
         p {
           text-align: right;
+        }
+        p {
+          @include mobile-only {
+            font-size: 14px;
+          }
         }
       }
     }
