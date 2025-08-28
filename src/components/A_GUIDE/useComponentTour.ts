@@ -20,6 +20,7 @@ export const useComponentTour = ({
 
 	useEffect(() => {
 		if (autoRegister && steps.length > 0) {
+			console.log('useComponentTour: Registering component steps');
 			registerComponentSteps(componentId, steps);
 		}
 	}, [componentId, steps, autoRegister, registerComponentSteps]);

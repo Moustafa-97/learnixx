@@ -32,8 +32,8 @@ export default function TourInitializer() {
             : "we support cities in Europe",
 
           placement: "bottom",
-          disableBeacon: false,
-          spotlightClicks: true,
+          // disableBeacon: false,
+          // spotlightClicks: true,
         },
         {
           target: '[data-tour="leadWeek"]',
@@ -42,7 +42,7 @@ export default function TourInitializer() {
             : "3-day immersive retreat in Barcelona guided by Europe’s top executive trainers Premium. Transformational. Unforgettable.",
           title: isArabic ? "قيادة الاسبوع" : "Lead Weekend",
           placement: "bottom",
-          spotlightClicks: true,
+          // spotlightClicks: true,
         },
         {
           target: '[data-tour="customizeAI"]',
@@ -51,7 +51,7 @@ export default function TourInitializer() {
             : "Smarter learning paths tailored to your goals using adaptive AI technology.",
           title: isArabic ? "استخدم AI" : "Powered by Learnix AI",
           placement: "bottom",
-          spotlightClicks: true,
+          // spotlightClicks: true,
         },
         {
           target: '[data-tour="courses"]',
@@ -60,7 +60,7 @@ export default function TourInitializer() {
             : "Discover and select your course and trainer",
           title: isArabic ? "استكشف كورساتنا" : "See Our variety of courses ",
           placement: "bottom",
-          spotlightClicks: true,
+          // spotlightClicks: true,
         },
       ]
     }

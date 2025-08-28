@@ -107,10 +107,10 @@ const tourStyles: Styles = {
     fontWeight: 500,
   },
   spotlight: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    // backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   beacon: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    // backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   beaconInner: {},
   beaconOuter: {},
@@ -129,14 +129,22 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
   const [run, setRun] = useState(false)
   const [steps, setSteps] = useState<Step[]>([])
   const [currentTourId, setCurrentTourId] = useState<string | null>(null)
-  console.log("currentTourId", currentTourId)
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const [tourConfig, setTourConfig] = useState<Partial<TourConfig>>({})
+  const [pageLoaded, setPageLoaded] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
   const searchParams = useSearchParams()
-  const startTourRef =
-    useRef<(tourId: string, startIndex?: number) => void>(null)
+  const startTourRef = useRef<(tourId: string, startIndex?: number) => void>(null)
+
+  // Track page load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPageLoaded(true)
+    }, 100) // Small delay to ensure DOM is ready
+    
+    return () => clearTimeout(timer)
+  }, [pathname])
 
   const handleJoyrideCallback = useCallback(
     (data: CallBackProps) => {
@@ -158,7 +166,6 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
         setTourConfig({})
         sessionStorage.removeItem("tourState")
 
-        // No further processing needed
         return
       }
 
@@ -175,13 +182,8 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
             timestamp: Date.now(),
           }
 
-          // Store in sessionStorage
           sessionStorage.setItem("tourState", JSON.stringify(tourState))
-
-          // Stop current tour
           setRun(false)
-
-          // Navigate to the new route
           router.push(nextStep.route)
           return
         }
@@ -192,7 +194,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
         setCurrentStepIndex(index + 1)
       }
 
-      // Handle tour completion (but not skip, as we handled it above)
+      // Handle tour completion
       if (finishedStatuses.includes(status) && status !== STATUS.SKIPPED) {
         if (currentTourId) {
           localStorage.setItem(`tour_completed_${currentTourId}`, "true")
@@ -202,8 +204,6 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
         setCurrentTourId(null)
         setCurrentStepIndex(0)
         setTourConfig({})
-
-        // Clear any tour state
         sessionStorage.removeItem("tourState")
       }
     },
@@ -211,15 +211,21 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
   )
 
   const startTour = useCallback((tourId: string, startIndex: number = 0) => {
-    console.log(
-      `startTour called with tourId: ${tourId}, startIndex: ${startIndex}`
-    )
+    console.log(`startTour called with tourId: ${tourId}, startIndex: ${startIndex}`)
     const tour = tourRegistry.getTour(tourId)
     console.log("Tour found:", tour)
 
     if (tour && tour.steps.length > 0) {
-      console.log("Setting tour steps:", tour.steps)
-      setSteps(tour.steps as Step[])
+      // Process steps to ensure they start immediately
+      const processedSteps = tour.steps.map(step => ({
+        ...step,
+        disableBeacon: true, // Disable beacon for each step
+        hideBackButton: true, // Optional: hide back button
+        spotlightClicks: true, // Allow clicks on spotlight
+      }))
+
+      console.log("Setting processed tour steps:", processedSteps)
+      setSteps(processedSteps as Step[])
       setCurrentTourId(tourId)
       setCurrentStepIndex(startIndex)
       setTourConfig(tour)
@@ -229,13 +235,22 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [])
 
-  // Store startTour in ref to use in useEffect
   startTourRef.current = startTour
 
   const startDynamicTour = useCallback(
     (tourSteps: TourStep[], tourId?: string) => {
       if (tourSteps.length > 0) {
-        setSteps(tourSteps as Step[])
+        console.log("Starting dynamic tour:", tourId)
+        
+        // Process dynamic steps the same way
+        const processedSteps = tourSteps.map(step => ({
+          ...step,
+          disableBeacon: true,
+          hideBackButton: true,
+          spotlightClicks: true,
+        }))
+
+        setSteps(processedSteps as Step[])
         setCurrentTourId(tourId || "dynamic-tour")
         setCurrentStepIndex(0)
         setRun(true)
@@ -269,8 +284,10 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
     []
   )
 
-  // Check for tour state after navigation
+  // Modified effect to start tours immediately when page loads
   useEffect(() => {
+    if (!pageLoaded) return
+
     const checkTourState = () => {
       // Check sessionStorage for tour state
       const savedState = sessionStorage.getItem("tourState")
@@ -283,11 +300,11 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
           if (Date.now() - timestamp < 30000) {
             console.log(`Resuming tour ${tourId} at step ${stepIndex}`)
 
-            // Wait for page elements to load
+            // Shorter delay for resuming tours
             setTimeout(() => {
               startTour(tourId, stepIndex)
               sessionStorage.removeItem("tourState")
-            }, 1500)
+            }, 500)
 
             return true
           } else {
@@ -299,7 +316,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
         }
       }
 
-      // Check URL params as fallback - handle null searchParams
+      // Check URL params as fallback
       if (searchParams) {
         const tourParam = searchParams.get("tour")
         const stepParam = searchParams.get("step")
@@ -310,7 +327,6 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
           setTimeout(() => {
             startTour(tourParam, stepIndex)
 
-            // Clean up URL params only if pathname is available
             if (pathname) {
               const newParams = new URLSearchParams(searchParams.toString())
               newParams.delete("tour")
@@ -321,7 +337,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
                 : pathname
               router.replace(newUrl)
             }
-          }, 1500)
+          }, 500)
 
           return true
         }
@@ -340,9 +356,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
 
         for (const tour of allTours) {
           if (tour.autoStart) {
-            const hasCompleted = localStorage.getItem(
-              `tour_completed_${tour.id}`
-            )
+            const hasCompleted = localStorage.getItem(`tour_completed_${tour.id}`)
             const isActive = currentTourId === tour.id
 
             console.log(
@@ -350,25 +364,25 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
             )
 
             if (!hasCompleted && !isActive && !run) {
-              console.log(
-                `Starting tour ${tour.id} in ${tour.startDelay || 1000}ms`
-              )
+              console.log(`Starting tour ${tour.id} immediately`)
+              
+              // Start immediately once page is loaded
               setTimeout(() => {
                 if (startTourRef.current) {
                   startTourRef.current(tour.id)
                 }
-              }, tour.startDelay || 1000)
+              }, tour.startDelay || 200) // Much shorter default delay
               break
             }
           }
         }
       }
 
-      // Delay check to ensure tours are registered
-      const timer = setTimeout(checkAutoStartTours, 500)
+      // Very short delay to ensure tours are registered
+      const timer = setTimeout(checkAutoStartTours, 100)
       return () => clearTimeout(timer)
     }
-  }, [pathname, currentTourId, run, searchParams, router, startTour])
+  }, [pageLoaded, pathname, currentTourId, run, searchParams, router, startTour])
 
   return (
     <TourContext.Provider
@@ -395,6 +409,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
         showSkipButton={tourConfig.showSkipButton ?? true}
         disableOverlay={tourConfig.disableOverlay ?? false}
         disableScrolling={tourConfig.disableScrolling ?? false}
+        spotlightPadding={0}
         styles={tourStyles}
         callback={handleJoyrideCallback}
         locale={{
@@ -409,3 +424,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({
     </TourContext.Provider>
   )
 }
+
+
+
+
