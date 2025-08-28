@@ -14,14 +14,16 @@ import Link from "next/link"
 import { useTranslations, useLocale } from "next-intl"
 import axios from "axios"
 import logo from "@/../public/logo/image.png"
+import { usePathname } from "next/navigation"
 function Footer() {
   const t = useTranslations("footer")
   const locale = useLocale()
-
+  // const router = useRouter()
   const [email, setEmail] = React.useState("")
   const [showSuccess, setShowSuccess] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
-
+  const pathname = usePathname()
+  console.log(pathname)
   const links = [
     {
       header: t("navigation.home.title"),
@@ -47,16 +49,16 @@ function Footer() {
       sections: [
         {
           name: t("navigation.about.howItWorks"),
-          link: `/${locale}#how-it-works`,
+          link: `/${locale}/about-us#how-it-works`,
         },
         {
           name: t("navigation.about.testimonials"),
-          link: `/${locale}#testimonials`,
+          link: `/${locale}/about-us#testimonials`,
         },
-        {
-          name: t("navigation.about.trainers"),
-          link: `/${locale}/about-us#trainers`,
-        },
+        // {
+        //   name: t("navigation.about.trainers"),
+        //   link: `/${locale}/about-us#trainers`,
+        // },
       ],
     },
     {
@@ -158,25 +160,30 @@ function Footer() {
                 <p className={styles.description}>{t("company.description")}</p>
                 <div className={styles.social}>
                   <p>
-                    <span>{t("contact.phone")}:</span> 0123456789
+                    <span>{t("contact.phone")}:</span> +34 634828382
                   </p>
-                  <p onClick={() => window.open("mailto:info@learnixplus.com", "_blank")}>
+                  <p
+                    onClick={() =>
+                      window.open("mailto:info@learnixplus.com", "_blank")
+                    }>
                     <span>{t("contact.email")}:</span> info@learnixplus.com
                   </p>
                 </div>
               </div>
-              {links.map((link, index) => (
-                <div key={index} className={styles.links}>
-                  <div key={link.header} className={styles.link}>
-                    <h3>{link.header}</h3>
-                    {link.sections.map(section => (
-                      <p key={section.name}>
-                        <Link href={section.link}>{section.name}</Link>
-                      </p>
-                    ))}
+              <div className={styles.linksContainer}>
+                {links.map((link, index) => (
+                  <div key={index} className={styles.links}>
+                    <div key={link.header} className={styles.link}>
+                      <h3>{link.header}</h3>
+                      {link.sections.map(section => (
+                        <p key={section.name}>
+                          <Link href={section.link}>{section.name}</Link>
+                        </p>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
             <div className={styles.copyR}>
               <p>{t("copyright")}</p>

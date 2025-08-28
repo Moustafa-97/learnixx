@@ -181,9 +181,11 @@
       -o-border-radius: 50px;
       @include tablet-only {
         width: 100%;
+        padding: 30px 50px;
       }
       @include mobile-only {
         width: 100%;
+        padding: 20px 20px;
       }
       h6 {
         color: #1c1a1a;

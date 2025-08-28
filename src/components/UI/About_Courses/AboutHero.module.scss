@@ -11,6 +11,7 @@
   max-width: 1440px;
   height: 743px;
   flex-shrink: 0;
+  gap: 32px;
   padding: 82px 50px 116px 50px;
   background: var(--csk-141414900, #1a1a1a);
   border-radius: 50px;
@@ -20,8 +21,10 @@
   -o-border-radius: 50px;
   @include mobile-only {
     width: 95%;
-    padding: 82px 30px 92px 30px;
-    height: 600px;
+    padding: 82px 20px 92px 20px;
+    height: fit-content;
+    min-height: 600px;
+    gap: 20px;
   }
 
   .content {

@@ -8,6 +8,14 @@
   justify-content: center;
   align-items: center;
   gap: 37px;
+  @include mobile-only {
+    padding: 32px 20px;
+  }
+  @include tablet-only {
+    padding: 42px 30px;
+  }
+  // For RTL languages
+
   h2 {
     width: 100%;
     color: #141414;

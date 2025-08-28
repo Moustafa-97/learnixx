@@ -37,6 +37,7 @@
     background: url("../../../../../../public/leed/samll11.png") lightgray 50% /
       cover no-repeat;
     border-radius: 20px;
+  
     //   background: linear-gradient(128deg, #141414 6.63%, rgba(20, 20, 20, 0) 116%);
     ::after {
       content: "";
@@ -160,7 +161,7 @@
   //     #141414 6.63%,
   //     rgba(20, 20, 20, 0) 116%
   //   );
-  opacity: 0.99999;
+  opacity: 0.9999;
   // background-blend-mode: color-burn;
   ::after {
     content: "";
@@ -169,6 +170,7 @@
     left: 0;
     width: 100%;
     height: 100%;
+    opacity: 0.2;
     //  background: linear-gradient(
     //   128deg,
     //   #141414 6.63%,
@@ -179,7 +181,6 @@
   background-position: center;
   background-repeat: no-repeat;
   background-blend-mode: color-burn;
-  opacity: 1;
 
     // background: linear-gradient(
     //   128deg,

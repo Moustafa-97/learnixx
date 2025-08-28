@@ -58,6 +58,10 @@
   // @include mobile-only {
   //   margin-top: 30px;
   // }
+  @include mobile-only {
+    margin: 95px auto 40px auto;
+    gap: 60px;
+  }
   // Hero animation
   .hero {
     width: 100%;

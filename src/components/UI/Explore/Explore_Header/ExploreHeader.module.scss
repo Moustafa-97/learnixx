@@ -92,6 +92,12 @@
         font-style: normal;
         font-weight: 700;
         line-height: normal;
+        @include mobile-only {
+          font-size: 12px;
+        }
+        @include tablet-only {
+          font-size: 14px;
+        }
       }
       &.active {
         background: linear-gradient(

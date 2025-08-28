@@ -94,7 +94,7 @@ function ContactUs() {
               <div className={styles.infoBlock2}>
                 <div className={styles.info3}>
                   <h5>{t("info.contactUs")}</h5>
-                  <p>+31 20 123 4567</p>
+                  <p>+34 634828382</p>
                 </div>
                 <div className={styles.info4}>
                   <h5>{t("info.location")}</h5>

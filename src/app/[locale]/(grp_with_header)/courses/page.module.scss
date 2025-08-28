@@ -53,9 +53,11 @@
   margin: 95px auto;
   @include tablet-only {
     margin: 95px auto;
+    gap: 60px;
   }
   @include mobile-only {
-    margin: 95px auto;
+    margin: 95px auto 40px auto;
+    gap: 60px;
   }
   // Hero animation
   .hero {
