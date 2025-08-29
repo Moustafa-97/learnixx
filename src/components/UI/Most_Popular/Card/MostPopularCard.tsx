@@ -39,13 +39,13 @@ function MostPopularCard(props: Props) {
           </div>
         </div>
         <div onClick={handleClick} className={styles.bgImage}>
-          <Image
+          {/* <Image
             src={props.cardContent.image}
             alt="Most Popular"
             width={10000}
             height={10000}
             loading="lazy"
-          />
+          /> */}
         </div>
       </div>
     </>
