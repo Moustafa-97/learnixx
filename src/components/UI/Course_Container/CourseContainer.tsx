@@ -516,7 +516,7 @@ function CourseContainer() {
   // Fetch courses function
   const fetchCourses = useCallback(
     async (pageNum: number, isNewSearch = false) => {
-      console.log("Fetching courses for page:", pageNum)
+      // console.log("Fetching courses for page:", pageNum)
 
       // Prevent duplicate requests
       if (loadingRef.current && !isNewSearch) return
@@ -528,7 +528,8 @@ function CourseContainer() {
       try {
         const params = buildQueryParams(pageNum)
         const url = `${process.env.NEXT_PUBLIC_API}/api/v1/courses?${params.toString()}`
-
+        
+        console.log("Fetching courses from:", url);
         const response = await axios.get<ApiResponse>(url, {
           headers: {
             "Accept-Language": locale,
@@ -617,7 +618,7 @@ function CourseContainer() {
     // Fetch first page
     fetchCourses(1, true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseSearchParams.subject, courseSearchParams.location, cityId]) // Don't include fetchCourses to avoid infinite loop
+  }, [courseSearchParams.subject, courseSearchParams.location, cityId, categoryId]) // Don't include fetchCourses to avoid infinite loop
   useEffect(() => {
     console.log("Current state:", {
       courses: courses.length,

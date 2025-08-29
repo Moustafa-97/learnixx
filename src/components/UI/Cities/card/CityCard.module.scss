@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 10px;
+  // padding: 10px;
   z-index: 10;
   border-radius: 20px;
   -webkit-border-radius: 20px;
@@ -26,8 +26,9 @@
     background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0),
-      rgba(216, 216, 216, 0)
+      rgba(8, 8, 8, 0.228)
     );
+  
 
     border-radius: 20px;
     -webkit-border-radius: 20px;
@@ -69,11 +70,14 @@
     align-items: flex-start;
     justify-content: flex-end;
     gap: 10px;
+    padding: 10px;
+    z-index: 120;
     .cityName {
       color: var(--White-Fill, #fff);
       font-feature-settings:
         "liga" off,
         "clig" off;
+        z-index: 100;
       font-family: Manrope;
       font-size: 30px;
       font-style: normal;
