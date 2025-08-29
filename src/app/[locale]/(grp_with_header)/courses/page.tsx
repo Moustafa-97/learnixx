@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import CourseContainer from "@/components/UI/Course_Container/CourseContainer"
+import CourseContainer from "@/components/UI/Course_Container/CourseContainer2"
 import HeroCourses from "@/components/UI/Hero_Courses/HeroCourses"
 import CourseSearchSync from "@/components/CourseSearchSync/CourseSearchSync"
 import CourseHeader from "@/components/UI/Course_Container_Header/CourseHeader"
