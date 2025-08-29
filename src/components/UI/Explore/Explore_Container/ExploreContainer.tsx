@@ -70,13 +70,13 @@ export default function ExploreContainer() {
         setCoursesLoading(true)
         setCoursesError(null)
 
-        let url = `${process.env.NEXT_PUBLIC_API}/api/v1/courses`
+        let url = `${process.env.NEXT_PUBLIC_API}/api/v1/courses?page=1&perPage=8`
 
         if (activeTab > 0) {
           // Manual array parameter building
           const categoryId = [activeTab] // or multiple IDs
           const queryParams = categoryId.map(id => `categoryId=${id}`).join("&")
-          url += `?${queryParams}`
+          url = `${process.env.NEXT_PUBLIC_API}/api/v1/courses?page=1&perPage=8&${queryParams}`
           // This creates: categoryIds=1&categoryIds=2&categoryIds=3
         }
 
