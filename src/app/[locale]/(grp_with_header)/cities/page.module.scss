@@ -52,6 +52,9 @@
   flex-direction: column;
   align-items: center;
   gap: 132px;
+  @media screen and (max-width: 768px) {
+    gap: 40px;
+  }
 
   // Hero animation
   .hero {
