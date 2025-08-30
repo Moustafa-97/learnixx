@@ -44,7 +44,7 @@ function ExploreCard(props: { card: Course }) {
         </div>
         <div className={styles.cardFooter}>
           <span className={styles.cardTags}>
-            {card.price && <span className={styles.tag}>{card.price}$</span>}
+            {card.price && <span className={styles.tag}>{card.price}€</span>}
           </span>
         </div>
       </div>
