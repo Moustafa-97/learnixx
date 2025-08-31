@@ -96,10 +96,10 @@ function ContactUs() {
                   <h5>{t("info.contactUs")}</h5>
                   <p>+34 634828382</p>
                 </div>
-                <div className={styles.info4}>
+                {/* <div className={styles.info4}>
                   <h5>{t("info.location")}</h5>
                   <p>Horizon Convention Center Amsterdam, Netherlands</p>
-                </div>
+                </div> */}
               </div>
               <div className={styles.infoBlock3}>
                 <div className={styles.info5}>
