@@ -64,8 +64,8 @@
   overflow: hidden;
   position: relative;
   background: transparent;
-  padding: var(--marquee-padding, 20px 0);
-  
+  padding: 20px 0;
+
   // Gradient overlays
   .gradient {
     position: absolute;
@@ -74,27 +74,27 @@
     z-index: 10;
     pointer-events: none;
   }
-  
+
   .gradientLeft {
     left: 0;
   }
-  
+
   .gradientRight {
     right: 0;
   }
-  
+
   // RTL support - flip gradients
   &.right {
     .gradientLeft {
       left: auto;
       right: 0;
-      background: linear-gradient(to right, transparent, var(--gradient-color, white)) !important;
+      background: linear-gradient(to right, transparent, white) !important;
     }
-    
+
     .gradientRight {
       right: auto;
       left: 0;
-      background: linear-gradient(to left, transparent, var(--gradient-color, white)) !important;
+      background: linear-gradient(to left, transparent, white) !important;
     }
   }
 }
@@ -102,12 +102,12 @@
 .marqueeContent {
   display: flex;
   animation: marquee linear infinite;
-  
+
   // Pause on hover
   .marqueeContainer[data-pause-on-hover="true"]:hover & {
     animation-play-state: paused;
   }
-  
+
   // Pause on click
   .marqueeContainer[data-pause-on-click="true"]:active & {
     animation-play-state: paused;
@@ -162,10 +162,14 @@
   -moz-border-radius: 20px;
   -ms-border-radius: 20px;
   -o-border-radius: 20px;
-  
+
   &:hover {
-    transform: var(--image-hover-transform, scale(1.05));
-    box-shadow: var(--image-hover-shadow, 0 4px 20px rgba(0, 0, 0, 0.1));
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
   }
 }
 
@@ -176,7 +180,7 @@
   overflow: hidden;
   object-position: center;
   object-fit: contain;
-  object-fit: var(--image-fit, cover);
+  object-fit: cover;
   transition: transform 0.3s ease;
   filter: grayscale(1);
   -webkit-filter: grayscale(1);
@@ -187,7 +191,7 @@
   .marqueeContainer {
     padding: 10px 0;
   }
-  
+
   .imageContent {
     width: 200px;
     height: 235px;
