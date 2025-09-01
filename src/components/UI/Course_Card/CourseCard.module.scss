@@ -52,7 +52,7 @@
       justify-content: center;
       width: 46px;
       height: 46px;
-      background: var(--csk-141414200, #ccc);
+      background: #ccc;
       object-fit: cover;
       border-radius: 50%;
       -webkit-border-radius: 50%;
@@ -73,7 +73,7 @@
       }
     }
     .title {
-      color: var(--Gray-1, #fff);
+      color: #fff;
       font-family: Manrope;
       font-size: 24px;
       font-style: normal;
@@ -82,7 +82,7 @@
       letter-spacing: -0.96px;
     }
     .description {
-      color: var(--gray-1-overlay, rgba(255, 255, 255, 0.5));
+      color: rgba(255, 255, 255, 0.5);
       font-family: Manrope;
       font-size: 14px;
       font-style: normal;
@@ -113,7 +113,7 @@
         }
       }
       .locationText {
-        color: var(--Foundation-Violet-Light, #eae9ef);
+        color: #eae9ef;
         font-feature-settings:
           "ss02" on,
           "liga" off;
@@ -140,7 +140,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: var(--Gray-1, #fff);
+      color: #fff;
       font-family: Manrope;
       font-size: 24px;
       font-style: normal;
@@ -157,7 +157,7 @@
       align-items: center;
       gap: 8px;
       align-self: stretch;
-      background: var(--csk-141414200, #ccc);
+      background: #ccc;
       border: none;
       outline: none;
       cursor: pointer;
@@ -167,7 +167,7 @@
       -ms-border-radius: 20px;
       -o-border-radius: 20px;
       // text
-      color: var(--csk-141414500, #141414);
+      color: #141414;
       font-family: Manrope;
       font-size: 16px;
       font-style: normal;
@@ -182,8 +182,8 @@
         background 0.3s ease-in-out,
         color 0.3s ease-in-out;
       &:hover {
-        background: var(--csk-141414200, #cccccc63);
-        color: var(--csk-141414500, #141414a8);
+        background: #cccccc63;
+        color: #141414a8;
         transition:
           background 0.3s ease-in-out,
           color 0.3s ease-in-out;

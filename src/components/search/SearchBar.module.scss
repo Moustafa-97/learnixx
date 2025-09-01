@@ -253,7 +253,7 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   background: #141414;
 
-  color: var(--Neutral-10, #fff);
+  color: #fff;
 }
 .clearButton {
   @extend %searchButtonBase;
@@ -261,7 +261,7 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: #141414 2px solid;
   background: transparent;
 
-  color: var(--Neutral-10, #141414);
+  color: #141414;
   :hover {
     background: #141414;
     opacity: 0.8;
@@ -274,7 +274,7 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: #141414 2px solid;
   background: transparent;
 
-  color: var(--Neutral-10, #141414);
+  color: #141414;
 
   @media (max-width: 768px) {
     width: 100%;

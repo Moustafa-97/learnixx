@@ -86,7 +86,7 @@
           place-items: center;
           width: 74px;
           height: 74px;
-          background: var(--Grey, #dedee0);
+          background: #dedee0;
           border-radius: 50%;
 
           @include mobile-only {
@@ -275,7 +275,7 @@
       @extend %smallCard;
       height: fit-content;
       min-height: 258px;
-      background: var(--Grey, #dedee0);
+      background: #dedee0;
 
       h6 {
         @extend %h;
