@@ -137,6 +137,7 @@ const Header: React.FC = () => {
               height={40}
               className={styles.logoImage}
               priority
+              // loading="lazy"
             />
           </Link>
         </div>

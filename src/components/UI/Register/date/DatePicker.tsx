@@ -4,17 +4,16 @@ import {
   format,
   startOfMonth,
   endOfMonth,
-  startOfWeek,
-  endOfWeek,
   addMonths,
   subMonths,
   addDays,
-  isSameMonth,
+  // isSameMonth,
   isSameDay,
   isAfter,
   isBefore,
   isWithinInterval,
   isEqual,
+  getDay,
 } from "date-fns"
 import { ar, enUS } from "date-fns/locale"
 import { CalendarToday } from "@mui/icons-material"
@@ -165,13 +164,21 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
   const renderMonth = (monthDate: Date) => {
     const monthStart = startOfMonth(monthDate)
     const monthEnd = endOfMonth(monthStart)
-    const calendarStart = startOfWeek(monthStart)
-    const calendarEnd = endOfWeek(monthEnd)
-
+    
+    // Calculate the starting day of the week for the first day of the month
+    const startDayOfWeek = getDay(monthStart)
+    
+    // Create array for days in the month only
     const days = []
-    let currentDate = calendarStart
-
-    while (currentDate <= calendarEnd) {
+    let currentDate = monthStart
+    
+    // Add empty slots for days before the month starts
+    for (let i = 0; i < startDayOfWeek; i++) {
+      days.push(null)
+    }
+    
+    // Add all days of the current month
+    while (currentDate <= monthEnd) {
       days.push(currentDate)
       currentDate = addDays(currentDate, 1)
     }
@@ -192,7 +199,11 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
 
         <div className={styles.daysGrid}>
           {days.map((day, index) => {
-            const isCurrentMonth = isSameMonth(day, monthStart)
+            // Handle empty slots
+            if (!day) {
+              return <div key={index} className={styles.emptyDay}></div>
+            }
+            
             const isSelected =
               (startDate && isSameDay(day, startDate)) ||
               (endDate && isSameDay(day, endDate))
@@ -216,7 +227,6 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
                 key={index}
                 className={`
                   ${styles.day}
-                  ${!isCurrentMonth ? styles.otherMonth : ""}
                   ${isSelected ? styles.selected : ""}
                   ${isInRange ? styles.inRange : ""}
                   ${isHoverRange ? styles.hoverRange : ""}

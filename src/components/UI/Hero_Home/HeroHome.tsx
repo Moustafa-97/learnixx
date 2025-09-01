@@ -98,6 +98,7 @@ function HeroHome() {
             gradientColor="#f8f9fa"
             gap={40}
             className={styles.logoMarquee}
+            
           />
         </div>
       </section>

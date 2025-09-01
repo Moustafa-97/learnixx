@@ -21,6 +21,7 @@ function Card(props: {
             width={24}
             height={24}
             className={styles.Icon}
+            loading="lazy"
           />
         </div>
         <div className={styles.cardContent}>

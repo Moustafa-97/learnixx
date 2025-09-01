@@ -75,6 +75,7 @@ function AiDriven() {
           onClick={() => router.push(`/${locale}`)}
           src={oldLogo}
           alt="AI"
+          loading="lazy"
           width={100}
           height={100}
           className={styles.image}

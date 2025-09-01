@@ -45,6 +45,7 @@ function TrainerCard({ trainer, courseID }: TrainerCardProps) {
               alt={trainer.name}
               width={100}
               height={100}
+              loading="lazy"
               className={styles.trainerImage}
               // onError={(e) => {
               //   // Fallback to default image on error

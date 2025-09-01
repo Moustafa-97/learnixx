@@ -67,6 +67,7 @@ function HowItWorks() {
               width={500}
               height={500}
               className={styles.bigImageStyle}
+              loading="lazy"
             />
           </div>
           <div className={styles.smallImage}>
@@ -76,6 +77,7 @@ function HowItWorks() {
               width={500}
               height={500}
               className={styles.smallImageStyle}
+              loading="lazy"
             />
           </div>
           <div className={styles.roundImages}>
@@ -86,6 +88,7 @@ function HowItWorks() {
                 width={500}
                 height={500}
                 className={styles.round11ImageStyle}
+                loading="lazy"
               />
               <Image
                 src={round22}
@@ -93,6 +96,7 @@ function HowItWorks() {
                 width={500}
                 height={500}
                 className={styles.round22ImageStyle}
+                loading="lazy"
               />
               <Image
                 src={round33}
@@ -100,6 +104,7 @@ function HowItWorks() {
                 width={500}
                 height={500}
                 className={styles.round33ImageStyle}
+                loading="lazy"
               />
             </div>
             <div className={styles.roundText}>

@@ -71,7 +71,7 @@
   z-index: 1400;
   width: 150%;
   filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.15));
-  
+
   @media (max-width: 768px) {
     position: fixed;
     top: 50%;
@@ -111,7 +111,7 @@
   color: #333;
   display: flex;
   align-items: center;
-    justify-content: center;
+  justify-content: center;
   transition: all 0.2s ease;
 
   &:hover {
@@ -127,7 +127,7 @@
   display: flex;
   padding: 20px;
   gap: 20px;
-  
+
   @media (max-width: 768px) {
     padding: 16px;
   }
@@ -136,7 +136,7 @@
 .calendar {
   flex: 1;
   min-width: 280px;
-  
+
   @media (max-width: 768px) {
     min-width: unset;
   }
@@ -182,71 +182,71 @@
   color: #333;
   transition: all 0.15s ease;
   position: relative;
-  
+
   &:hover:not(:disabled) {
     background-color: #f5f5f5;
   }
-  
+
   &.otherMonth {
     color: #ddd;
     pointer-events: none;
   }
-  
+
   &.today {
     font-weight: 600;
-    
+
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: 4px;
       left: 50%;
       transform: translateX(-50%);
       width: 4px;
       height: 4px;
-      background-color: #4F8F92;
+      background-color: #4f8f92;
       border-radius: 50%;
     }
   }
-  
+
   &.selected {
     background-color: #141414 !important;
     color: #fff;
     font-weight: 600;
-    
+
     &:hover {
       background-color: #141414 !important;
     }
   }
-  
+
   &.rangeStart {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
-  
+
   &.rangeEnd {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
-  
+
   &.inRange {
     background-color: rgba(30, 32, 32, 0.1);
     border-radius: 0;
-    
+
     &:hover {
       background-color: rgba(43, 48, 49, 0.342);
     }
   }
-  
+
   &.hoverRange {
     background-color: rgba(79, 143, 146, 0.05);
     border-radius: 0;
   }
-  
+
   &.disabled {
     color: #e0e0e0;
     cursor: not-allowed;
     text-decoration: line-through;
-    
+
     &:hover {
       background-color: transparent;
     }
@@ -270,12 +270,12 @@
   font-size: 1rem;
   font-weight: 500;
   transition: all 0.3s ease;
-  
+
   &:hover {
     background-color: #3d6f72;
     transform: translateY(-1px);
   }
-  
+
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
@@ -289,18 +289,18 @@
 //     left: auto;
 //     right: 0;
 //   }
-  
+
 //   .selectButton {
 //     p {
 //       flex-direction: row-reverse;
 //     }
 //   }
-  
+
 //   .selectButtonIcon {
 //     margin-left: 0;
 //     margin-right: 12px;
 //   }
-  
+
 //   .rangeStart {
 //     border-radius: 8px;
 //     border-top-left-radius: 0;
@@ -308,7 +308,7 @@
 //     border-top-right-radius: 8px;
 //     border-bottom-right-radius: 8px;
 //   }
-  
+
 //   .rangeEnd {
 //     border-radius: 8px;
 //     border-top-right-radius: 0;
@@ -322,7 +322,7 @@
 @media (max-width: 768px) {
   .calendarWrapper {
     &::before {
-      content: '';
+      content: "";
       position: fixed;
       top: 0;
       left: 0;
@@ -332,4 +332,10 @@
       z-index: -1;
     }
   }
+}
+
+// In your DateRangePicker.module.scss, add:
+.emptyDay {
+  width: 40px;
+  height: 40px;
 }

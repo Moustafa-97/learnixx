@@ -34,7 +34,7 @@ function LastWeekend() {
             <p>{t("description")}</p>
           </div>
           <div className={styles.bigImg}>
-            <Image src={bigI} alt="Big Image" width={500} height={500} />
+            <Image src={bigI} alt="Big Image" loading="lazy" width={500} height={500} />
           </div>
         </div>
       </div>
