@@ -26,7 +26,7 @@ function MostPopularCard(props: Props) {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.logo}>
-            <Image src={logo} alt="Logo" />
+            <Image src={logo} alt="Logo" loading="lazy" />
           </div>
           <div className={styles.title}>
             <h3>{props.cardContent.header}</h3>

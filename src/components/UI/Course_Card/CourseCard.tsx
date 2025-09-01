@@ -33,6 +33,7 @@ function CourseCard({ course, onEnrollNow }: CourseCardProps) {
               className={styles.courseImage}
               width={300}
               height={200}
+              loading="lazy"
             />
           </div>
           <h2 className={styles.title}>{course.title}</h2> {/* ✅ Fixed */}

@@ -146,6 +146,7 @@ function Footer() {
             height={1000}
             className={styles.top}
             style={{ objectFit: "cover" }}
+            loading="lazy"
           />
         </div>
 
@@ -155,7 +156,7 @@ function Footer() {
               <div
                 className={`${styles.logoSection} ${locale === "ar" ? styles.rtl : ""}`}>
                 <div className={styles.companyInfo}>
-                  <Image src={logo} alt="Learnix Logo" />
+                  <Image src={logo} alt="Learnix Logo" loading="lazy" />
                 </div>
                 <p className={styles.description}>{t("company.description")}</p>
                 <div className={styles.social}>
@@ -210,6 +211,7 @@ function Footer() {
             width={1000}
             height={1000}
             className={styles.footer}
+            loading="lazy"
           />
         </div>
       </div>

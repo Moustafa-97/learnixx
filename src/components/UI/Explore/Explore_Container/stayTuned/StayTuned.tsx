@@ -13,6 +13,7 @@ function StayTuned() {
           className={styles.chandelier}
           width={200}
           height={200}
+          loading="lazy"
         />
         {/* Shadow effect */}
         <div className={styles.shadow}></div>

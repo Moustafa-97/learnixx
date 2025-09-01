@@ -1,14 +1,53 @@
+import dynamic from "next/dynamic"
 
-import ExploreContainer from "@/components/UI/Explore/Explore_Container/ExploreContainer"
-import FrequentAsk from "@/components/UI/frequentlyAsked/FrequentAsk"
-import HeroHome from "@/components/UI/Hero_Home/HeroHome"
-import HowItWorks from "@/components/UI/howItWorks/HowItWorks"
-import MostPopular from "@/components/UI/Most_Popular/MostPopular"
-import WhatSays from "@/components/UI/whatOurClientSays/WhatSays"
-import WhyLearnix from "@/components/UI/whyLearnix/WhyLearnix"
+// Dynamic imports with loading states
+const HeroHome = dynamic(() => import("@/components/UI/Hero_Home/HeroHome"), {
+  loading: () => <div>Loading...</div>,
+})
+
+const ExploreContainer = dynamic(
+  () => import("@/components/UI/Explore/Explore_Container/ExploreContainer"),
+  {
+    loading: () => <div>Loading...</div>,
+  }
+)
+
+const WhyLearnix = dynamic(
+  () => import("@/components/UI/whyLearnix/WhyLearnix"),
+  {
+    loading: () => <div>Loading...</div>,
+  }
+)
+
+const HowItWorks = dynamic(
+  () => import("@/components/UI/howItWorks/HowItWorks"),
+  {
+    loading: () => <div>Loading...</div>,
+  }
+)
+
+const MostPopular = dynamic(
+  () => import("@/components/UI/Most_Popular/MostPopular"),
+  {
+    loading: () => <div>Loading...</div>,
+  }
+)
+
+const WhatSays = dynamic(
+  () => import("@/components/UI/whatOurClientSays/WhatSays"),
+  {
+    loading: () => <div>Loading...</div>,
+  }
+)
+
+const FrequentAsk = dynamic(
+  () => import("@/components/UI/frequentlyAsked/FrequentAsk"),
+  {
+    loading: () => <div>Loading...</div>,
+  }
+)
 
 export default function HomePage() {
-
   return (
     <main>
       <section>
