@@ -458,6 +458,13 @@ function CourseContainer() {
   const cityName = searchParams.get("cityName")
   const categoryId = searchParams.get("category")
 
+  if (categoryId) {
+    // load the page on a component id
+    document
+      .getElementById(`categorySelected`)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
+
   const { courseSearchParams, setCourseSearchParams } = useStore()
 
   // State management
@@ -528,8 +535,8 @@ function CourseContainer() {
       try {
         const params = buildQueryParams(pageNum)
         const url = `${process.env.NEXT_PUBLIC_API}/api/v1/courses?${params.toString()}`
-        
-        console.log("Fetching courses from:", url);
+
+        console.log("Fetching courses from:", url)
         const response = await axios.get<ApiResponse>(url, {
           headers: {
             "Accept-Language": locale,
@@ -618,7 +625,12 @@ function CourseContainer() {
     // Fetch first page
     fetchCourses(1, true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseSearchParams.subject, courseSearchParams.location, cityId, categoryId]) // Don't include fetchCourses to avoid infinite loop
+  }, [
+    courseSearchParams.subject,
+    courseSearchParams.location,
+    cityId,
+    categoryId,
+  ]) // Don't include fetchCourses to avoid infinite loop
   useEffect(() => {
     console.log("Current state:", {
       courses: courses.length,
@@ -830,7 +842,7 @@ function CourseContainer() {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div id="categorySelected" className={styles.wrapper}>
       {/* Filters */}
       {renderFilters()}
 
